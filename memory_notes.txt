@@ -1,0 +1,45 @@
+Memory in Python
+
+how things are stored in memory
+1 byte - 8 bits(its 0 or 1)
+so 1 byte is 2 power 8
+2 byte is 2 power 16
+
+In C we define the types explictly int16, int32
+Here 16 and 32 is bits - so its 2 power of x
+But in python the data type is managed internally based on the size of the number
+it automatically grows
+Also the address we get id(variable) is not the actual address like in C
+python only provides the address of the integer object not the actuall memory in the RAM
+Python uses automatic memory management
+
+
+C provides the actual memory in the RAM of the variable
+The memory address in the RAM is provided as hexadecimal
+ex: 0x7ffeefb08a2c
+They uses hexa decimals beacuse the memory addresses are very very large numbers
+Hex versions are shorter and easy to read
+
+Why store things in RAM?
+when a program or app runs the CPU has to read and write millions of records per seconds
+so we store them in RAM(50ns) that has exceptional speed compared to disks even SSD(0.1ms)
+also we cannot change the value in ROM in real time
+
+Why memory represented in bytes(8bits)?
+it is a hardware architecture universal standard that is defined and we use in all computer hardwares and systems
+CPU designers standardized it to be 1 byte - the lowest memory unit
+also 8 bits have some advantages - 256 numbers - fits in binary and hexadecimal well
+
+
+
+
+
+
+
+
+
+
+
+
+
+
