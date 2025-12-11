@@ -1,0 +1,20 @@
+advantage:
+data can be stored anywhere in the memory - RAM need not be allocated big blocks or stored consequently like arrrays
+
+disadvantage:
+memory - but even here the memory will be consumed more than array as it has to store both the data and the link in a NODE(store 2 things)- linkedin list need not to be a fixed defined size
+
+
+
+key things:
+mostly in all languages we have the data structure predefined and exist directly
+but linked list are data structures we make it ourselves - we define them
+we also cannot access the data like array[2] directly in linkedin list
+but we can insert or delete an element in constant time in linkedin list not in arrays
+
+Read Intensive - use arrays - read is in constant time
+Insert, Update, Delete Intensive - use linked list - making changes are constant time
+
+Deletion and Insertion in array:
+if we do it we need to move each element after it to next element - time consuming process
+

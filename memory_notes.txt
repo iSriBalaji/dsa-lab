@@ -24,11 +24,31 @@ Why store things in RAM?
 when a program or app runs the CPU has to read and write millions of records per seconds
 so we store them in RAM(50ns) that has exceptional speed compared to disks even SSD(0.1ms)
 also we cannot change the value in ROM in real time
+only in computer memnory all the variables, arrays is stored when it is running and processing
 
 Why memory represented in bytes(8bits)?
 it is a hardware architecture universal standard that is defined and we use in all computer hardwares and systems
 CPU designers standardized it to be 1 byte - the lowest memory unit
 also 8 bits have some advantages - 256 numbers - fits in binary and hexadecimal well
+
+what is provided as variable address?
+even if a variable is 4 byts, 8 or 16 bytes we always get the starting location of the fisrt byte
+this is very important to know - the programming language provides the location of the first byte of the variable stored
+example if a variable is 2 bytes the RAM will stores it as 2 separate 8 bit bytes and provide the address of 1st byte
+each memory address referes to exactly 1 byte in RAM
+
+How program knows how many blocks or bytes to read for a variable?
+We are already getting the starting byte address + we know the exact size of the variable int16 or int32 so the program knows
+exactly how many bytes it should read from the memory
+
+w3 schools explaination on memory in linkedin list chapter is amazing if someone can observe the details - simple and detailed!!
+
+Why array indexes starts at 0?
+array indexes are simple pointer arithmetic - *(arr + 0) like base + 0 * size of element
+so in order to keep things easier the array index is starting at 0 if it starts with 0 the logic beacmes extra, slower and its unessary
+arr[i] → base_address + (i × bytes_per_element)
+short answers - it makes it easier to do address(pointer) calculation having 0 as starting. Also maps exactly how RAM works in storing and retriving data
+it started from C and all languages copied it
 
 
 
