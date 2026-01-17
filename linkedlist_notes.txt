@@ -18,3 +18,6 @@ Insert, Update, Delete Intensive - use linked list - making changes are constant
 Deletion and Insertion in array:
 if we do it we need to move each element after it to next element - time consuming process
 
+
+
+
