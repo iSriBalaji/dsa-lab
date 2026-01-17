@@ -50,6 +50,31 @@ arr[i] → base_address + (i × bytes_per_element)
 short answers - it makes it easier to do address(pointer) calculation having 0 as starting. Also maps exactly how RAM works in storing and retriving data
 it started from C and all languages copied it
 
+Statement and Explaination Learned:
+Statement: This microcontroller has an 8 bit architecture with 16 bit address bus and uses two bytes for integers and two bytes for memory addresses
+[Ref: from w3 schools]
+
+Explaination:
+1. 8 bit architure basically means a system processes 8 bit(1 byte) at a time - thats how its designed
+2. so it can process the range 0-255 or -128 to +127 at a time. it can also process bigger numbers but it will take more time as there will be more steps like carry and other steps - make it slower
+3. memory bus - we have RAM that has locations to store data. We need to get the memory location no this is what address bus does - it is like a wire, signal that carries the memory no
+4. address bus size - how many address it can create in the CPU - ex 16 bit address bus size can create 2^16 = 65,536 address locations it can create
+if address bus is N bits it can create 2^n bits
+now usually 1 address will be 1 byte - so 65,536 bytes will be 64KB memory it can reach
+If a computer has 16 GB RAM, it needs enough address bus bits to “label” every byte in that 16 GB
+basically rememebr - no of address it can create to hold the data
+
+Variables - data types size and range
+int16 - 2^16 - it can hold ranges from 0 to 65535 or the positive to negative range
+a 8 bit CPU can process 16bit values but it processes everythign in 8 bits , so takes multiple steps that will be slower
+
+Architecture CPU standard in 2026
+64bit is the standard for CPUs in our age - it process all the data in 64bits in one instructions! great
+Addressing - same as we saw before it says how many addresses it can point to
+it seems a modern 64bit systems can have huge RAMs but we might have seen there will be a limit for RAM mentioned this is specifically due to OS we have or the motherboard we have
+(example - the thinkpad laptop i have it is limited to 16GB ram based on its motherboard)
+for micro controllers 32bit is the most common standard - 64bit in this case are rare gpt said
+
 
 
 

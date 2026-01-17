@@ -1,0 +1,44 @@
+#reference: https://www.w3schools.com/dsa/dsa_theory_linkedlists.php
+----
+Jan 16: Continuing Linkedin List in memory
+----
+
+
+advantage:
+data can be stored anywhere in the memory - RAM need not be allocated big blocks or stored consequently like arrrays
+like arrays for inserting or deleting we dont want to shwft the values
+
+disadvantage:
+memory - but even here the memory will be consumed more than array as it has to store both the data and the link in a NODE(store 2 things)- linkedin list need not to be a fixed defined size
+so say if 2 bytes is taking to store a int data and the next 2 bytes will store the address of the next data - so a node consumes 4 bytes. This is more than array to store one data point
+above is example - but how many bytes for int and addresses depending on the architure of the computer
+the other thing is we cant read a data directly as we do myarray[5] in linkedin list, we need to traverse and keep track of node count and read the node number there, so which means the read computaion is more here O(N)
+
+usage:
+the linked list is used in many places such as dynamic data storage, stack and queue, graph representation etc,
+diff: linked list and arrays are building blocks(how we store) but stack, queue, graph are organize and use the data - true we read this in the DDIA book
+
+concept:
+there will be always a head node and a tail node in linkedin list
+
+types:
+singly linked list: normal list thats in one direction node(data, pointer) to next
+doubly linked list: it has pointers in both sides, front value and the back value - so consumes more space here
+circular linked list: its like single or double list but the tail is connected to the head there
+what we need to choose or use depends upon the problem
+
+key things:
+mostly in all languages we have the data structure predefined and exist directly
+but linked list are data structures we make it ourselves - we define them
+we also cannot access the data like array[2] directly in linkedin list
+but we can insert or delete an element in constant time in linkedin list not in arrays
+
+Read Intensive - use arrays - read is in constant time
+Insert, Update, Delete Intensive - use linked list - making changes are constant time
+
+Deletion and Insertion in array:
+if we do it we need to move each element after it to next element - time consuming process
+
+#practical py: https://www.w3schools.com/python/python_dsa_linkedlists.asp
+
+
