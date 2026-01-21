@@ -12,6 +12,7 @@ class Node:
         self.data = data
         self.next = None
 
+# Traversing
 def traverse(head):
     current_head = head
     while(current_head):
@@ -19,6 +20,7 @@ def traverse(head):
         current_head = current_head.next
     print("null", end="")
 
+# Find lowest value
 def find_lowest_value(head):
     minimum_value = head.data
     current_head = head.next
@@ -27,6 +29,8 @@ def find_lowest_value(head):
             minimum_value = current_head.data
         current_head = current_head.next
     return minimum_value
+
+# Delete a node
 
 
 # creating some nodes
