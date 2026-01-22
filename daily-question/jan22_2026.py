@@ -47,7 +47,8 @@ if check_sort(num):
     print("Already asc: ", count)
 
 while len(num) > 1:
-    min_sum_pair = float("inf")
+    # min_sum_pair = float("inf")
+    min_sum_pair = 1500  # setting this to 1500 as the upper limit mentioned in the question is 1000
     where_to_replace_index = -1
 
     for i in range(0, len(num) - 1):
