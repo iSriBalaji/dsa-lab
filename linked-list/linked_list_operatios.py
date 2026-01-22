@@ -5,30 +5,36 @@ Deleting - 3
 Sorting - 4
 """
 
-#1
+from typing import Optional
+
+
+# 1
 # we traverse for search, read, update, insert, delete
 class Node:
     def __init__(self, data):
         self.data = data
-        self.next = None
+        self.next: Optional["Node"] = None
+
 
 # Traversing
 def traverse(head):
     current_head = head
-    while(current_head):
-        print(f"{current_head.data} --> ", end = "")
+    while current_head:
+        print(f"{current_head.data} --> ", end="")
         current_head = current_head.next
     print("null", end="")
+
 
 # Find lowest value
 def find_lowest_value(head):
     minimum_value = head.data
     current_head = head.next
-    while(current_head):
-        if(current_head.data < minimum_value):
+    while current_head:
+        if current_head.data < minimum_value:
             minimum_value = current_head.data
         current_head = current_head.next
     return minimum_value
+
 
 # Delete a node
 
