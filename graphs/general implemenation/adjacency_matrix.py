@@ -22,10 +22,17 @@ def print_matrix(matrix):
         print(row)
 
 def print_connections(matrix, vertexes):
-    for i in vertexes:
-        print(i)
+    for i in range(0,len(vertexes)):
+        print(vertexes[0], end = ':')
+        
+        for j in range(0,len(adjacency_matrix)):
+            if adjacency_matrix[i][j] == 1:
+                print(vertexes[j], end = ',')
+        print()
+            
+            
 
 print(vertexes)
 print_matrix(adjacency_matrix)
 
-print("")
+print_connections(adjacency_matrix, vertexes)
