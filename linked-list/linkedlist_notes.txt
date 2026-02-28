@@ -23,9 +23,14 @@ there will be always a head node and a tail node in linkedin list
 
 types:
 singly linked list: normal list thats in one direction node(data, pointer) to next
-doubly linked list: it has pointers in both sides, front value and the back value - so consumes more space here
+doubly linked list: it has pointers in both sides, front value and the back value - so consumes more space here, ex: in LSU cache problem we used doubly linked list and hash map there it should have taken more memory as we use prev and next
 circular linked list: its like single or double list but the tail is connected to the head there
-what we need to choose or use depends upon the problem
+what we need to choose or use depends upon the problem - but in the circular linked list we need complex code to check the start and end nodes
+
+## traversal code
+There are code snippets are traversal - of these list types: https://www.w3schools.com/dsa/dsa_data_linkedlists_types.php
+I already completed the linked list problems in leetcode 150 so just by skimming through the code I can understand them,
+so skipping practicing it again
 
 key things:
 mostly in all languages we have the data structure predefined and exist directly
