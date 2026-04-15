@@ -1,0 +1,27 @@
+-- this is based on the design guru recursion course
+1. recursion runs backs on itself, breaking the big problem into smaller chunks of the same nature
+2. recursion should have 3 things
+    base case - simpliest instance of the problem to be solved(always start by solving/identifing this)
+    recursive case - calling the same function again
+    prologue and epilogue - prologue is a calcuation or process we do before the recursive call. and epilogue is a process or calculation that calls after the recursive call happens
+3. really good example is the russian dolls - the innermost doll is the base case
+4. i noticied the things we do in the prologue and in the epilogue changes the entire logic and the code. i tried in the example1.py, check the code for example
+5. Epilogue usually start running after reaching the base case, once completing the full recursing call of that input. Then start processing the epilogue calculation or the process
+6. note here we should have return in both base case and the recursive case. example is the factorial program we return n==0 1 and as well as the return the overall result
+7. intrnally recursion uses stack(called call stack) to keep track of all the recursion call. in this case we can remember prologue do something before we put something into the stack. also epilogue is something that does process when we pop from the stack one by one. This is my understanding
+8. it is very important to understand the depth of the recursion, if it is too deep it might cause excessive load on the call stack and throws the error of stack overflow
+9. Recursion Tree - a recursion tree is a useful/great way to represent recursion - examples in the design guru course
+10. it seems call stack itself a separate stack based data structure, seems the call stack stored the state!!
+11. The 2 main methods to demystify the recursion pricess mentioned in design guru is - recursion tree and call stack representaion - to me both of them almost looked similar - good to use them to debug in case of complex recursion problems
+
+RECURSION TYPES
+1. knowing the types of recursions helps to understand different problems and how to use different methods at different places
+2. Main 2 methods:
+    A. Direct
+    B. Indirect or Functional
+3. Types in Direct Recursion
+    1. Linear - inside there is Tail recursion type
+    2. Binary
+    3. Multiple
+4. 
+
