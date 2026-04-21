@@ -20,8 +20,12 @@ RECURSION TYPES
     A. Direct
     B. Indirect or Functional
 3. Types in Direct Recursion
-    1. Linear - inside there is Tail recursion type
+    1. Linear - inside there is Tail recursion type(sub type of linear method)
     2. Binary
     3. Multiple
-4. 
+4. Linear recursion - it makes single recursive calls to itself, only one recursive call. most of the simple examples we saw are of these types like factorial, sum of the array, string reversal etc
+5. Tail recurion - a type of linear recursion, here that one single recursion happens only at the end, after that basically we will not have a Epilogue(basically there is no pending process after it, thats the last call)
+6. read this on claude on tail recursion - Key property: Because nothing needs to happen after the recursive call, the current stack frame can be reused instead of allocating a new one. This is called tail call optimization (TCO) or tail call elimination. Python and Java do not perform TCO, so tail recursion in those languages still risks stack overflow. C and C++ allows TCO
+7. good to remember this TCO - Tail call recursion
+8. 
 
