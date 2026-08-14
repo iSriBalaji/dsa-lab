@@ -164,6 +164,7 @@ kbd{background:var(--panel2);border:1px solid var(--line);border-bottom-width:2p
 .today-date{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent2);white-space:nowrap}
 .today-goal{min-width:0;font-size:.94rem;color:var(--text)}
 .today-goal strong{color:var(--accent2)}
+.today-card{margin:0 auto 26px;padding:16px 20px}
 .hero-card,.card,.stat,.task-box,.check-item,.pattern-item,.problem-row{border-radius:6px;box-shadow:none}
 .stat{min-width:0;padding:16px}
 .stat small{display:block;margin-top:3px}
@@ -174,8 +175,9 @@ kbd{background:var(--panel2);border:1px solid var(--line);border-bottom-width:2p
   .hero-main{padding:20px}
   .hero-actions{gap:8px}
   .hero-actions > *{flex:1 1 calc(50% - 4px);text-align:center}
-  .today-brief{grid-template-columns:1fr;gap:4px}
+  .today-brief{grid-template-columns:1fr;gap:4px;margin:0}
   .today-date{white-space:normal}
+  .today-card{margin-bottom:18px;padding:14px 16px}
   .stat-grid{gap:8px;margin-top:12px}
   .stat{padding:12px}
 }
@@ -202,10 +204,6 @@ kbd{background:var(--panel2);border:1px solid var(--line);border-bottom-width:2p
   <div class="container hero-grid">
     <section class="hero-card hero-main">
       <div class="eyebrow">Aug 24, 2026 → Feb 23, 2027</div>
-      <div class="today-brief" aria-live="polite">
-        <div class="today-date" id="todayDate">Today</div>
-        <div class="today-goal" id="todayGoal">Loading today's study focus...</div>
-      </div>
       <h1>Build C++ fluency.<br>Master DSA.<br>Train for interviews.</h1>
       <p class="muted">A five-month primary curriculum plus one-month safety buffer. Designed around Monday–Friday study, with Saturday only as catch-up and Sunday protected.</p>
       <div class="hero-actions">
@@ -233,6 +231,13 @@ kbd{background:var(--panel2);border:1px solid var(--line);border-bottom-width:2p
     <div class="stat"><strong id="patternsStat">0</strong><small>Patterns mastered</small></div>
   </div>
 </header>
+
+<section class="container card today-card" aria-label="Today's study goal" aria-live="polite">
+  <div class="today-brief">
+    <div class="today-date" id="todayDate">Today</div>
+    <div class="today-goal" id="todayGoal">Loading today's study focus...</div>
+  </div>
+</section>
 
 <main class="container">
   <section id="overview" class="view active"></section>
