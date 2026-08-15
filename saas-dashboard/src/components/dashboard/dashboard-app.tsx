@@ -8,12 +8,14 @@ import {
   Button,
   Card,
   CardContent,
+  Checkbox,
   Chip,
   CircularProgress,
   Container,
   CssBaseline,
   FormControl,
   Grid,
+  InputAdornment,
   InputLabel,
   LinearProgress,
   MenuItem,
@@ -33,6 +35,7 @@ import DoneAllRoundedIcon from "@mui/icons-material/DoneAllRounded";
 import DatasetRoundedIcon from "@mui/icons-material/DatasetRounded";
 import GoogleIcon from "@mui/icons-material/Google";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import type { DashboardState, PlanData } from "@/types/dashboard";
 import {
   completionPercent,
@@ -54,42 +57,77 @@ type SaveStatus = { text: string; isError?: boolean };
 
 const planData = planDataJson as PlanData;
 
+const fontFamily = 'var(--font-inter), "Segoe UI", Roboto, sans-serif';
+
+const sharedComponents = {
+  MuiCard: {
+    styleOverrides: {
+      root: { backgroundImage: "none" },
+    },
+  },
+  MuiButton: {
+    defaultProps: { disableElevation: true },
+    styleOverrides: {
+      root: { textTransform: "none" as const, fontWeight: 600, borderRadius: 10 },
+    },
+  },
+  MuiChip: {
+    styleOverrides: {
+      root: { fontWeight: 600 },
+    },
+  },
+  MuiOutlinedInput: {
+    styleOverrides: {
+      root: { borderRadius: 10 },
+    },
+  },
+  MuiTab: {
+    styleOverrides: {
+      root: { textTransform: "none" as const, fontWeight: 600 },
+    },
+  },
+};
+
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
-    primary: { main: "#1976d2" },
-    secondary: { main: "#00acc1" },
-    success: { main: "#2e7d32" },
-    warning: { main: "#b26a00" },
-    error: { main: "#d32f2f" },
-    background: { default: "#0b1220", paper: "#111c32" },
+    primary: { main: "#5b9bf2" },
+    secondary: { main: "#22b8cf" },
+    success: { main: "#4caf6e" },
+    warning: { main: "#e0a340" },
+    error: { main: "#e5675f" },
+    background: { default: "#0a0f1a", paper: "#121a2c" },
+    divider: "rgba(255,255,255,0.08)",
   },
   shape: { borderRadius: 14 },
   typography: {
-    fontFamily: 'Roboto, "Segoe UI", sans-serif',
-    h4: { fontWeight: 800, letterSpacing: 0 },
-    h6: { fontWeight: 700 },
-    subtitle2: { letterSpacing: 0.4, textTransform: "uppercase", fontWeight: 700 },
+    fontFamily,
+    h4: { fontWeight: 800, letterSpacing: -0.3 },
+    h6: { fontWeight: 700, letterSpacing: -0.1 },
+    subtitle2: { letterSpacing: 0.4, textTransform: "uppercase", fontWeight: 700, fontSize: "0.72rem" },
   },
+  components: sharedComponents,
 });
 
 const lightTheme = createTheme({
   palette: {
     mode: "light",
-    primary: { main: "#1976d2" },
-    secondary: { main: "#0288d1" },
-    success: { main: "#2e7d32" },
-    warning: { main: "#9a6807" },
-    error: { main: "#c62828" },
-    background: { default: "#f3f6fb", paper: "#ffffff" },
+    primary: { main: "#3366cc" },
+    secondary: { main: "#0b8fac" },
+    success: { main: "#2f8f52" },
+    warning: { main: "#a06a0c" },
+    error: { main: "#c53a34" },
+    background: { default: "#f5f7fb", paper: "#ffffff" },
+    divider: "rgba(15,23,42,0.08)",
   },
   shape: { borderRadius: 14 },
   typography: {
-    fontFamily: 'Roboto, "Segoe UI", sans-serif',
-    h4: { fontWeight: 800, letterSpacing: 0 },
-    h6: { fontWeight: 700 },
-    subtitle2: { letterSpacing: 0.4, textTransform: "uppercase", fontWeight: 700 },
+    fontFamily,
+    h4: { fontWeight: 800, letterSpacing: -0.3 },
+    h6: { fontWeight: 700, letterSpacing: -0.1 },
+    subtitle2: { letterSpacing: 0.4, textTransform: "uppercase", fontWeight: 700, fontSize: "0.72rem" },
   },
+  components: sharedComponents,
 });
 
 const tabs = ["Overview", "Timeline", "Patterns", "LeetCode", "Buffer"];
@@ -386,9 +424,8 @@ export default function DashboardApp() {
                         <Grid key={milestone.date} size={{ xs: 12, md: 6 }}>
                           <Card variant="outlined" sx={{ borderRadius: 3 }}>
                             <CardContent sx={{ py: 1.6 }}>
-                              <Stack direction="row" spacing={1.2} sx={{ alignItems: "flex-start" }}>
-                                <input
-                                  type="checkbox"
+                              <Stack direction="row" spacing={0.5} sx={{ alignItems: "flex-start" }}>
+                                <Checkbox
                                   checked={!!state.milestones[idx]}
                                   onChange={(event) =>
                                     updateState((prev) => ({
@@ -396,6 +433,7 @@ export default function DashboardApp() {
                                       milestones: { ...prev.milestones, [idx]: event.target.checked },
                                     }))
                                   }
+                                  sx={{ mt: -0.7 }}
                                 />
                                 <Box>
                                   <Typography sx={{ fontWeight: 700 }}>{milestone.date}</Typography>
@@ -447,10 +485,9 @@ export default function DashboardApp() {
                             ].map(([key, label]) => (
                               <Grid key={key} size={{ xs: 12, sm: 6, md: 4 }}>
                                 <Card variant="outlined" sx={{ borderRadius: 3 }}>
-                                  <CardContent sx={{ py: 1.2 }}>
-                                    <Stack direction="row" spacing={1.1} sx={{ alignItems: "center" }}>
-                                      <input
-                                        type="checkbox"
+                                  <CardContent sx={{ py: 0.6, pl: 1 }}>
+                                    <Stack direction="row" spacing={0.5} sx={{ alignItems: "center" }}>
+                                      <Checkbox
                                         checked={task[key as keyof typeof task]}
                                         onChange={(event) =>
                                           updateState((prev) => ({
@@ -489,10 +526,9 @@ export default function DashboardApp() {
                       {planData.patterns.map((pattern, idx) => (
                         <Grid key={pattern} size={{ xs: 12, sm: 6, md: 4 }}>
                           <Card variant="outlined" sx={{ borderRadius: 3, height: "100%" }}>
-                            <CardContent sx={{ py: 1.5 }}>
-                              <Stack direction="row" spacing={1.1} sx={{ alignItems: "flex-start" }}>
-                                <input
-                                  type="checkbox"
+                            <CardContent sx={{ py: 0.6, pl: 1 }}>
+                              <Stack direction="row" spacing={0.5} sx={{ alignItems: "center" }}>
+                                <Checkbox
                                   checked={!!state.patterns[idx]}
                                   onChange={(event) =>
                                     updateState((prev) => ({
@@ -522,14 +558,24 @@ export default function DashboardApp() {
                       <Grid size={{ xs: 12, md: 6 }}>
                         <TextField
                           fullWidth
+                          size="small"
                           label="Search problems"
                           value={query}
                           onChange={(event) => setQuery(event.target.value)}
                           placeholder="e.g. sliding window, two sum"
+                          slotProps={{
+                            input: {
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <SearchRoundedIcon fontSize="small" color="disabled" />
+                                </InputAdornment>
+                              ),
+                            },
+                          }}
                         />
                       </Grid>
                       <Grid size={{ xs: 6, md: 3 }}>
-                        <FormControl fullWidth>
+                        <FormControl fullWidth size="small">
                           <InputLabel>Week</InputLabel>
                           <Select value={weekFilter} label="Week" onChange={(event) => setWeekFilter(String(event.target.value))}>
                             <MenuItem value="all">All</MenuItem>
@@ -542,7 +588,7 @@ export default function DashboardApp() {
                         </FormControl>
                       </Grid>
                       <Grid size={{ xs: 6, md: 3 }}>
-                        <FormControl fullWidth>
+                        <FormControl fullWidth size="small">
                           <InputLabel>Status</InputLabel>
                           <Select value={statusFilter} label="Status" onChange={(event) => setStatusFilter(String(event.target.value))}>
                             <MenuItem value="all">All</MenuItem>
@@ -572,9 +618,18 @@ export default function DashboardApp() {
                                     Week {problem.weekNumber} · {problem.weekGoal}
                                   </Typography>
                                 </Box>
-                                <FormControl size="small" sx={{ minWidth: 160 }}>
+                                <FormControl size="small" sx={{ minWidth: 150 }}>
                                   <Select
                                     value={status}
+                                    color={
+                                      status === "green"
+                                        ? "success"
+                                        : status === "red"
+                                          ? "error"
+                                          : status === "yellow"
+                                            ? "warning"
+                                            : undefined
+                                    }
                                     onChange={(event) =>
                                       updateState((prev) => ({
                                         ...prev,
@@ -617,9 +672,8 @@ export default function DashboardApp() {
                               {week.tasks.map((task, taskIdx) => {
                                 const key = `${idx}-${taskIdx}`;
                                 return (
-                                  <Stack key={key} direction="row" spacing={1.1} sx={{ alignItems: "flex-start" }}>
-                                    <input
-                                      type="checkbox"
+                                  <Stack key={key} direction="row" spacing={0.5} sx={{ alignItems: "center" }}>
+                                    <Checkbox
                                       checked={!!state.buffer[key]}
                                       onChange={(event) =>
                                         updateState((prev) => ({
@@ -650,7 +704,16 @@ export default function DashboardApp() {
 
 function MetricCard({ icon, value, label }: { icon: ReactNode; value: string; label: string }) {
   return (
-    <Card elevation={0} sx={{ border: 1, borderColor: "divider", height: "100%" }}>
+    <Card
+      elevation={0}
+      sx={{
+        border: 1,
+        borderColor: "divider",
+        height: "100%",
+        transition: "border-color 120ms ease, transform 120ms ease",
+        "&:hover": { borderColor: "primary.main", transform: "translateY(-1px)" },
+      }}
+    >
       <CardContent>
         <Stack direction="row" spacing={1.2} sx={{ mb: 1, alignItems: "center" }}>
           {icon}
