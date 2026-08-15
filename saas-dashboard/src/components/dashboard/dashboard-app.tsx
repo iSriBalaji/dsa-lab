@@ -173,8 +173,10 @@ export default function DashboardApp() {
           await saveUserProgress(currentUser.uid, stateRef.current);
           setSaveStatus({ text: "Cloud profile created" });
         }
-      } catch {
-        setSaveStatus({ text: "Cloud sync unavailable", isError: true });
+      } catch (error) {
+        const detail = error instanceof Error ? error.message : "unknown-error";
+        console.error("Cloud load/create failed:", error);
+        setSaveStatus({ text: `Cloud sync unavailable: ${detail}`, isError: true });
       }
     });
 
@@ -189,8 +191,10 @@ export default function DashboardApp() {
       try {
         await saveUserProgress(user.uid, state);
         setSaveStatus((prev) => (prev.isError ? { text: "Saved to cloud" } : prev));
-      } catch {
-        setSaveStatus({ text: "Cloud sync unavailable", isError: true });
+      } catch (error) {
+        const detail = error instanceof Error ? error.message : "unknown-error";
+        console.error("Cloud save failed:", error);
+        setSaveStatus({ text: `Cloud sync unavailable: ${detail}`, isError: true });
       }
     }, 700);
 
