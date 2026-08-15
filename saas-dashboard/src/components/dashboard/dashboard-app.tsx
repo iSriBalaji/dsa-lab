@@ -94,13 +94,14 @@ const sharedComponents = {
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
-    primary: { main: "#5b9bf2" },
-    secondary: { main: "#22b8cf" },
-    success: { main: "#4caf6e" },
-    warning: { main: "#e0a340" },
-    error: { main: "#e5675f" },
-    background: { default: "#0a0f1a", paper: "#121a2c" },
-    divider: "rgba(255,255,255,0.08)",
+    primary: { main: "#4f8fe8" },
+    secondary: { main: "#48b99a" },
+    success: { main: "#51c58f" },
+    warning: { main: "#e9b44c" },
+    error: { main: "#df6674" },
+    background: { default: "#101317", paper: "#171c22" },
+    text: { primary: "#eef1f4", secondary: "#aab4bf" },
+    divider: "#303a45",
   },
   shape: { borderRadius: 14 },
   typography: {
@@ -482,17 +483,18 @@ export default function DashboardApp() {
                           <LinearProgress variant="determinate" value={pct} sx={{ mt: 1.5, mb: 2 }} />
 
                           <Grid container spacing={1.2}>
-                            {[
-                              ["learncpp", "LearnCpp"],
-                              ["dsa", "DSA"],
-                              ["patterns", "Patterns"],
-                              ["implementation", "Implementation"],
-                              ["checkpoint", "Friday Checkpoint"],
-                            ].map(([key, label]) => (
-                              <Grid key={key} size={{ xs: 12, sm: 6, md: 4 }}>
-                                <Card variant="outlined" sx={{ borderRadius: "12px" }}>
-                                  <CardContent sx={{ py: 0.6, pl: 1 }}>
-                                    <Stack direction="row" spacing={0.5} sx={{ alignItems: "center" }}>
+                            {(
+                              [
+                                ["learncpp", "LearnCpp", week.learncpp],
+                                ["dsa", "Design Gurus / DSA", week.dsa],
+                                ["patterns", "Interview patterns", week.patterns],
+                                ["implementation", "Implementation", week.implementation],
+                              ] as const
+                            ).map(([key, label, desc]) => (
+                              <Grid key={key} size={{ xs: 12, sm: 6 }}>
+                                <Card variant="outlined" sx={{ borderRadius: "12px", height: "100%" }}>
+                                  <CardContent sx={{ py: 1, pl: 1 }}>
+                                    <Stack direction="row" spacing={0.5} sx={{ alignItems: "flex-start" }}>
                                       <Checkbox
                                         checked={task[key as keyof typeof task]}
                                         onChange={(event) =>
@@ -507,8 +509,14 @@ export default function DashboardApp() {
                                             },
                                           }))
                                         }
+                                        sx={{ mt: -0.5 }}
                                       />
-                                      <Typography>{label}</Typography>
+                                      <Box>
+                                        <Typography sx={{ fontWeight: 700, mb: 0.2 }}>{label}</Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                          {desc}
+                                        </Typography>
+                                      </Box>
                                     </Stack>
                                   </CardContent>
                                 </Card>
@@ -549,6 +557,37 @@ export default function DashboardApp() {
                               </Stack>
                             </Box>
                           )}
+
+                          <Box sx={{ mt: 2 }}>
+                            <Card variant="outlined" sx={{ borderRadius: "12px" }}>
+                              <CardContent sx={{ py: 1, pl: 1 }}>
+                                <Stack direction="row" spacing={0.5} sx={{ alignItems: "flex-start" }}>
+                                  <Checkbox
+                                    checked={task.checkpoint}
+                                    onChange={(event) =>
+                                      updateState((prev) => ({
+                                        ...prev,
+                                        weekly: {
+                                          ...prev.weekly,
+                                          [week.number]: {
+                                            ...getWeeklyTask(prev, week.number),
+                                            checkpoint: event.target.checked,
+                                          },
+                                        },
+                                      }))
+                                    }
+                                    sx={{ mt: -0.5 }}
+                                  />
+                                  <Box>
+                                    <Typography sx={{ fontWeight: 700, mb: 0.2 }}>Friday checkpoint</Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                      {week.checkpoint}
+                                    </Typography>
+                                  </Box>
+                                </Stack>
+                              </CardContent>
+                            </Card>
+                          </Box>
                         </CardContent>
                       </Card>
                     );
