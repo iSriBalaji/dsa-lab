@@ -285,7 +285,7 @@ export default function DashboardApp() {
                     {planData.planStart} to {planData.bufferEnd}
                   </Typography>
                   <Typography variant="h4" sx={{ mb: 1.2 }}>
-                    Build C++ fluency. Master DSA. Crack interviews.
+                    Build C++ fluency. Master DSA. Crack interviews faster.
                   </Typography>
                   <Typography color="text.secondary" sx={{ mb: 2.2 }}>
                     A modern interview prep operating system with weekly objectives, LeetCode tracking, and live progress insights.
