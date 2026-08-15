@@ -4,7 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
-<link rel="icon" type="image/svg+xml" href="../../cpp-dsa-favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="./cpp-dsa-favicon.svg">
 <title>C++ + DSA Interview Master Plan</title>
 <style>
 :root{
@@ -180,6 +183,208 @@ kbd{background:var(--panel2);border:1px solid var(--line);border-bottom-width:2p
   .today-card{margin-bottom:18px;padding:14px 16px}
   .stat-grid{gap:8px;margin-top:12px}
   .stat{padding:12px}
+}
+
+/* Material UI style SaaS refresh */
+:root{
+  --bg:#0b1220;
+  --bg-soft:#111a2b;
+  --panel:#162033;
+  --panel2:#1a2740;
+  --text:#e8eefc;
+  --muted:#a6b4d4;
+  --line:#2a3858;
+  --accent:#1976d2;
+  --accent2:#4fc3f7;
+  --warn:#f59e0b;
+  --bad:#ef5350;
+  --good:#4caf50;
+  --shadow:0 8px 24px rgba(6,14,28,.35);
+  --radius:12px;
+}
+:root[data-theme="light"]{
+  --bg:#f4f7fb;
+  --bg-soft:#edf2f9;
+  --panel:#ffffff;
+  --panel2:#f8faff;
+  --text:#102244;
+  --muted:#526382;
+  --line:#d7e1f1;
+  --accent:#1976d2;
+  --accent2:#0288d1;
+  --warn:#b26a00;
+  --bad:#c62828;
+  --good:#2e7d32;
+  --shadow:0 8px 24px rgba(16,34,68,.08);
+}
+body{
+  font-family:"Roboto","Segoe UI",sans-serif;
+  letter-spacing:.01em;
+  background:
+    radial-gradient(1200px 500px at 0% -10%, color-mix(in srgb,var(--accent) 14%, transparent), transparent 65%),
+    radial-gradient(900px 500px at 100% 0%, color-mix(in srgb,var(--accent2) 12%, transparent), transparent 60%),
+    var(--bg);
+}
+.topbar{
+  background:color-mix(in srgb,var(--panel) 94%,transparent);
+  border-bottom:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+.brand{font-size:1.02rem;font-weight:700;letter-spacing:.01em}
+.nav{gap:8px}
+.nav button,
+.icon-btn,
+.soft-btn,
+.primary-btn,
+.danger-btn,
+.status-select,
+.filter-input,
+.filter-select{
+  border-radius:10px;
+  transition:.18s ease;
+}
+.nav button{
+  border:1px solid transparent;
+  background:transparent;
+  color:var(--muted);
+  font-weight:500;
+  padding:8px 14px;
+}
+.nav button:hover{background:color-mix(in srgb,var(--panel2) 80%,transparent);color:var(--text)}
+.nav button.active{
+  background:var(--accent);
+  color:#fff;
+  border-color:transparent;
+  box-shadow:0 8px 18px color-mix(in srgb,var(--accent) 30%, transparent);
+}
+.icon-btn,
+.soft-btn,
+.danger-btn{
+  border:1px solid var(--line);
+  background:var(--panel);
+}
+.icon-btn:hover,.soft-btn:hover,.danger-btn:hover{background:var(--panel2)}
+.primary-btn{
+  background:var(--accent);
+  color:#fff;
+  border:1px solid transparent;
+  box-shadow:0 8px 18px color-mix(in srgb,var(--accent) 35%, transparent);
+}
+.primary-btn:hover{filter:brightness(1.05)}
+.danger-btn{color:var(--bad)}
+.hero{padding:32px 0 16px}
+h1{font-size:clamp(1.9rem,4vw,3.05rem);line-height:1.14;margin:.3rem 0 .9rem}
+h2{font-size:1.45rem}
+h3{font-size:1.05rem}
+.eyebrow,.kicker{font-weight:700;letter-spacing:.08em;color:var(--accent2)}
+.hero-card,
+.card,
+.stat,
+.task-box,
+.check-item,
+.pattern-item,
+.problem-row,
+.source-links a{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  background:var(--panel);
+}
+.hero-main,.card,.status-card{padding:24px}
+.now-card{border-left:0;position:relative}
+.now-card::before{
+  content:"";
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:4px;
+  border-radius:12px 0 0 12px;
+  background:var(--accent);
+}
+.status-card .progressbar,
+.progressbar{background:color-mix(in srgb,var(--line) 70%, transparent)}
+.progressbar>span{background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent2) 55%, var(--accent)))}
+.stat-grid{gap:14px;margin-top:16px}
+.stat strong{font-size:1.58rem;font-weight:700;letter-spacing:0}
+.muted{color:var(--muted)}
+.section-head{margin:24px 0 12px}
+.section-head h2{margin-bottom:.35rem}
+.week summary{padding:18px 20px}
+.week-num{background:var(--panel2);border-radius:12px}
+.week-badge,
+.task-box,
+.check-item,
+.pattern-item,
+.source-links a,
+.problem-row{background:var(--panel2)}
+.week.current{outline:2px solid color-mix(in srgb,var(--accent) 70%, transparent);outline-offset:1px}
+.callout{
+  border:1px solid color-mix(in srgb,var(--accent) 45%, var(--line));
+  background:color-mix(in srgb,var(--panel) 78%, var(--accent) 22%);
+}
+.lc-table th{font-weight:700;color:var(--muted)}
+.lc-table tr:hover td{background:color-mix(in srgb,var(--panel2) 70%, transparent)}
+.today-card{padding:14px 16px}
+.today-brief{
+  margin:0;
+  background:transparent;
+  border:0;
+  padding:0;
+  align-items:center;
+}
+.today-date{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:210px;
+  background:var(--panel2);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:8px 12px;
+  color:var(--accent2);
+}
+.today-goal strong{color:var(--accent2)}
+.save-status{
+  background:var(--panel2);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:6px 10px;
+  color:var(--muted);
+}
+.save-status::before{background:var(--good)}
+.save-status.error{color:var(--bad)}
+.footer{color:var(--muted)}
+.toast{
+  border:1px solid var(--line);
+  background:var(--panel);
+  color:var(--text);
+  box-shadow:var(--shadow);
+  border-radius:10px;
+}
+.checkline input,
+.pattern-item input{accent-color:var(--accent)}
+.status-select,
+.filter-input,
+.filter-select{
+  border:1px solid var(--line);
+  background:var(--panel);
+  color:var(--text);
+}
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible{
+  outline:3px solid color-mix(in srgb,var(--accent) 45%, transparent);
+  outline-offset:2px;
+}
+@media(max-width:900px){
+  .hero-main,.card,.status-card{padding:18px}
+  .today-date{min-width:170px}
+}
+@media(max-width:650px){
+  .hero{padding-top:20px}
+  .today-brief{grid-template-columns:1fr;gap:8px}
+  .today-date{min-width:0;border-radius:10px;justify-content:flex-start}
+  .nav button{padding:8px 12px}
 }
 </style>
 </head>
