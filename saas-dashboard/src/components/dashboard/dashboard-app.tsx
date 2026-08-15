@@ -503,33 +503,42 @@ export default function DashboardApp() {
                             <TableCell width={56}>Done</TableCell>
                             <TableCell width={160}>Date</TableCell>
                             <TableCell>Milestone</TableCell>
+                            <TableCell width={110} align="right">Days in phase</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {planData.milestones.map((milestone, idx) => (
-                            <TableRow key={milestone.date} hover>
-                              <TableCell padding="checkbox">
-                                <Checkbox
-                                  checked={!!state.milestones[idx]}
-                                  onChange={(event) =>
-                                    updateState((prev) => ({
-                                      ...prev,
-                                      milestones: { ...prev.milestones, [idx]: event.target.checked },
-                                    }))
-                                  }
-                                />
-                              </TableCell>
-                              <TableCell sx={{ fontWeight: 700, whiteSpace: "nowrap" }}>{milestone.date}</TableCell>
-                              <TableCell
-                                sx={{
-                                  color: state.milestones[idx] ? "text.secondary" : "text.primary",
-                                  textDecoration: state.milestones[idx] ? "line-through" : "none",
-                                }}
-                              >
-                                {milestone.text}
-                              </TableCell>
-                            </TableRow>
-                          ))}
+                          {planData.milestones.map((milestone, idx) => {
+                            const prevDate = idx === 0 ? new Date(`${planData.planStart}T00:00:00`) : new Date(planData.milestones[idx - 1].date);
+                            const thisDate = new Date(milestone.date);
+                            const daysInPhase = Math.max(0, Math.round((thisDate.getTime() - prevDate.getTime()) / 86400000));
+                            return (
+                              <TableRow key={milestone.date} hover>
+                                <TableCell padding="checkbox">
+                                  <Checkbox
+                                    checked={!!state.milestones[idx]}
+                                    onChange={(event) =>
+                                      updateState((prev) => ({
+                                        ...prev,
+                                        milestones: { ...prev.milestones, [idx]: event.target.checked },
+                                      }))
+                                    }
+                                  />
+                                </TableCell>
+                                <TableCell sx={{ fontWeight: 700, whiteSpace: "nowrap" }}>{milestone.date}</TableCell>
+                                <TableCell
+                                  sx={{
+                                    color: state.milestones[idx] ? "text.secondary" : "text.primary",
+                                    textDecoration: state.milestones[idx] ? "line-through" : "none",
+                                  }}
+                                >
+                                  {milestone.text}
+                                </TableCell>
+                                <TableCell align="right" sx={{ whiteSpace: "nowrap" }}>
+                                  <Chip size="small" variant="outlined" label={`${daysInPhase} days`} />
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })}
                         </TableBody>
                       </Table>
                     </TableContainer>
