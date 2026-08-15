@@ -27,6 +27,7 @@ import {
   TextField,
   ThemeProvider,
   Toolbar,
+  Tooltip,
   Typography,
   createTheme,
 } from "@mui/material";
@@ -38,6 +39,8 @@ import GoogleIcon from "@mui/icons-material/Google";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import LinkRoundedIcon from "@mui/icons-material/LinkRounded";
+import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
+import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import type { DashboardState, PlanData } from "@/types/dashboard";
 import {
   completionPercent,
@@ -135,6 +138,14 @@ const lightTheme = createTheme({
 });
 
 const tabs = ["Overview", "Timeline", "Patterns", "LeetCode", "Buffer"];
+
+function leetcodeUrl(title: string) {
+  const slug = title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return `https://leetcode.com/problems/${slug}/`;
+}
 
 export default function DashboardApp() {
   const [isDark, setIsDark] = useState(true);
@@ -249,78 +260,111 @@ export default function DashboardApp() {
       <CssBaseline />
       <Box sx={{ minHeight: "100vh", bgcolor: "background.default", pb: 8 }}>
         <AppBar position="sticky" color="transparent" elevation={0} sx={{ backdropFilter: "blur(14px)", borderBottom: 1, borderColor: "divider" }}>
-          <Container maxWidth="xl">
-            <Toolbar disableGutters sx={{ minHeight: 72, gap: 2, flexWrap: "wrap" }}>
-              <Stack direction="row" spacing={1.2} sx={{ alignItems: "center" }}>
+          <Container maxWidth={false} sx={{ width: "80%", mx: "auto" }}>
+            <Toolbar disableGutters sx={{ minHeight: 60, gap: 1 }}>
+              <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexShrink: 0, minWidth: 0 }}>
                 <TrackChangesRoundedIcon color="primary" />
-                <Typography variant="h6">C++ DSA Product Tracker</Typography>
+                <Typography variant="h6" noWrap sx={{ display: { xs: "none", sm: "block" } }}>
+                  C++ DSA Product Tracker
+                </Typography>
+                <Typography variant="h6" noWrap sx={{ display: { xs: "block", sm: "none" } }}>
+                  C++/DSA
+                </Typography>
               </Stack>
 
-              <Tabs
-                value={tab}
-                onChange={(_, value) => setTab(value)}
-                sx={{ ml: { xs: 0, md: 2 }, flex: 1, minHeight: 44 }}
-                variant="scrollable"
-                allowScrollButtonsMobile
-              >
-                {tabs.map((label) => (
-                  <Tab key={label} label={label} sx={{ minHeight: 44 }} />
-                ))}
-              </Tabs>
-
-              <Chip
-                size="small"
-                color={saveStatus.isError ? "error" : "success"}
-                label={saveStatus.text}
-                sx={{ fontWeight: 600 }}
-              />
+              <Box sx={{ flex: 1 }} />
 
               {!authReady && <CircularProgress size={22} />}
 
               {authReady && !user && (
-                <Button
-                  variant="contained"
-                  size="small"
-                  startIcon={<GoogleIcon />}
-                  onClick={async () => {
-                    try {
-                      await signInWithPopup(firebaseAuth, googleProvider);
-                    } catch (error) {
-                      const code = error instanceof Error ? error.message : "unknown-error";
-                      console.error("Google sign-in failed:", error);
-                      setSaveStatus({ text: `Google login failed: ${code}`, isError: true });
-                    }
-                  }}
-                >
-                  Sign in with Google
-                </Button>
+                <>
+                  <Tooltip title="Sign in with Google">
+                    <IconButton
+                      size="small"
+                      color="primary"
+                      sx={{ display: { xs: "inline-flex", sm: "none" } }}
+                      onClick={async () => {
+                        try {
+                          await signInWithPopup(firebaseAuth, googleProvider);
+                        } catch (error) {
+                          const code = error instanceof Error ? error.message : "unknown-error";
+                          console.error("Google sign-in failed:", error);
+                          setSaveStatus({ text: `Google login failed: ${code}`, isError: true });
+                        }
+                      }}
+                    >
+                      <GoogleIcon fontSize="small" />
+                    </IconButton>
+                  </Tooltip>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    startIcon={<GoogleIcon />}
+                    sx={{ display: { xs: "none", sm: "inline-flex" } }}
+                    onClick={async () => {
+                      try {
+                        await signInWithPopup(firebaseAuth, googleProvider);
+                      } catch (error) {
+                        const code = error instanceof Error ? error.message : "unknown-error";
+                        console.error("Google sign-in failed:", error);
+                        setSaveStatus({ text: `Google login failed: ${code}`, isError: true });
+                      }
+                    }}
+                  >
+                    Sign in with Google
+                  </Button>
+                </>
               )}
 
               {user && (
-                <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+                <Stack direction="row" spacing={0.5} sx={{ alignItems: "center", minWidth: 0 }}>
                   <Chip
                     avatar={<Avatar>{(user.displayName || user.email || "U").charAt(0).toUpperCase()}</Avatar>}
                     label={user.email || user.displayName || "Signed in"}
                     variant="outlined"
-                  />
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    startIcon={<LogoutRoundedIcon />}
-                    onClick={async () => {
-                      await signOut(firebaseAuth);
-                      setState(loadState());
+                    sx={{
+                      display: { xs: "none", sm: "flex" },
+                      maxWidth: 220,
+                      "& .MuiChip-label": { overflow: "hidden", textOverflow: "ellipsis" },
                     }}
-                  >
-                    Logout
-                  </Button>
+                  />
+                  <Tooltip title={user.email || user.displayName || "Signed in"}>
+                    <Avatar sx={{ display: { xs: "flex", sm: "none" }, width: 30, height: 30 }}>
+                      {(user.displayName || user.email || "U").charAt(0).toUpperCase()}
+                    </Avatar>
+                  </Tooltip>
+                  <Tooltip title="Logout">
+                    <IconButton
+                      size="small"
+                      onClick={async () => {
+                        await signOut(firebaseAuth);
+                        setState(loadState());
+                      }}
+                    >
+                      <LogoutRoundedIcon fontSize="small" />
+                    </IconButton>
+                  </Tooltip>
                 </Stack>
               )}
 
-              <Button variant="outlined" size="small" onClick={() => setIsDark((s) => !s)}>
-                {isDark ? "Light" : "Dark"}
-              </Button>
+              <Tooltip title={isDark ? "Switch to light" : "Switch to dark"}>
+                <IconButton size="small" onClick={() => setIsDark((s) => !s)}>
+                  {isDark ? <LightModeRoundedIcon fontSize="small" /> : <DarkModeRoundedIcon fontSize="small" />}
+                </IconButton>
+              </Tooltip>
             </Toolbar>
+
+            <Tabs
+              value={tab}
+              onChange={(_, value) => setTab(value)}
+              sx={{ minHeight: 44 }}
+              variant="scrollable"
+              allowScrollButtonsMobile
+            >
+              {tabs.map((label) => (
+                <Tab key={label} label={label} sx={{ minHeight: 44 }} />
+              ))}
+            </Tabs>
 
             <Stack
               direction="row"
@@ -336,10 +380,19 @@ export default function DashboardApp() {
                 label="Patterns"
               />
             </Stack>
+
+            {saveStatus.isError && (
+              <Chip
+                size="small"
+                color="error"
+                label={saveStatus.text}
+                sx={{ fontWeight: 600, mb: 1 }}
+              />
+            )}
           </Container>
         </AppBar>
 
-        <Container maxWidth="xl" sx={{ pt: 3 }}>
+        <Container maxWidth={false} sx={{ width: "80%", mx: "auto", pt: 3 }}>
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={1.5}
@@ -694,7 +747,20 @@ export default function DashboardApp() {
                                 sx={{ justifyContent: "space-between", alignItems: { xs: "flex-start", md: "center" } }}
                               >
                                 <Box>
-                                  <Typography sx={{ fontWeight: 700 }}>#{problem.id} {problem.title}</Typography>
+                                  <Stack direction="row" spacing={0.6} sx={{ alignItems: "center" }}>
+                                    <Typography sx={{ fontWeight: 700 }}>#{problem.id} {problem.title}</Typography>
+                                    <Tooltip title="Open on LeetCode">
+                                      <IconButton
+                                        size="small"
+                                        component="a"
+                                        href={leetcodeUrl(problem.title)}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                      >
+                                        <LinkRoundedIcon fontSize="small" />
+                                      </IconButton>
+                                    </Tooltip>
+                                  </Stack>
                                   <Typography variant="body2" color="text.secondary" sx={{ mb: tags.length ? 0.6 : 0 }}>
                                     Week {problem.weekNumber} · {problem.weekGoal}
                                   </Typography>
