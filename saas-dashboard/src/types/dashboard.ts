@@ -16,6 +16,7 @@ export type DashboardState = {
   readiness: Record<number, boolean>;
   milestones: Record<number, boolean>;
   buffer: Record<string, boolean>;
+  links: Record<number, string>;
   updatedAt: string | null;
 };
 

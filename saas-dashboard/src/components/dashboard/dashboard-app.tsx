@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactElement, type ReactNode } from "react";
 import {
   AppBar,
   Avatar,
@@ -15,6 +15,7 @@ import {
   CssBaseline,
   FormControl,
   Grid,
+  IconButton,
   InputAdornment,
   InputLabel,
   LinearProgress,
@@ -36,6 +37,7 @@ import DatasetRoundedIcon from "@mui/icons-material/DatasetRounded";
 import GoogleIcon from "@mui/icons-material/Google";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import LinkRoundedIcon from "@mui/icons-material/LinkRounded";
 import type { DashboardState, PlanData } from "@/types/dashboard";
 import {
   completionPercent,
@@ -47,6 +49,7 @@ import {
   normalizeState,
   saveState,
   todayContext,
+  weekPatternTags,
 } from "@/lib/dashboard-state";
 import { initAuthPersistence, initFirebaseAnalytics, firebaseAuth, googleProvider } from "@/lib/firebase";
 import { onAuthStateChanged, signInWithPopup, signOut, type User } from "firebase/auth";
@@ -317,58 +320,71 @@ export default function DashboardApp() {
                 {isDark ? "Light" : "Dark"}
               </Button>
             </Toolbar>
+
+            <Stack
+              direction="row"
+              spacing={1}
+              sx={{ pb: 1, overflowX: "auto", "&::-webkit-scrollbar": { display: "none" } }}
+            >
+              <NavStat icon={<CalendarMonthRoundedIcon fontSize="small" />} value={`${completedWeeks}/22`} label="Weeks" />
+              <NavStat icon={<DatasetRoundedIcon fontSize="small" />} value={`${attempted}/150`} label="LeetCode" />
+              <NavStat icon={<DoneAllRoundedIcon fontSize="small" color="success" />} value={`${green}`} label="Green" />
+              <NavStat
+                icon={<TrackChangesRoundedIcon fontSize="small" color="secondary" />}
+                value={`${masteredPatterns}/${planData.patterns.length}`}
+                label="Patterns"
+              />
+            </Stack>
           </Container>
         </AppBar>
 
         <Container maxWidth="xl" sx={{ pt: 3 }}>
-          <Grid container spacing={2.5}>
-            <Grid size={{ xs: 12, md: 8 }}>
-              <Card elevation={0} sx={{ border: 1, borderColor: "divider", height: "100%" }}>
-                <CardContent sx={{ p: { xs: 2.5, md: 3.2 } }}>
-                  <Typography variant="subtitle2" color="secondary.main" gutterBottom>
-                    {planData.planStart} to {planData.bufferEnd}
-                  </Typography>
-                  <Typography variant="h4" sx={{ mb: 1.2 }}>
-                    Build C++ fluency. Master DSA. Crack interviews faster.
-                  </Typography>
-                  <Typography color="text.secondary" sx={{ mb: 2.2 }}>
-                    A modern interview prep operating system with weekly objectives, LeetCode tracking, and live progress insights.
-                  </Typography>
-                  <Stack direction={{ xs: "column", sm: "row" }} spacing={1.2}>
-                    <Button variant="contained" size="large" onClick={() => setTab(1)}>
-                      Go To Current Week
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      onClick={() => {
-                        const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement("a");
-                        a.href = url;
-                        a.download = "dashboard-progress.json";
-                        a.click();
-                        URL.revokeObjectURL(url);
-                      }}
-                    >
-                      Export Progress
-                    </Button>
-                    <Button
-                      color="error"
-                      variant="outlined"
-                      onClick={() => {
-                        if (!window.confirm("Reset all progress on this browser?")) return;
-                        updateState(() => defaultState());
-                      }}
-                    >
-                      Reset
-                    </Button>
-                  </Stack>
-                </CardContent>
-              </Card>
-            </Grid>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={1.5}
+            sx={{ mb: 2.5, alignItems: { xs: "flex-start", sm: "center" }, justifyContent: "space-between" }}
+          >
+            <Typography variant="body2" color="text.secondary">
+              Plan window: <strong>{planData.planStart}</strong> to <strong>{planData.bufferEnd}</strong>
+            </Typography>
+            <Stack direction="row" spacing={1}>
+              <Button variant="contained" size="small" onClick={() => setTab(1)}>
+                Go To Current Week
+              </Button>
+              {!user && (
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => {
+                    const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = "dashboard-progress.json";
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }}
+                >
+                  Export Progress
+                </Button>
+              )}
+              <Button
+                color="error"
+                variant="outlined"
+                size="small"
+                onClick={() => {
+                  if (!window.confirm("Reset all progress on this browser?")) return;
+                  updateState(() => defaultState());
+                }}
+              >
+                Reset
+              </Button>
+            </Stack>
+          </Stack>
 
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Card elevation={0} sx={{ border: 1, borderColor: "divider", height: "100%" }}>
+          <Grid container spacing={2.5}>
+            <Grid size={12}>
+              <Card elevation={0} sx={{ border: 1, borderColor: "divider" }}>
                 <CardContent sx={{ p: 3 }}>
                   <Typography variant="subtitle2" color="secondary.main" gutterBottom>
                     Completion
@@ -376,23 +392,9 @@ export default function DashboardApp() {
                   <Typography variant="h3" sx={{ mb: 1 }}>
                     {completion}%
                   </Typography>
-                  <LinearProgress variant="determinate" value={completion} sx={{ height: 10, borderRadius: 99, mb: 2 }} />
-                  <Typography color="text.secondary">Transparent metric across weekly tasks, pattern mastery, and problem attempts.</Typography>
+                  <LinearProgress variant="determinate" value={completion} sx={{ height: 10, borderRadius: 99 }} />
                 </CardContent>
               </Card>
-            </Grid>
-
-            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-              <MetricCard icon={<CalendarMonthRoundedIcon color="primary" />} value={`${completedWeeks}/22`} label="Weeks Complete" />
-            </Grid>
-            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-              <MetricCard icon={<DatasetRoundedIcon color="primary" />} value={`${attempted}/150`} label="LeetCode Attempted" />
-            </Grid>
-            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-              <MetricCard icon={<DoneAllRoundedIcon color="success" />} value={`${green}`} label="GREEN Solves" />
-            </Grid>
-            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-              <MetricCard icon={<TrackChangesRoundedIcon color="secondary" />} value={`${masteredPatterns}/${planData.patterns.length}`} label="Patterns Mastered" />
             </Grid>
 
             <Grid size={12}>
@@ -426,7 +428,7 @@ export default function DashboardApp() {
                     <Grid container spacing={2}>
                       {planData.milestones.map((milestone, idx) => (
                         <Grid key={milestone.date} size={{ xs: 12, md: 6 }}>
-                          <Card variant="outlined" sx={{ borderRadius: 3 }}>
+                          <Card variant="outlined" sx={{ borderRadius: "12px" }}>
                             <CardContent sx={{ py: 1.6 }}>
                               <Stack direction="row" spacing={0.5} sx={{ alignItems: "flex-start" }}>
                                 <Checkbox
@@ -488,7 +490,7 @@ export default function DashboardApp() {
                               ["checkpoint", "Friday Checkpoint"],
                             ].map(([key, label]) => (
                               <Grid key={key} size={{ xs: 12, sm: 6, md: 4 }}>
-                                <Card variant="outlined" sx={{ borderRadius: 3 }}>
+                                <Card variant="outlined" sx={{ borderRadius: "12px" }}>
                                   <CardContent sx={{ py: 0.6, pl: 1 }}>
                                     <Stack direction="row" spacing={0.5} sx={{ alignItems: "center" }}>
                                       <Checkbox
@@ -513,6 +515,40 @@ export default function DashboardApp() {
                               </Grid>
                             ))}
                           </Grid>
+
+                          {week.problems.length > 0 && (
+                            <Box sx={{ mt: 2.5 }}>
+                              <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                                This week&apos;s LeetCode targets
+                              </Typography>
+                              <Stack direction="row" spacing={0.8} sx={{ flexWrap: "wrap", gap: 0.8 }}>
+                                {week.problems.map((problem) => {
+                                  const status = state.lc[problem.id] || "todo";
+                                  return (
+                                    <Chip
+                                      key={problem.id}
+                                      size="small"
+                                      label={`#${problem.id} ${problem.title}`}
+                                      color={
+                                        status === "green"
+                                          ? "success"
+                                          : status === "red"
+                                            ? "error"
+                                            : status === "yellow"
+                                              ? "warning"
+                                              : "default"
+                                      }
+                                      variant={status === "todo" ? "outlined" : "filled"}
+                                      onClick={() => {
+                                        setTab(3);
+                                        setWeekFilter(String(week.number));
+                                      }}
+                                    />
+                                  );
+                                })}
+                              </Stack>
+                            </Box>
+                          )}
                         </CardContent>
                       </Card>
                     );
@@ -529,7 +565,7 @@ export default function DashboardApp() {
                     <Grid container spacing={1.2}>
                       {planData.patterns.map((pattern, idx) => (
                         <Grid key={pattern} size={{ xs: 12, sm: 6, md: 4 }}>
-                          <Card variant="outlined" sx={{ borderRadius: 3, height: "100%" }}>
+                          <Card variant="outlined" sx={{ borderRadius: "12px", height: "100%" }}>
                             <CardContent sx={{ py: 0.6, pl: 1 }}>
                               <Stack direction="row" spacing={0.5} sx={{ alignItems: "center" }}>
                                 <Checkbox
@@ -608,8 +644,10 @@ export default function DashboardApp() {
                     <Stack spacing={1}>
                       {filteredProblems.map((problem) => {
                         const status = state.lc[problem.id] || "todo";
+                        const tags = weekPatternTags(problem.weekPatterns);
+                        const link = state.links[problem.id] || "";
                         return (
-                          <Card key={problem.id} variant="outlined" sx={{ borderRadius: 3 }}>
+                          <Card key={problem.id} variant="outlined" sx={{ borderRadius: "12px" }}>
                             <CardContent sx={{ py: 1.2 }}>
                               <Stack
                                 direction={{ xs: "column", md: "row" }}
@@ -618,38 +656,76 @@ export default function DashboardApp() {
                               >
                                 <Box>
                                   <Typography sx={{ fontWeight: 700 }}>#{problem.id} {problem.title}</Typography>
-                                  <Typography variant="body2" color="text.secondary">
+                                  <Typography variant="body2" color="text.secondary" sx={{ mb: tags.length ? 0.6 : 0 }}>
                                     Week {problem.weekNumber} · {problem.weekGoal}
                                   </Typography>
+                                  {tags.length > 0 && (
+                                    <Stack direction="row" spacing={0.6} sx={{ flexWrap: "wrap", gap: 0.6 }}>
+                                      {tags.map((tag) => (
+                                        <Chip key={tag} size="small" label={tag} variant="outlined" sx={{ height: 22, fontSize: "0.7rem" }} />
+                                      ))}
+                                    </Stack>
+                                  )}
                                 </Box>
-                                <FormControl size="small" sx={{ minWidth: 150 }}>
-                                  <Select
-                                    value={status}
-                                    color={
-                                      status === "green"
-                                        ? "success"
-                                        : status === "red"
-                                          ? "error"
-                                          : status === "yellow"
-                                            ? "warning"
-                                            : undefined
-                                    }
+                                <Stack direction={{ xs: "column", sm: "row" }} spacing={1} sx={{ alignItems: { xs: "stretch", sm: "center" } }}>
+                                  <TextField
+                                    size="small"
+                                    placeholder="Linear task link"
+                                    value={link}
                                     onChange={(event) =>
                                       updateState((prev) => ({
                                         ...prev,
-                                        lc: {
-                                          ...prev.lc,
-                                          [problem.id]: event.target.value as "todo" | "green" | "yellow" | "red",
-                                        },
+                                        links: { ...prev.links, [problem.id]: event.target.value },
                                       }))
                                     }
-                                  >
-                                    <MenuItem value="todo">To do</MenuItem>
-                                    <MenuItem value="green">GREEN</MenuItem>
-                                    <MenuItem value="yellow">YELLOW</MenuItem>
-                                    <MenuItem value="red">RED</MenuItem>
-                                  </Select>
-                                </FormControl>
+                                    slotProps={{
+                                      input: {
+                                        endAdornment: link ? (
+                                          <InputAdornment position="end">
+                                            <IconButton
+                                              size="small"
+                                              component="a"
+                                              href={link}
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                            >
+                                              <LinkRoundedIcon fontSize="small" />
+                                            </IconButton>
+                                          </InputAdornment>
+                                        ) : undefined,
+                                      },
+                                    }}
+                                    sx={{ minWidth: { xs: "100%", sm: 200 } }}
+                                  />
+                                  <FormControl size="small" sx={{ minWidth: 150 }}>
+                                    <Select
+                                      value={status}
+                                      color={
+                                        status === "green"
+                                          ? "success"
+                                          : status === "red"
+                                            ? "error"
+                                            : status === "yellow"
+                                              ? "warning"
+                                              : undefined
+                                      }
+                                      onChange={(event) =>
+                                        updateState((prev) => ({
+                                          ...prev,
+                                          lc: {
+                                            ...prev.lc,
+                                            [problem.id]: event.target.value as "todo" | "green" | "yellow" | "red",
+                                          },
+                                        }))
+                                      }
+                                    >
+                                      <MenuItem value="todo">To do</MenuItem>
+                                      <MenuItem value="green">GREEN</MenuItem>
+                                      <MenuItem value="yellow">YELLOW</MenuItem>
+                                      <MenuItem value="red">RED</MenuItem>
+                                    </Select>
+                                  </FormControl>
+                                </Stack>
                               </Stack>
                             </CardContent>
                           </Card>
@@ -668,7 +744,7 @@ export default function DashboardApp() {
                     <Typography variant="h6" sx={{ mb: 2 }}>Month 6 Buffer</Typography>
                     <Stack spacing={1.3}>
                       {planData.bufferWeeks.map((week, idx) => (
-                        <Card key={week.title} variant="outlined" sx={{ borderRadius: 3 }}>
+                        <Card key={week.title} variant="outlined" sx={{ borderRadius: "12px" }}>
                           <CardContent>
                             <Typography variant="subtitle2" color="secondary.main">{week.dates}</Typography>
                             <Typography variant="h6" sx={{ mb: 1 }}>{week.title}</Typography>
@@ -706,25 +782,23 @@ export default function DashboardApp() {
   );
 }
 
-function MetricCard({ icon, value, label }: { icon: ReactNode; value: string; label: string }) {
+function NavStat({ icon, value, label }: { icon: ReactNode; value: string; label: string }) {
   return (
-    <Card
-      elevation={0}
-      sx={{
-        border: 1,
-        borderColor: "divider",
-        height: "100%",
-        transition: "border-color 120ms ease, transform 120ms ease",
-        "&:hover": { borderColor: "primary.main", transform: "translateY(-1px)" },
-      }}
-    >
-      <CardContent>
-        <Stack direction="row" spacing={1.2} sx={{ mb: 1, alignItems: "center" }}>
-          {icon}
-          <Typography variant="subtitle2" color="text.secondary">{label}</Typography>
+    <Chip
+      size="small"
+      variant="outlined"
+      icon={icon as ReactElement}
+      label={
+        <Stack direction="row" spacing={0.5} sx={{ alignItems: "baseline" }}>
+          <Typography component="span" variant="caption" sx={{ fontWeight: 700 }}>
+            {value}
+          </Typography>
+          <Typography component="span" variant="caption" color="text.secondary">
+            {label}
+          </Typography>
         </Stack>
-        <Typography variant="h5" sx={{ fontWeight: 800 }}>{value}</Typography>
-      </CardContent>
-    </Card>
+      }
+      sx={{ height: 28, "& .MuiChip-label": { px: 1 } }}
+    />
   );
 }

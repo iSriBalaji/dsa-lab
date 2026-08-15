@@ -15,6 +15,7 @@ export function defaultState(): DashboardState {
     readiness: {},
     milestones: {},
     buffer: {},
+    links: {},
     updatedAt: null,
   };
 }
@@ -38,6 +39,7 @@ export function normalizeState(value: unknown): DashboardState {
   if (isPlainObject(value.readiness)) normalized.readiness = value.readiness as DashboardState["readiness"];
   if (isPlainObject(value.milestones)) normalized.milestones = value.milestones as DashboardState["milestones"];
   if (isPlainObject(value.buffer)) normalized.buffer = value.buffer as DashboardState["buffer"];
+  if (isPlainObject(value.links)) normalized.links = value.links as DashboardState["links"];
 
   normalized.updatedAt = typeof value.updatedAt === "string" ? value.updatedAt : null;
   return normalized;
@@ -107,8 +109,19 @@ export function flattenProblems(data: PlanData) {
       weekNumber: week.number,
       weekGoal: week.goal,
       weekDates: week.dates,
+      weekPatterns: week.patterns,
     })),
   );
+}
+
+const GENERIC_TAG_WORDS = new Set(["none", "reinforcement", "basics", "exposure"]);
+
+export function weekPatternTags(patternsText: string): string[] {
+  return patternsText
+    .replace(/\.$/, "")
+    .split(/[;,]/)
+    .map((part) => part.trim())
+    .filter((part) => part.length > 0 && !GENERIC_TAG_WORDS.has(part.toLowerCase()));
 }
 
 export function completionPercent(state: DashboardState, data: PlanData) {
