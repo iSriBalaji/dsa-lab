@@ -3,6 +3,9 @@
 import { useEffect, useMemo, useRef, useState, type ReactElement, type ReactNode } from "react";
 import {
   AppBar,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Avatar,
   Box,
   Button,
@@ -23,6 +26,12 @@ import {
   Select,
   Stack,
   Tab,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   Tabs,
   TextField,
   ThemeProvider,
@@ -31,6 +40,7 @@ import {
   Typography,
   createTheme,
 } from "@mui/material";
+import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import TrackChangesRoundedIcon from "@mui/icons-material/TrackChangesRounded";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import DoneAllRoundedIcon from "@mui/icons-material/DoneAllRounded";
@@ -44,6 +54,7 @@ import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import type { DashboardState, PlanData } from "@/types/dashboard";
 import {
   completionPercent,
+  currentWeekNumber,
   defaultState,
   flattenProblems,
   getWeeklyTask,
@@ -157,6 +168,7 @@ export default function DashboardApp() {
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [user, setUser] = useState<User | null>(null);
   const [authReady, setAuthReady] = useState(false);
+  const [openWeek, setOpenWeek] = useState<number>(() => currentWeekNumber(planData) || planData.weeks[0].number);
   const stateRef = useRef(state);
   const syncTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -260,7 +272,7 @@ export default function DashboardApp() {
       <CssBaseline />
       <Box sx={{ minHeight: "100vh", bgcolor: "background.default", pb: 8 }}>
         <AppBar position="sticky" color="transparent" elevation={0} sx={{ backdropFilter: "blur(14px)", borderBottom: 1, borderColor: "divider" }}>
-          <Container maxWidth={false} sx={{ width: "80%", mx: "auto" }}>
+          <Container maxWidth={false} sx={{ width: { xs: "100%", md: "80%" }, mx: "auto", px: { xs: 2, md: 0 } }}>
             <Toolbar disableGutters sx={{ minHeight: 60, gap: 1 }}>
               <Stack direction="row" spacing={1} sx={{ alignItems: "center", flexShrink: 0, minWidth: 0 }}>
                 <TrackChangesRoundedIcon color="primary" />
@@ -373,7 +385,12 @@ export default function DashboardApp() {
             >
               <NavStat icon={<CalendarMonthRoundedIcon fontSize="small" />} value={`${completedWeeks}/22`} label="Weeks" />
               <NavStat icon={<DatasetRoundedIcon fontSize="small" />} value={`${attempted}/150`} label="LeetCode" />
-              <NavStat icon={<DoneAllRoundedIcon fontSize="small" color="success" />} value={`${green}`} label="Green" />
+              <NavStat
+                icon={<DoneAllRoundedIcon fontSize="small" />}
+                value={`${green}`}
+                label="Green · Done"
+                color="success"
+              />
               <NavStat
                 icon={<TrackChangesRoundedIcon fontSize="small" color="secondary" />}
                 value={`${masteredPatterns}/${planData.patterns.length}`}
@@ -392,7 +409,7 @@ export default function DashboardApp() {
           </Container>
         </AppBar>
 
-        <Container maxWidth={false} sx={{ width: "80%", mx: "auto", pt: 3 }}>
+        <Container maxWidth={false} sx={{ width: { xs: "100%", md: "80%" }, mx: "auto", px: { xs: 2, md: 0 }, pt: 3 }}>
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={1.5}
@@ -479,12 +496,19 @@ export default function DashboardApp() {
                         ? "Starting point: prepare toolchain and schedule before launch week."
                         : "Focus on consistent weekdays, timed Friday reviews, and pattern-first re-solves."}
                     </Typography>
-                    <Grid container spacing={2}>
-                      {planData.milestones.map((milestone, idx) => (
-                        <Grid key={milestone.date} size={{ xs: 12, md: 6 }}>
-                          <Card variant="outlined" sx={{ borderRadius: "12px" }}>
-                            <CardContent sx={{ py: 1.6 }}>
-                              <Stack direction="row" spacing={0.5} sx={{ alignItems: "flex-start" }}>
+                    <TableContainer sx={{ border: 1, borderColor: "divider", borderRadius: "12px" }}>
+                      <Table size="small">
+                        <TableHead>
+                          <TableRow>
+                            <TableCell width={56}>Done</TableCell>
+                            <TableCell width={160}>Date</TableCell>
+                            <TableCell>Milestone</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {planData.milestones.map((milestone, idx) => (
+                            <TableRow key={milestone.date} hover>
+                              <TableCell padding="checkbox">
                                 <Checkbox
                                   checked={!!state.milestones[idx]}
                                   onChange={(event) =>
@@ -493,18 +517,22 @@ export default function DashboardApp() {
                                       milestones: { ...prev.milestones, [idx]: event.target.checked },
                                     }))
                                   }
-                                  sx={{ mt: -0.7 }}
                                 />
-                                <Box>
-                                  <Typography sx={{ fontWeight: 700 }}>{milestone.date}</Typography>
-                                  <Typography color="text.secondary">{milestone.text}</Typography>
-                                </Box>
-                              </Stack>
-                            </CardContent>
-                          </Card>
-                        </Grid>
-                      ))}
-                    </Grid>
+                              </TableCell>
+                              <TableCell sx={{ fontWeight: 700, whiteSpace: "nowrap" }}>{milestone.date}</TableCell>
+                              <TableCell
+                                sx={{
+                                  color: state.milestones[idx] ? "text.secondary" : "text.primary",
+                                  textDecoration: state.milestones[idx] ? "line-through" : "none",
+                                }}
+                              >
+                                {milestone.text}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
                   </CardContent>
                 </Card>
               </Grid>
@@ -512,7 +540,7 @@ export default function DashboardApp() {
 
             {tab === 1 && (
               <Grid size={12}>
-                <Stack spacing={1.5}>
+                <Stack spacing={1}>
                   {planData.weeks.map((week) => {
                     const task = getWeeklyTask(state, week.number);
                     const done = [task.learncpp, task.dsa, task.patterns, task.implementation, task.checkpoint].filter(Boolean).length;
@@ -521,9 +549,16 @@ export default function DashboardApp() {
                     const pct = Math.round(((done + lcDone) / total) * 100);
 
                     return (
-                      <Card key={week.number} elevation={0} sx={{ border: 1, borderColor: "divider" }}>
-                        <CardContent>
-                          <Stack direction={{ xs: "column", md: "row" }} spacing={1.2} sx={{ justifyContent: "space-between" }}>
+                      <Accordion
+                        key={week.number}
+                        elevation={0}
+                        disableGutters
+                        expanded={openWeek === week.number}
+                        onChange={(_, isExpanded) => setOpenWeek(isExpanded ? week.number : 0)}
+                        sx={{ border: 1, borderColor: "divider", borderRadius: "12px !important", "&::before": { display: "none" } }}
+                      >
+                        <AccordionSummary expandIcon={<ExpandMoreRoundedIcon />}>
+                          <Stack direction={{ xs: "column", md: "row" }} spacing={1.2} sx={{ flex: 1, justifyContent: "space-between", pr: 1 }}>
                             <Box>
                               <Typography variant="subtitle2" color="secondary.main">
                                 Week {week.number} · {week.dates}
@@ -532,8 +567,9 @@ export default function DashboardApp() {
                             </Box>
                             <Chip label={`${pct}% complete`} color={pct > 69 ? "success" : "default"} />
                           </Stack>
-
-                          <LinearProgress variant="determinate" value={pct} sx={{ mt: 1.5, mb: 2 }} />
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <LinearProgress variant="determinate" value={pct} sx={{ mt: 0.5, mb: 2 }} />
 
                           <Grid container spacing={1.2}>
                             {(
@@ -641,8 +677,28 @@ export default function DashboardApp() {
                               </CardContent>
                             </Card>
                           </Box>
-                        </CardContent>
-                      </Card>
+
+                          <Box sx={{ mt: 2 }}>
+                            <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                              Your plan for this week
+                            </Typography>
+                            <TextField
+                              fullWidth
+                              multiline
+                              minRows={2}
+                              size="small"
+                              placeholder="e.g. Mon/Tue: LearnCpp + 1 problem, Wed: DSA module, Thu: 2 problems, Fri: checkpoint"
+                              value={state.weekPlans[week.number] || ""}
+                              onChange={(event) =>
+                                updateState((prev) => ({
+                                  ...prev,
+                                  weekPlans: { ...prev.weekPlans, [week.number]: event.target.value },
+                                }))
+                              }
+                            />
+                          </Box>
+                        </AccordionDetails>
+                      </Accordion>
                     );
                   })}
                 </Stack>
@@ -887,18 +943,33 @@ export default function DashboardApp() {
   );
 }
 
-function NavStat({ icon, value, label }: { icon: ReactNode; value: string; label: string }) {
+function NavStat({
+  icon,
+  value,
+  label,
+  color,
+}: {
+  icon: ReactNode;
+  value: string;
+  label: string;
+  color?: "success";
+}) {
   return (
     <Chip
       size="small"
-      variant="outlined"
+      variant={color ? "filled" : "outlined"}
+      color={color}
       icon={icon as ReactElement}
       label={
         <Stack direction="row" spacing={0.5} sx={{ alignItems: "baseline" }}>
           <Typography component="span" variant="caption" sx={{ fontWeight: 700 }}>
             {value}
           </Typography>
-          <Typography component="span" variant="caption" color="text.secondary">
+          <Typography
+            component="span"
+            variant="caption"
+            color={color ? "inherit" : "text.secondary"}
+          >
             {label}
           </Typography>
         </Stack>

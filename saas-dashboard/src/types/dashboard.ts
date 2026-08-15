@@ -17,6 +17,7 @@ export type DashboardState = {
   milestones: Record<number, boolean>;
   buffer: Record<string, boolean>;
   links: Record<number, string>;
+  weekPlans: Record<number, string>;
   updatedAt: string | null;
 };
 

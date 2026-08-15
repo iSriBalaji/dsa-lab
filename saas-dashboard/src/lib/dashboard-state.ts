@@ -16,6 +16,7 @@ export function defaultState(): DashboardState {
     milestones: {},
     buffer: {},
     links: {},
+    weekPlans: {},
     updatedAt: null,
   };
 }
@@ -40,6 +41,7 @@ export function normalizeState(value: unknown): DashboardState {
   if (isPlainObject(value.milestones)) normalized.milestones = value.milestones as DashboardState["milestones"];
   if (isPlainObject(value.buffer)) normalized.buffer = value.buffer as DashboardState["buffer"];
   if (isPlainObject(value.links)) normalized.links = value.links as DashboardState["links"];
+  if (isPlainObject(value.weekPlans)) normalized.weekPlans = value.weekPlans as DashboardState["weekPlans"];
 
   normalized.updatedAt = typeof value.updatedAt === "string" ? value.updatedAt : null;
   return normalized;
@@ -139,6 +141,19 @@ export function completionPercent(state: DashboardState, data: PlanData) {
 
   const total = data.weeks.length * 5 + problems.length + data.patterns.length;
   return Math.round(((curriculumDone + attempted + patterns) / total) * 100);
+}
+
+export function currentWeekNumber(data: PlanData): number {
+  const today = new Date();
+  const todayDay = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) / 86400000;
+
+  const dayOf = (iso: string) => {
+    const d = new Date(`${iso}T12:00:00`);
+    return Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000;
+  };
+
+  const match = data.weeks.find((week) => todayDay >= dayOf(week.start) && todayDay <= dayOf(week.end));
+  return match ? match.number : 0;
 }
 
 export function todayContext(data: PlanData) {
