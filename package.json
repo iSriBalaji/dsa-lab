@@ -1,0 +1,10 @@
+{
+  "name": "dsa-lab-root",
+  "private": true,
+  "scripts": {
+    "install:app": "npm install --prefix saas-dashboard",
+    "build": "npm run build --prefix saas-dashboard",
+    "dev": "npm run dev --prefix saas-dashboard",
+    "start": "npm run start --prefix saas-dashboard"
+  }
+}

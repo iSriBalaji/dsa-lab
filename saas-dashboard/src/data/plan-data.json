@@ -1,0 +1,1127 @@
+{
+  "weeks": [
+    {
+      "number": 1,
+      "dates": "Aug 24–28, 2026",
+      "start": "2026-08-24",
+      "end": "2026-08-28",
+      "goal": "C++ setup and programming foundations",
+      "learncpp": "Chapters 0–2: setup, compiling, program structure, variables, I/O, functions, parameters, scope, namespaces, headers, multi-file programs.",
+      "dsa": "None yet. Protect this week for C++ fundamentals.",
+      "patterns": "None.",
+      "implementation": "Calculator, temperature converter, prime checker, Fibonacci, and a small multi-file CLI program.",
+      "lc_target": 0,
+      "problems": [],
+      "checkpoint": "Compile from the terminal; create functions without copying syntax; explain declaration vs definition; use headers correctly."
+    },
+    {
+      "number": 2,
+      "dates": "Aug 31–Sep 4, 2026",
+      "start": "2026-08-31",
+      "end": "2026-09-04",
+      "goal": "Core C++ language fluency",
+      "learncpp": "Chapters 3–8: debugging, fundamental types, const/constexpr, strings/string_view, operators, scope/lifetime/linkage, control flow and loops.",
+      "dsa": "Optional preview: complexity vocabulary only.",
+      "patterns": "None.",
+      "implementation": "Number guessing game, string utilities, frequency counter, and 10 short loop/function exercises.",
+      "lc_target": 0,
+      "problems": [],
+      "checkpoint": "Use debugger/breakpoints; confidently write loops, conditions, strings, const variables and basic functions."
+    },
+    {
+      "number": 3,
+      "dates": "Sep 7–11, 2026",
+      "start": "2026-09-07",
+      "end": "2026-09-11",
+      "goal": "Functions/templates + complexity analysis; begin LeetCode",
+      "learncpp": "Chapters 9–11: testing/assertions, conversions, type deduction/auto, overloads, default arguments, function templates.",
+      "dsa": "Complexity / Big-O module. Learn time vs space, common growth rates, amortized analysis, and how to analyze loops.",
+      "patterns": "Basic array scanning and hashing intuition.",
+      "implementation": "Write functions using overloads/templates; manually analyze 10 snippets for Big-O.",
+      "lc_target": 4,
+      "problems": [
+        {
+          "id": 1,
+          "title": "Merge Sorted Array"
+        },
+        {
+          "id": 2,
+          "title": "Remove Element"
+        },
+        {
+          "id": 3,
+          "title": "Remove Duplicates from Sorted Array"
+        },
+        {
+          "id": 5,
+          "title": "Majority Element"
+        }
+      ],
+      "checkpoint": "For every solved problem, state brute force, optimized approach, time complexity and space complexity."
+    },
+    {
+      "number": 4,
+      "dates": "Sep 14–18, 2026",
+      "start": "2026-09-14",
+      "end": "2026-09-18",
+      "goal": "Pointers/references + arrays",
+      "learncpp": "Chapter 12 in depth: lvalues/rvalues, references, const references, pointers, nullptr, pointer constness, pass-by-reference/address, return by reference/address, std::optional.",
+      "dsa": "Arrays module.",
+      "patterns": "Array traversal, in-place modification, greedy basics.",
+      "implementation": "Simplified dynamic array; pointer/reference drills; trace addresses and object lifetimes on paper.",
+      "lc_target": 6,
+      "problems": [
+        {
+          "id": 4,
+          "title": "Remove Duplicates from Sorted Array II"
+        },
+        {
+          "id": 6,
+          "title": "Rotate Array"
+        },
+        {
+          "id": 7,
+          "title": "Best Time to Buy and Sell Stock"
+        },
+        {
+          "id": 8,
+          "title": "Best Time to Buy and Sell Stock II"
+        },
+        {
+          "id": 9,
+          "title": "Jump Game"
+        },
+        {
+          "id": 10,
+          "title": "Jump Game II"
+        }
+      ],
+      "checkpoint": "Explain pointer vs reference, pass-by-value vs const reference, nullptr, and why dangling references/pointers are dangerous."
+    },
+    {
+      "number": 5,
+      "dates": "Sep 21–25, 2026",
+      "start": "2026-09-21",
+      "end": "2026-09-25",
+      "goal": "Structs/classes + arrays/strings/two pointers",
+      "learncpp": "Chapters 13–14: enums/structs, classes, encapsulation, constructors, initializer lists, copy constructor, explicit.",
+      "dsa": "Arrays and Strings; begin searching/sorting concepts if included in your current course.",
+      "patterns": "Two Pointers, prefix/frequency ideas.",
+      "implementation": "Create small class types; write custom comparison helpers; implement two-pointer templates.",
+      "lc_target": 8,
+      "problems": [
+        {
+          "id": 11,
+          "title": "H-Index"
+        },
+        {
+          "id": 12,
+          "title": "Insert Delete GetRandom O(1)"
+        },
+        {
+          "id": 13,
+          "title": "Product of Array Except Self"
+        },
+        {
+          "id": 14,
+          "title": "Gas Station"
+        },
+        {
+          "id": 17,
+          "title": "Roman to Integer"
+        },
+        {
+          "id": 18,
+          "title": "Integer to Roman"
+        },
+        {
+          "id": 25,
+          "title": "Valid Palindrome"
+        },
+        {
+          "id": 26,
+          "title": "Is Subsequence"
+        }
+      ],
+      "checkpoint": "Given a sorted-array problem, identify when two pointers are better than nested loops."
+    },
+    {
+      "number": 6,
+      "dates": "Sep 28–Oct 2, 2026",
+      "start": "2026-09-28",
+      "end": "2026-10-02",
+      "goal": "std::vector + sliding window",
+      "learncpp": "Chapters 15–16: destructors/class details and std::vector. Prioritize vector construction, indexing, iteration, resizing/capacity, passing/returning vectors.",
+      "dsa": "Dynamic arrays / arrays and string problems.",
+      "patterns": "Sliding Window; fixed vs variable windows.",
+      "implementation": "Vector-based utility library; implement fixed-size and variable-size sliding-window templates.",
+      "lc_target": 8,
+      "problems": [
+        {
+          "id": 19,
+          "title": "Length of Last Word"
+        },
+        {
+          "id": 20,
+          "title": "Longest Common Prefix"
+        },
+        {
+          "id": 21,
+          "title": "Reverse Words in a String"
+        },
+        {
+          "id": 22,
+          "title": "Zigzag Conversion"
+        },
+        {
+          "id": 23,
+          "title": "Find the Index of the First Occurrence in a String"
+        },
+        {
+          "id": 27,
+          "title": "Two Sum II - Input Array Is Sorted"
+        },
+        {
+          "id": 30,
+          "title": "Minimum Size Subarray Sum"
+        },
+        {
+          "id": 31,
+          "title": "Longest Substring Without Repeating Characters"
+        }
+      ],
+      "checkpoint": "Recognize substring/subarray constraints that can be maintained incrementally with a window."
+    },
+    {
+      "number": 7,
+      "dates": "Oct 5–9, 2026",
+      "start": "2026-10-05",
+      "end": "2026-10-09",
+      "goal": "Arrays/pointer arithmetic + linked lists",
+      "learncpp": "Chapter 17: std::array, C-style arrays, array decay, pointer arithmetic, multidimensional arrays. Do not over-invest in C strings.",
+      "dsa": "Linked Lists module.",
+      "patterns": "Fast & Slow Pointers; In-place Reversal of a Linked List.",
+      "implementation": "SinglyLinkedList and DoublyLinkedList: insert, delete, search, reverse.",
+      "lc_target": 8,
+      "problems": [
+        {
+          "id": 57,
+          "title": "Linked List Cycle"
+        },
+        {
+          "id": 58,
+          "title": "Add Two Numbers"
+        },
+        {
+          "id": 59,
+          "title": "Merge Two Sorted Lists"
+        },
+        {
+          "id": 60,
+          "title": "Copy List with Random Pointer"
+        },
+        {
+          "id": 61,
+          "title": "Reverse Linked List II"
+        },
+        {
+          "id": 63,
+          "title": "Remove Nth Node From End of List"
+        },
+        {
+          "id": 64,
+          "title": "Remove Duplicates from Sorted List II"
+        },
+        {
+          "id": 66,
+          "title": "Partition List"
+        }
+      ],
+      "checkpoint": "Reverse a linked list from memory and explain every pointer mutation."
+    },
+    {
+      "number": 8,
+      "dates": "Oct 12–16, 2026",
+      "start": "2026-10-12",
+      "end": "2026-10-16",
+      "goal": "STL algorithms + stacks/queues",
+      "learncpp": "Chapter 18 plus practical STL algorithms: iterators, sort, find, lower_bound/upper_bound; learn stack, queue and deque interfaces.",
+      "dsa": "Stack and Queue modules.",
+      "patterns": "Stack, Monotonic Stack, expression evaluation, linked-list reversal reinforcement.",
+      "implementation": "Implement Stack and Queue yourself, then solve equivalent tasks with std::stack/std::queue.",
+      "lc_target": 8,
+      "problems": [
+        {
+          "id": 52,
+          "title": "Valid Parentheses"
+        },
+        {
+          "id": 53,
+          "title": "Simplify Path"
+        },
+        {
+          "id": 54,
+          "title": "Min Stack"
+        },
+        {
+          "id": 55,
+          "title": "Evaluate Reverse Polish Notation"
+        },
+        {
+          "id": 56,
+          "title": "Basic Calculator"
+        },
+        {
+          "id": 62,
+          "title": "Reverse Nodes in k-Group"
+        },
+        {
+          "id": 65,
+          "title": "Rotate List"
+        },
+        {
+          "id": 67,
+          "title": "LRU Cache"
+        }
+      ],
+      "checkpoint": "Know when a monotonic stack turns an O(n²) nearest-greater/smaller search into O(n)."
+    },
+    {
+      "number": 9,
+      "dates": "Oct 19–23, 2026",
+      "start": "2026-10-19",
+      "end": "2026-10-23",
+      "goal": "Hash tables and associative STL containers",
+      "learncpp": "Practical STL focus: unordered_map, map, unordered_set, set, pair, tuple, custom hash/comparator basics. Use cppreference as needed.",
+      "dsa": "Hash Table / Hashing module.",
+      "patterns": "Hashing, frequency maps, set membership.",
+      "implementation": "Simplified hash table using separate chaining; experiment with collisions and load factor.",
+      "lc_target": 8,
+      "problems": [
+        {
+          "id": 39,
+          "title": "Ransom Note"
+        },
+        {
+          "id": 40,
+          "title": "Isomorphic Strings"
+        },
+        {
+          "id": 41,
+          "title": "Word Pattern"
+        },
+        {
+          "id": 42,
+          "title": "Valid Anagram"
+        },
+        {
+          "id": 43,
+          "title": "Group Anagrams"
+        },
+        {
+          "id": 44,
+          "title": "Two Sum"
+        },
+        {
+          "id": 45,
+          "title": "Happy Number"
+        },
+        {
+          "id": 46,
+          "title": "Contains Duplicate II"
+        }
+      ],
+      "checkpoint": "Explain average O(1) vs worst-case behavior and when ordered map/set is worth O(log n)."
+    },
+    {
+      "number": 10,
+      "dates": "Oct 26–30, 2026",
+      "start": "2026-10-26",
+      "end": "2026-10-30",
+      "goal": "Memory + recursion + matrix/interval foundations",
+      "learncpp": "Chapters 19–20: new/delete, dynamic arrays, stack vs heap, recursion, lambdas. Understand manual allocation mainly to understand ownership; prefer RAII in real code.",
+      "dsa": "Recursion plus Matrix/Interval-related lessons available in the DSA/pattern courses.",
+      "patterns": "Recursion, Matrix Traversal, Merge Intervals.",
+      "implementation": "Recursive tree-like exercises; matrix traversal helpers; interval merge from scratch.",
+      "lc_target": 8,
+      "problems": [
+        {
+          "id": 34,
+          "title": "Valid Sudoku"
+        },
+        {
+          "id": 35,
+          "title": "Spiral Matrix"
+        },
+        {
+          "id": 36,
+          "title": "Rotate Image"
+        },
+        {
+          "id": 37,
+          "title": "Set Matrix Zeroes"
+        },
+        {
+          "id": 38,
+          "title": "Game of Life"
+        },
+        {
+          "id": 47,
+          "title": "Longest Consecutive Sequence"
+        },
+        {
+          "id": 48,
+          "title": "Summary Ranges"
+        },
+        {
+          "id": 49,
+          "title": "Merge Intervals"
+        }
+      ],
+      "checkpoint": "Trace a recursive call stack and explain stack vs heap without hand-waving."
+    },
+    {
+      "number": 11,
+      "dates": "Nov 2–6, 2026",
+      "start": "2026-11-02",
+      "end": "2026-11-06",
+      "goal": "Binary trees I",
+      "learncpp": "Maintenance only: 20–30 min/day reviewing references, pointers, classes and vectors through DSA code.",
+      "dsa": "Trees / Binary Trees module.",
+      "patterns": "Tree DFS: preorder, inorder, postorder; recursive tree decomposition.",
+      "implementation": "BinaryTree with traversals, height, node count and recursive search.",
+      "lc_target": 8,
+      "problems": [
+        {
+          "id": 68,
+          "title": "Maximum Depth of Binary Tree"
+        },
+        {
+          "id": 69,
+          "title": "Same Tree"
+        },
+        {
+          "id": 70,
+          "title": "Invert Binary Tree"
+        },
+        {
+          "id": 71,
+          "title": "Symmetric Tree"
+        },
+        {
+          "id": 72,
+          "title": "Construct Binary Tree from Preorder and Inorder Traversal"
+        },
+        {
+          "id": 73,
+          "title": "Construct Binary Tree from Inorder and Postorder Traversal"
+        },
+        {
+          "id": 74,
+          "title": "Populating Next Right Pointers in Each Node II"
+        },
+        {
+          "id": 75,
+          "title": "Flatten Binary Tree to Linked List"
+        }
+      ],
+      "checkpoint": "Write preorder/inorder/postorder recursively without notes; explain O(n) traversal cost."
+    },
+    {
+      "number": 12,
+      "dates": "Nov 9–13, 2026",
+      "start": "2026-11-09",
+      "end": "2026-11-13",
+      "goal": "Binary trees II + BST",
+      "learncpp": "Maintenance: classes, ownership and iterators as they appear in tree code.",
+      "dsa": "Binary Search Tree module.",
+      "patterns": "BST invariants, Tree DFS, LCA, construction from traversals.",
+      "implementation": "BST insert, search, delete, min/max, predecessor/successor.",
+      "lc_target": 8,
+      "problems": [
+        {
+          "id": 76,
+          "title": "Path Sum"
+        },
+        {
+          "id": 77,
+          "title": "Sum Root to Leaf Numbers"
+        },
+        {
+          "id": 78,
+          "title": "Binary Tree Maximum Path Sum"
+        },
+        {
+          "id": 79,
+          "title": "Binary Search Tree Iterator"
+        },
+        {
+          "id": 80,
+          "title": "Count Complete Tree Nodes"
+        },
+        {
+          "id": 81,
+          "title": "Lowest Common Ancestor of a Binary Tree"
+        },
+        {
+          "id": 86,
+          "title": "Minimum Absolute Difference in BST"
+        },
+        {
+          "id": 87,
+          "title": "Kth Smallest Element in a BST"
+        }
+      ],
+      "checkpoint": "Explain why inorder traversal of a BST is sorted and derive BST validation correctly."
+    },
+    {
+      "number": 13,
+      "dates": "Nov 16–20, 2026",
+      "start": "2026-11-16",
+      "end": "2026-11-20",
+      "goal": "Tree BFS + heaps",
+      "learncpp": "STL priority_queue and comparator practice.",
+      "dsa": "Heap / Priority Queue module.",
+      "patterns": "Tree BFS, Top K Elements, Two Heaps.",
+      "implementation": "Binary heap with push/pop/heapify; compare against std::priority_queue.",
+      "lc_target": 8,
+      "problems": [
+        {
+          "id": 82,
+          "title": "Binary Tree Right Side View"
+        },
+        {
+          "id": 83,
+          "title": "Average of Levels in Binary Tree"
+        },
+        {
+          "id": 84,
+          "title": "Binary Tree Level Order Traversal"
+        },
+        {
+          "id": 85,
+          "title": "Binary Tree Zigzag Level Order Traversal"
+        },
+        {
+          "id": 121,
+          "title": "Kth Largest Element in an Array"
+        },
+        {
+          "id": 122,
+          "title": "IPO"
+        },
+        {
+          "id": 123,
+          "title": "Find K Pairs with Smallest Sums"
+        },
+        {
+          "id": 124,
+          "title": "Find Median from Data Stream"
+        }
+      ],
+      "checkpoint": "Derive heap operation complexities and explain when a heap beats full sorting."
+    },
+    {
+      "number": 14,
+      "dates": "Nov 23–27, 2026",
+      "start": "2026-11-23",
+      "end": "2026-11-27",
+      "goal": "Graphs I — representation, DFS/BFS, dependencies",
+      "learncpp": "Use vector<vector<int>>, unordered_map and queue fluently in graph code.",
+      "dsa": "Graphs module.",
+      "patterns": "Graph DFS/BFS, Island/Matrix Traversal, Topological Sort.",
+      "implementation": "Adjacency list + adjacency matrix; BFS, DFS and topological sort.",
+      "lc_target": 8,
+      "problems": [
+        {
+          "id": 88,
+          "title": "Validate Binary Search Tree"
+        },
+        {
+          "id": 89,
+          "title": "Number of Islands"
+        },
+        {
+          "id": 90,
+          "title": "Surrounded Regions"
+        },
+        {
+          "id": 91,
+          "title": "Clone Graph"
+        },
+        {
+          "id": 92,
+          "title": "Evaluate Division"
+        },
+        {
+          "id": 93,
+          "title": "Course Schedule"
+        },
+        {
+          "id": 94,
+          "title": "Course Schedule II"
+        },
+        {
+          "id": 95,
+          "title": "Snakes and Ladders"
+        }
+      ],
+      "checkpoint": "Detect cycles and decide BFS vs DFS based on the problem rather than habit."
+    },
+    {
+      "number": 15,
+      "dates": "Nov 30–Dec 4, 2026",
+      "start": "2026-11-30",
+      "end": "2026-12-04",
+      "goal": "Graphs II + Trie + Union-Find",
+      "learncpp": "No major new chapter; reinforce object ownership and container selection.",
+      "dsa": "Trie and Disjoint Set/Union-Find material where available; continue graphs.",
+      "patterns": "Union Find, Trie, Graph BFS, K-way Merge / divide-and-conquer exposure.",
+      "implementation": "Trie and UnionFind (path compression + union by rank/size).",
+      "lc_target": 8,
+      "problems": [
+        {
+          "id": 96,
+          "title": "Minimum Genetic Mutation"
+        },
+        {
+          "id": 97,
+          "title": "Word Ladder"
+        },
+        {
+          "id": 98,
+          "title": "Implement Trie (Prefix Tree)"
+        },
+        {
+          "id": 99,
+          "title": "Design Add and Search Words Data Structure"
+        },
+        {
+          "id": 100,
+          "title": "Word Search II"
+        },
+        {
+          "id": 108,
+          "title": "Convert Sorted Array to Binary Search Tree"
+        },
+        {
+          "id": 109,
+          "title": "Sort List"
+        },
+        {
+          "id": 110,
+          "title": "Construct Quad Tree"
+        }
+      ],
+      "checkpoint": "Implement Union-Find from memory and explain near-constant amortized behavior at interview level."
+    },
+    {
+      "number": 16,
+      "dates": "Dec 7–11, 2026",
+      "start": "2026-12-07",
+      "end": "2026-12-11",
+      "goal": "Advanced graph algorithms + divide & conquer + greedy/Kadane",
+      "learncpp": "C++ maintenance only.",
+      "dsa": "Sorting/searching/graph algorithm lessons. Learn Dijkstra, shortest-path concepts, MST, Kruskal and Prim at interview depth.",
+      "patterns": "Divide & Conquer, Kadane, Greedy, Merge Intervals reinforcement.",
+      "implementation": "Dijkstra, Kruskal or Prim, merge sort, and Kadane from scratch.",
+      "lc_target": 8,
+      "problems": [
+        {
+          "id": 111,
+          "title": "Merge k Sorted Lists"
+        },
+        {
+          "id": 112,
+          "title": "Maximum Subarray"
+        },
+        {
+          "id": 113,
+          "title": "Maximum Sum Circular Subarray"
+        },
+        {
+          "id": 50,
+          "title": "Insert Interval"
+        },
+        {
+          "id": 51,
+          "title": "Minimum Number of Arrows to Burst Balloons"
+        },
+        {
+          "id": 15,
+          "title": "Candy"
+        },
+        {
+          "id": 16,
+          "title": "Trapping Rain Water"
+        },
+        {
+          "id": 28,
+          "title": "Container With Most Water"
+        }
+      ],
+      "checkpoint": "Know the preconditions and failure cases of BFS shortest path vs Dijkstra vs Bellman-Ford conceptually."
+    },
+    {
+      "number": 17,
+      "dates": "Dec 14–18, 2026",
+      "start": "2026-12-14",
+      "end": "2026-12-18",
+      "goal": "Binary search mastery",
+      "learncpp": "std::lower_bound, std::upper_bound, custom comparators and iterator arithmetic.",
+      "dsa": "Binary Search / searching module.",
+      "patterns": "Modified Binary Search; binary search on answer; rotated arrays.",
+      "implementation": "Write reusable binary-search templates for exact, lower-bound, upper-bound and answer-space search.",
+      "lc_target": 8,
+      "problems": [
+        {
+          "id": 114,
+          "title": "Search Insert Position"
+        },
+        {
+          "id": 115,
+          "title": "Search a 2D Matrix"
+        },
+        {
+          "id": 116,
+          "title": "Find Peak Element"
+        },
+        {
+          "id": 117,
+          "title": "Search in Rotated Sorted Array"
+        },
+        {
+          "id": 118,
+          "title": "Find First and Last Position of Element in Sorted Array"
+        },
+        {
+          "id": 119,
+          "title": "Find Minimum in Rotated Sorted Array"
+        },
+        {
+          "id": 120,
+          "title": "Median of Two Sorted Arrays"
+        },
+        {
+          "id": 29,
+          "title": "3Sum"
+        }
+      ],
+      "checkpoint": "Derive loop invariants and boundaries instead of memorizing one binary-search template."
+    },
+    {
+      "number": 18,
+      "dates": "Dec 21–25, 2026",
+      "start": "2026-12-21",
+      "end": "2026-12-25",
+      "goal": "Backtracking",
+      "learncpp": "References, vector mutation, recursion and lambdas as used in backtracking.",
+      "dsa": "Backtracking / Subsets material.",
+      "patterns": "Subsets, combinations, permutations, choose-explore-unchoose.",
+      "implementation": "Generic backtracking skeleton; subsets, permutations and combinations from scratch.",
+      "lc_target": 8,
+      "problems": [
+        {
+          "id": 101,
+          "title": "Letter Combinations of a Phone Number"
+        },
+        {
+          "id": 102,
+          "title": "Combinations"
+        },
+        {
+          "id": 103,
+          "title": "Permutations"
+        },
+        {
+          "id": 104,
+          "title": "Combination Sum"
+        },
+        {
+          "id": 105,
+          "title": "N-Queens II"
+        },
+        {
+          "id": 106,
+          "title": "Generate Parentheses"
+        },
+        {
+          "id": 107,
+          "title": "Word Search"
+        },
+        {
+          "id": 32,
+          "title": "Substring with Concatenation of All Words"
+        }
+      ],
+      "checkpoint": "Explain state, choices, constraints, base case and undo step for a new backtracking problem."
+    },
+    {
+      "number": 19,
+      "dates": "Dec 28, 2026–Jan 1, 2027",
+      "start": "2026-12-28",
+      "end": "2027-01-01",
+      "goal": "Dynamic Programming I",
+      "learncpp": "No major new language material; write clean vectors/memo tables in C++.",
+      "dsa": "DP fundamentals / 1D DP material available in your courses.",
+      "patterns": "Memoization, tabulation, Fibonacci-style DP, 0/1-style state thinking.",
+      "implementation": "Implement memoized and bottom-up versions of 4 classic DP problems.",
+      "lc_target": 7,
+      "problems": [
+        {
+          "id": 137,
+          "title": "Climbing Stairs"
+        },
+        {
+          "id": 138,
+          "title": "House Robber"
+        },
+        {
+          "id": 139,
+          "title": "Word Break"
+        },
+        {
+          "id": 140,
+          "title": "Coin Change"
+        },
+        {
+          "id": 141,
+          "title": "Longest Increasing Subsequence"
+        },
+        {
+          "id": 24,
+          "title": "Text Justification"
+        },
+        {
+          "id": 33,
+          "title": "Minimum Window Substring"
+        }
+      ],
+      "checkpoint": "For a DP problem, explicitly identify state, transition, base cases and computation order."
+    },
+    {
+      "number": 20,
+      "dates": "Jan 4–8, 2027",
+      "start": "2027-01-04",
+      "end": "2027-01-08",
+      "goal": "Dynamic Programming II",
+      "learncpp": "C++ maintenance; 2D vector and memory-layout awareness.",
+      "dsa": "2D DP, subsequence/string DP and knapsack-family concepts.",
+      "patterns": "Grid DP, sequence DP, string DP.",
+      "implementation": "LCS or edit-distance table, grid DP, LIS variants.",
+      "lc_target": 7,
+      "problems": [
+        {
+          "id": 142,
+          "title": "Triangle"
+        },
+        {
+          "id": 143,
+          "title": "Minimum Path Sum"
+        },
+        {
+          "id": 144,
+          "title": "Unique Paths II"
+        },
+        {
+          "id": 145,
+          "title": "Longest Palindromic Substring"
+        },
+        {
+          "id": 146,
+          "title": "Interleaving String"
+        },
+        {
+          "id": 147,
+          "title": "Edit Distance"
+        },
+        {
+          "id": 148,
+          "title": "Best Time to Buy and Sell Stock III"
+        }
+      ],
+      "checkpoint": "Translate a recursive recurrence into memoization and then tabulation."
+    },
+    {
+      "number": 21,
+      "dates": "Jan 11–15, 2027",
+      "start": "2027-01-11",
+      "end": "2027-01-15",
+      "goal": "Modern C++ ownership + advanced interview patterns",
+      "learncpp": "Chapter 21 selectively; Chapter 22 thoroughly: shallow/deep copy, rvalue references, move constructors/assignment, std::move, unique_ptr, shared_ptr, weak_ptr.",
+      "dsa": "Finish every remaining core pattern module in your current Grokking course that has not been covered.",
+      "patterns": "Bit manipulation, advanced DP, Two Heaps/Top K/K-way Merge review, weak-pattern repair.",
+      "implementation": "Small RAII ownership exercise using unique_ptr; implement move-aware class if time allows.",
+      "lc_target": 7,
+      "problems": [
+        {
+          "id": 149,
+          "title": "Best Time to Buy and Sell Stock IV"
+        },
+        {
+          "id": 150,
+          "title": "Maximal Square"
+        },
+        {
+          "id": 125,
+          "title": "Add Binary"
+        },
+        {
+          "id": 126,
+          "title": "Reverse Bits"
+        },
+        {
+          "id": 127,
+          "title": "Number of 1 Bits"
+        },
+        {
+          "id": 128,
+          "title": "Single Number"
+        },
+        {
+          "id": 129,
+          "title": "Single Number II"
+        }
+      ],
+      "checkpoint": "Explain RAII, ownership, move semantics and why unique_ptr should usually be preferred over shared_ptr."
+    },
+    {
+      "number": 22,
+      "dates": "Jan 18–22, 2027",
+      "start": "2027-01-18",
+      "end": "2027-01-22",
+      "goal": "Finish syllabus + interview consolidation",
+      "learncpp": "Selected Chapters 23–28: composition/relationships, inheritance, virtual functions, templates/classes, exceptions, I/O. Read for conceptual fluency; do not let low-interview-value details crowd out problem review.",
+      "dsa": "Complete unfinished DSA lessons and pattern lessons; create one-page pattern cue sheet.",
+      "patterns": "Full pattern review; no major new pattern.",
+      "implementation": "Re-implement two weak data structures from memory and do at least two timed mock sessions.",
+      "lc_target": 7,
+      "problems": [
+        {
+          "id": 130,
+          "title": "Bitwise AND of Numbers Range"
+        },
+        {
+          "id": 131,
+          "title": "Palindrome Number"
+        },
+        {
+          "id": 132,
+          "title": "Plus One"
+        },
+        {
+          "id": 133,
+          "title": "Factorial Trailing Zeroes"
+        },
+        {
+          "id": 134,
+          "title": "Sqrt(x)"
+        },
+        {
+          "id": 135,
+          "title": "Pow(x, n)"
+        },
+        {
+          "id": 136,
+          "title": "Max Points on a Line"
+        }
+      ],
+      "checkpoint": "150/150 target complete; explain solutions aloud; identify weak areas for Month 6."
+    }
+  ],
+  "completion": [
+    "LearnCpp Chapters **0–22** completed at interview-relevant depth.",
+    "LearnCpp Chapters **23–28** covered selectively for conceptual fluency.",
+    "Design Gurus **Grokking Data Structures & Algorithms for Coding Interviews** core curriculum completed.",
+    "All major pattern families in **Grokking the Coding Interview** completed.",
+    "**LeetCode Top Interview 150: 150/150 attempted and reviewed in C++**.",
+    "At least **12 core data structures/algorithms implemented from scratch**.",
+    "At least **50 important problems re-solved** without looking at the prior solution.",
+    "At least **15 timed interview-style sessions/mocks** by the end of the buffer month.",
+    "A concise personal pattern cheat sheet and mistake log."
+  ],
+  "implementations": [
+    "Dynamic Array",
+    "Singly Linked List",
+    "Doubly Linked List",
+    "Stack",
+    "Queue",
+    "Hash Table",
+    "Binary Tree traversals",
+    "Binary Search Tree",
+    "Binary Heap",
+    "Trie",
+    "Graph adjacency list + BFS + DFS",
+    "Union-Find / Disjoint Set",
+    "LRU Cache",
+    "Binary Search templates",
+    "Merge Sort",
+    "Dijkstra",
+    "Kruskal or Prim"
+  ],
+  "patterns": [
+    "Two Pointers",
+    "Sliding Window",
+    "Fast & Slow Pointers",
+    "Prefix Sum / Frequency Counting",
+    "Hashing",
+    "Merge Intervals",
+    "Cyclic Sort / index placement",
+    "In-place Linked List Reversal",
+    "Stack",
+    "Monotonic Stack",
+    "Tree DFS",
+    "Tree BFS",
+    "Graph DFS",
+    "Graph BFS",
+    "Island / Matrix Traversal",
+    "Topological Sort",
+    "Union-Find",
+    "Trie",
+    "Top K Elements",
+    "Two Heaps",
+    "K-way Merge",
+    "Modified Binary Search",
+    "Binary Search on Answer",
+    "Subsets / Backtracking",
+    "Divide & Conquer",
+    "Greedy",
+    "Kadane's Algorithm",
+    "Bit Manipulation",
+    "1D Dynamic Programming",
+    "2D / Grid Dynamic Programming",
+    "Sequence / String Dynamic Programming",
+    "Shortest Path / Weighted Graph reasoning"
+  ],
+  "cppSkills": [
+    "Functions, parameters, return values, overloads",
+    "References and const references",
+    "Pointers, nullptr and pointer constness",
+    "Value semantics and object lifetime",
+    "Stack vs heap",
+    "RAII",
+    "Classes, constructors and destructors",
+    "Copy constructor / copy assignment concepts",
+    "Move constructor / move assignment concepts",
+    "std::move",
+    "unique_ptr, shared_ptr, weak_ptr",
+    "vector and array",
+    "string / string_view basics",
+    "stack, queue, deque",
+    "priority_queue",
+    "map / unordered_map",
+    "set / unordered_set",
+    "pair / tuple",
+    "Iterators and range-based loops",
+    "sort / find / lower_bound / upper_bound",
+    "Custom comparators",
+    "Lambdas",
+    "Templates basics",
+    "Recursion",
+    "Exception/error-handling basics",
+    "Basic file I/O / streams",
+    "Inheritance and virtual functions at conceptual level",
+    "Time/space implications of common STL operations"
+  ],
+  "readyItems": [
+    "Recognize likely patterns without being told the topic.",
+    "Produce a reasonable brute-force solution quickly.",
+    "Improve it using the constraints and data-structure properties.",
+    "Choose vector/map/unordered_map/set/heap/queue/etc. deliberately.",
+    "Write C++ without fighting basic syntax.",
+    "Reason correctly about time and space complexity.",
+    "Handle edge cases and test your code methodically.",
+    "Explain your algorithm while coding.",
+    "Solve most familiar-pattern mediums in ~20–35 minutes.",
+    "Make structured progress on unfamiliar/hard problems rather than freezing.",
+    "Reconstruct important solutions weeks later instead of memorizing code."
+  ],
+  "milestones": [
+    {
+      "date": "Sep 18, 2026",
+      "text": "Comfortable with core C++ syntax, references and pointers; LeetCode has begun."
+    },
+    {
+      "date": "Oct 30, 2026",
+      "text": "Comfortable with vector/string, classes, linked lists, stacks/queues, hashing, recursion and core STL."
+    },
+    {
+      "date": "Nov 27, 2026",
+      "text": "Comfortable with trees, BSTs, heaps and graph fundamentals."
+    },
+    {
+      "date": "Dec 18, 2026",
+      "text": "Major graph and binary-search concepts understood; pattern recognition noticeably stronger."
+    },
+    {
+      "date": "Jan 8, 2027",
+      "text": "Backtracking and dynamic programming are no longer mysterious; can derive states/transitions."
+    },
+    {
+      "date": "Jan 22, 2027",
+      "text": "Primary curriculum complete; Top Interview 150 target complete; transition to interview hardening."
+    },
+    {
+      "date": "Feb 23, 2027",
+      "text": "Buffer complete; weak areas repaired; repeated timed practice completed."
+    }
+  ],
+  "bufferWeeks": [
+    {
+      "title": "Buffer Week 1",
+      "dates": "Jan 25–29, 2027",
+      "tasks": [
+        "Finish any missed LearnCpp / Grokking sections.",
+        "Finish any incomplete Top Interview 150 problems.",
+        "Rank topics from weakest → strongest.",
+        "Re-solve 10 RED/YELLOW problems.",
+        "Complete 2 timed interview sessions."
+      ]
+    },
+    {
+      "title": "Buffer Week 2",
+      "dates": "Feb 1–5, 2027",
+      "tasks": [
+        "Repair the two weakest DSA topics.",
+        "Re-implement 3 weak data structures without notes.",
+        "Re-solve 10 RED/YELLOW problems.",
+        "Complete 3 timed interview sessions.",
+        "Practice brute-force → optimized reasoning aloud."
+      ]
+    },
+    {
+      "title": "Buffer Week 3",
+      "dates": "Feb 8–12, 2027",
+      "tasks": [
+        "Solve mixed unseen problems without sorting by topic first.",
+        "Force pattern identification before opening hints.",
+        "Re-solve 10 RED/YELLOW problems.",
+        "Complete 3–4 timed interview sessions.",
+        "Review STL, ownership, references/pointers, comparators, and common syntax."
+      ]
+    },
+    {
+      "title": "Buffer Week 4",
+      "dates": "Feb 15–19, 2027",
+      "tasks": [
+        "Run company-style mixed mocks.",
+        "Complete 4 timed interview sessions.",
+        "Re-solve 10 high-value problems from memory.",
+        "Review complexity, edge cases, and testing habits.",
+        "Finalize one-page pattern cue sheet."
+      ]
+    },
+    {
+      "title": "Final contingency",
+      "dates": "Feb 22–23, 2027",
+      "tasks": [
+        "Close remaining gaps only.",
+        "Avoid panic-grinding.",
+        "Complete one final mock plus light review."
+      ]
+    }
+  ],
+  "planStart": "2026-08-24",
+  "primaryEnd": "2027-01-22",
+  "bufferEnd": "2027-02-23"
+}
