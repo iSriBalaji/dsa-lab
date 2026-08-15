@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" type="image/svg+xml" href="../../cpp-dsa-favicon.svg">
+<title>C++ + DSA Interview Master Plan</title>
+<style>
+:root{
+  --bg:#101317; --panel:#171c22; --panel2:#1e252d; --text:#eef1f4; --muted:#aab4bf;
+  --line:#303a45; --accent:#4f8fe8; --accent2:#48b99a; --warn:#e9b44c; --bad:#df6674;
+  --good:#51c58f; --shadow:none; --radius:6px;
+}
+:root[data-theme="light"]{
+  --bg:#f5f6f7; --panel:#ffffff; --panel2:#f0f2f4; --text:#1c252e; --muted:#607080;
+  --line:#d6dce2; --accent:#2f72cb; --accent2:#187f68; --warn:#9a6807; --bad:#bd4558;
+  --good:#19865f; --shadow:none;
+}
+*{box-sizing:border-box}
+body,button,input,select{font-family:"Aptos", "Segoe UI", sans-serif}
+html{scroll-behavior:smooth}
+body{margin:0;min-width:0;background:var(--bg);color:var(--text);line-height:1.5}
+button,input,select{font:inherit}
+a{color:var(--accent)}
+.container{width:min(1220px,calc(100% - 32px));min-width:0;margin:auto}
+.topbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}
+.topbar-inner{display:flex;gap:16px;align-items:center;min-width:0;min-height:66px}
+.brand{font-weight:850;letter-spacing:-.03em;white-space:nowrap}
+.brand span{color:var(--accent)}
+.nav{display:flex;gap:6px;min-width:0;overflow-x:auto;flex:1;padding:8px 0}
+.nav button,.icon-btn,.soft-btn,.primary-btn,.danger-btn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:11px;padding:9px 12px;cursor:pointer}
+.nav button.active{background:var(--accent);color:white;border-color:transparent}
+.icon-btn{padding:9px 11px}
+.save-status{display:flex;align-items:center;gap:7px;min-width:max-content;color:var(--muted);font-size:.78rem;white-space:nowrap}
+.save-status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--good)}
+.save-status.error::before{background:var(--bad)}
+.hero{padding:48px 0 26px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.8fr);gap:22px;align-items:stretch}
+.hero-card,.card{background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:var(--radius)}
+.hero-main{padding:30px}
+.eyebrow{text-transform:uppercase;letter-spacing:.13em;font-size:.78rem;font-weight:800;color:var(--accent2)}
+h1{font-size:clamp(2rem,4vw,3.65rem);line-height:1.04;letter-spacing:0;margin:.35rem 0 1rem}
+h2{letter-spacing:0;margin:0 0 .6rem}
+h3{letter-spacing:0}
+.muted{color:var(--muted)}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.hero-actions > *{white-space:nowrap}
+.primary-btn{background:var(--accent);color:#fff;border-color:transparent;font-weight:750}
+.soft-btn{background:var(--panel2)}
+.danger-btn{border-color:color-mix(in srgb,var(--bad) 40%,var(--line));color:var(--bad)}
+.status-card{min-width:0;padding:25px;display:flex;flex-direction:column;justify-content:space-between}
+.progress-ring{--p:0; width:138px;height:138px;border-radius:50%;display:grid;place-items:center;margin:0 auto 16px;background:conic-gradient(var(--accent) calc(var(--p)*1%),var(--line) 0)}
+.progress-ring::after{content:"";width:108px;height:108px;background:var(--panel);border-radius:50%;position:absolute}
+.progress-ring-wrap{position:relative;text-align:center}
+.progress-value{position:absolute;inset:0;display:grid;place-items:center;font-weight:900;font-size:1.45rem;z-index:1}
+.stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:20px 0 8px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px}
+.stat strong{display:block;font-size:1.45rem;letter-spacing:-.03em}
+.stat small{color:var(--muted)}
+main{padding-bottom:60px}
+.view{display:none}
+.view.active{display:block}
+.section-head{display:flex;justify-content:space-between;gap:16px;align-items:end;margin:26px 0 14px}
+.section-head p{margin:0;color:var(--muted)}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{padding:20px}
+.kicker{font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent2)}
+.now-card{border-left:4px solid var(--accent)}
+.milestone{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.milestone:last-child{border-bottom:0}
+.dot{width:10px;height:10px;border-radius:50%;margin-top:8px;background:var(--accent)}
+.timeline{display:grid;gap:14px}
+.week{padding:0;overflow:hidden}
+.week.current{outline:2px solid var(--accent);outline-offset:2px}
+.week summary{list-style:none;cursor:pointer;padding:20px;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center}
+.week summary::-webkit-details-marker{display:none}
+.week-num{width:52px;height:52px;border-radius:14px;background:var(--panel2);display:grid;place-items:center;font-weight:900}
+.week-goal{font-weight:800;font-size:1.06rem}
+.week-date{color:var(--muted);font-size:.9rem}
+.week-badge{background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:5px 9px;font-size:.8rem}
+.week-body{padding:0 20px 22px;border-top:1px solid var(--line)}
+.task-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+.task-box{min-width:0;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:14px}
+.task-box h4{margin:0 0 8px}
+.checkline{display:flex;gap:10px;align-items:flex-start}
+.checkline span{min-width:0}
+.checkline input{margin-top:5px;width:17px;height:17px;accent-color:var(--accent)}
+.problem-list{display:grid;gap:7px;margin-top:10px}
+.problem-row{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:8px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:9px 10px}
+.problem-title{font-size:.92rem}
+.status-select,.filter-input,.filter-select{width:100%;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.status-select.todo{color:var(--muted)}
+.status-select.green{color:var(--good);font-weight:750}
+.status-select.yellow{color:var(--warn);font-weight:750}
+.status-select.red{color:var(--bad);font-weight:750}
+.progressbar{height:8px;border-radius:999px;background:var(--line);overflow:hidden}
+.progressbar > span{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;margin-bottom:14px}
+.lc-table{width:100%;border-collapse:collapse}
+.lc-table th,.lc-table td{padding:11px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+.lc-table th{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.table-wrap{overflow:auto}
+.check-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.check-item{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:11px 12px}
+.pattern-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.pattern-item{min-width:0;display:flex;gap:9px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px}
+.pattern-item span{min-width:0}
+.pattern-item input{margin-top:4px;accent-color:var(--accent)}
+.source-links{display:grid;gap:8px}
+.source-links a{display:block;padding:11px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:11px;text-decoration:none}
+.callout{border:1px solid color-mix(in srgb,var(--accent) 38%,var(--line));background:color-mix(in srgb,var(--accent) 8%,var(--panel));border-radius:14px;padding:15px}
+.timeline-mini{display:flex;align-items:center;gap:8px;overflow:auto;padding:10px 0}
+.timeline-mini .segment{height:12px;min-width:44px;flex:1;border-radius:999px;background:var(--line)}
+.timeline-mini .segment.done{background:var(--good)}
+.timeline-mini .segment.current{background:var(--accent)}
+.timeline-mini .segment.buffer{background:var(--warn)}
+.hidden{display:none!important}
+.footer{padding:25px 0 48px;color:var(--muted);font-size:.9rem}
+kbd{background:var(--panel2);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 6px}
+.toast{position:fixed;right:20px;bottom:20px;z-index:50;background:var(--text);color:var(--bg);border-radius:12px;padding:11px 14px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);pointer-events:none;transition:.2s}
+.toast.show{opacity:1;transform:none}
+.container.stat-grid{margin:20px auto 8px}
+@media(max-width:900px){
+  .hero-grid,.grid-2,.grid-3{grid-template-columns:minmax(0,1fr)}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .pattern-grid{grid-template-columns:repeat(2,1fr)}
+  .task-grid{grid-template-columns:1fr}
+  .status-card{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;align-items:center}
+  .status-card .progressbar{grid-column:1 / -1}
+  .status-card h2,.status-card p{text-align:left!important}
+  .progress-ring{margin:0 auto}
+}
+@media(max-width:650px){
+  .container{width:min(100% - 20px,1220px)}
+  .topbar-inner{align-items:flex-start;flex-wrap:wrap;padding:9px 0}
+  .brand{width:100%}
+  .save-status{display:none}
+  .nav{order:3;width:100%;padding-bottom:2px}
+  .nav button{flex:0 0 auto}
+  .hero{padding-top:24px}
+  .hero-main,.status-card,.card{padding:16px}
+  .status-card{grid-template-columns:1fr;text-align:center}
+  .status-card .progressbar{grid-column:auto}
+  .status-card h2,.status-card p{text-align:center!important}
+  .stat-grid,.check-grid,.pattern-grid{grid-template-columns:1fr}
+  .filters{grid-template-columns:1fr}
+  .week summary{grid-template-columns:auto minmax(0,1fr)}
+  .week-badge{grid-column:2}
+  .problem-row{grid-template-columns:1fr}
+  h1{font-size:2.25rem}
+}
+@media print{
+  .topbar,.hero-actions,.filters,.status-select,.footer,.toast{display:none!important}
+  body{background:white;color:black}
+  .view{display:block!important}
+  details{break-inside:avoid}
+  details:not([open]) > *{display:block}
+  .card,.hero-card{box-shadow:none;border:1px solid #ccc}
+}
+
+.today-brief{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:start;margin:0 0 20px;padding:11px 13px;border:1px solid color-mix(in srgb,var(--accent) 44%,var(--line));border-radius:8px;background:color-mix(in srgb,var(--accent) 8%,var(--panel))}
+.today-date{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent2);white-space:nowrap}
+.today-goal{min-width:0;font-size:.94rem;color:var(--text)}
+.today-goal strong{color:var(--accent2)}
+.today-card{margin:0 auto 26px;padding:16px 20px}
+.hero-card,.card,.stat,.task-box,.check-item,.pattern-item,.problem-row{border-radius:6px;box-shadow:none}
+.stat{min-width:0;padding:16px}
+.stat small{display:block;margin-top:3px}
+.nav button,.icon-btn,.soft-btn,.primary-btn,.danger-btn,.status-select,.filter-input,.filter-select{border-radius:6px}
+.card,.hero-card{box-shadow:none}
+@media(max-width:700px){
+  .hero{padding:22px 0 18px}
+  .hero-main{padding:20px}
+  .hero-actions{gap:8px}
+  .hero-actions > *{flex:1 1 calc(50% - 4px);text-align:center}
+  .today-brief{grid-template-columns:1fr;gap:4px;margin:0}
+  .today-date{white-space:normal}
+  .today-card{margin-bottom:18px;padding:14px 16px}
+  .stat-grid{gap:8px;margin-top:12px}
+  .stat{padding:12px}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="container topbar-inner">
+    <div class="brand">C++ <span>→</span> DSA Master Plan</div>
+    <nav class="nav" aria-label="Dashboard sections">
+      <button data-view="overview" class="active">Overview</button>
+      <button data-view="timeline">22-Week Timeline</button>
+      <button data-view="patterns">Patterns</button>
+      <button data-view="syllabus">Syllabus</button>
+      <button data-view="leetcode">LeetCode 150</button>
+      <button data-view="buffer">Month 6 Buffer</button>
+    </nav>
+    <div class="save-status" id="saveStatus" role="status" aria-live="polite">Saved locally</div>
+    <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">◐</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="container hero-grid">
+    <section class="hero-card hero-main">
+      <div class="eyebrow">Aug 24, 2026 → Feb 23, 2027</div>
+      <h1>Build C++ fluency.<br>Master DSA.<br>Train for interviews.</h1>
+      <p class="muted">A five-month primary curriculum plus one-month safety buffer. Designed around Monday–Friday study, with Saturday only as catch-up and Sunday protected.</p>
+      <div class="hero-actions">
+        <button class="primary-btn" id="jumpCurrent">Go to current week</button>
+        <button class="soft-btn" id="exportBtn">Export progress</button>
+        <label class="soft-btn" style="display:inline-block;cursor:pointer">Import progress<input id="importInput" type="file" accept=".json,application/json" hidden></label>
+        <button class="danger-btn" id="resetBtn">Reset progress</button>
+      </div>
+    </section>
+    <aside class="hero-card status-card">
+      <div>
+        <div class="progress-ring-wrap">
+          <div class="progress-ring" id="ring"><div class="progress-value" id="ringValue">0%</div></div>
+        </div>
+        <h2 style="text-align:center">Plan progress</h2>
+        <p class="muted" style="text-align:center;margin-top:0">Completion, not a fake “readiness score.”</p>
+      </div>
+      <div class="progressbar"><span id="overallBar"></span></div>
+    </aside>
+  </div>
+  <div class="container stat-grid">
+    <div class="stat"><strong id="weeksStat">0/22</strong><small>Weeks complete</small></div>
+    <div class="stat"><strong id="lcStat">0/150</strong><small>LeetCode attempted</small></div>
+    <div class="stat"><strong id="greenStat">0</strong><small>LeetCode GREEN</small></div>
+    <div class="stat"><strong id="patternsStat">0</strong><small>Patterns mastered</small></div>
+  </div>
+</header>
+
+<section class="container card today-card" aria-label="Today's study goal" aria-live="polite">
+  <div class="today-brief">
+    <div class="today-date" id="todayDate">Today</div>
+    <div class="today-goal" id="todayGoal">Loading today's study focus...</div>
+  </div>
+</section>
+
+<main class="container">
+  <section id="overview" class="view active"></section>
+  <section id="timeline" class="view"></section>
+  <section id="patterns" class="view"></section>
+  <section id="syllabus" class="view"></section>
+  <section id="leetcode" class="view"></section>
+  <section id="buffer" class="view"></section>
+</main>
+
+<footer class="container footer">
+  Your progress is stored in this browser profile. Use <strong>Export progress</strong> before clearing browser data, changing devices, or creating an offline backup.
+</footer>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+const DATA = {"weeks": [{"number": 1, "dates": "Aug 24–28, 2026", "start": "2026-08-24", "end": "2026-08-28", "goal": "C++ setup and programming foundations", "learncpp": "Chapters 0–2: setup, compiling, program structure, variables, I/O, functions, parameters, scope, namespaces, headers, multi-file programs.", "dsa": "None yet. Protect this week for C++ fundamentals.", "patterns": "None.", "implementation": "Calculator, temperature converter, prime checker, Fibonacci, and a small multi-file CLI program.", "lc_target": 0, "problems": [], "checkpoint": "Compile from the terminal; create functions without copying syntax; explain declaration vs definition; use headers correctly."}, {"number": 2, "dates": "Aug 31–Sep 4, 2026", "start": "2026-08-31", "end": "2026-09-04", "goal": "Core C++ language fluency", "learncpp": "Chapters 3–8: debugging, fundamental types, const/constexpr, strings/string_view, operators, scope/lifetime/linkage, control flow and loops.", "dsa": "Optional preview: complexity vocabulary only.", "patterns": "None.", "implementation": "Number guessing game, string utilities, frequency counter, and 10 short loop/function exercises.", "lc_target": 0, "problems": [], "checkpoint": "Use debugger/breakpoints; confidently write loops, conditions, strings, const variables and basic functions."}, {"number": 3, "dates": "Sep 7–11, 2026", "start": "2026-09-07", "end": "2026-09-11", "goal": "Functions/templates + complexity analysis; begin LeetCode", "learncpp": "Chapters 9–11: testing/assertions, conversions, type deduction/auto, overloads, default arguments, function templates.", "dsa": "Complexity / Big-O module. Learn time vs space, common growth rates, amortized analysis, and how to analyze loops.", "patterns": "Basic array scanning and hashing intuition.", "implementation": "Write functions using overloads/templates; manually analyze 10 snippets for Big-O.", "lc_target": 4, "problems": [{"id": 1, "title": "Merge Sorted Array"}, {"id": 2, "title": "Remove Element"}, {"id": 3, "title": "Remove Duplicates from Sorted Array"}, {"id": 5, "title": "Majority Element"}], "checkpoint": "For every solved problem, state brute force, optimized approach, time complexity and space complexity."}, {"number": 4, "dates": "Sep 14–18, 2026", "start": "2026-09-14", "end": "2026-09-18", "goal": "Pointers/references + arrays", "learncpp": "Chapter 12 in depth: lvalues/rvalues, references, const references, pointers, nullptr, pointer constness, pass-by-reference/address, return by reference/address, std::optional.", "dsa": "Arrays module.", "patterns": "Array traversal, in-place modification, greedy basics.", "implementation": "Simplified dynamic array; pointer/reference drills; trace addresses and object lifetimes on paper.", "lc_target": 6, "problems": [{"id": 4, "title": "Remove Duplicates from Sorted Array II"}, {"id": 6, "title": "Rotate Array"}, {"id": 7, "title": "Best Time to Buy and Sell Stock"}, {"id": 8, "title": "Best Time to Buy and Sell Stock II"}, {"id": 9, "title": "Jump Game"}, {"id": 10, "title": "Jump Game II"}], "checkpoint": "Explain pointer vs reference, pass-by-value vs const reference, nullptr, and why dangling references/pointers are dangerous."}, {"number": 5, "dates": "Sep 21–25, 2026", "start": "2026-09-21", "end": "2026-09-25", "goal": "Structs/classes + arrays/strings/two pointers", "learncpp": "Chapters 13–14: enums/structs, classes, encapsulation, constructors, initializer lists, copy constructor, explicit.", "dsa": "Arrays and Strings; begin searching/sorting concepts if included in your current course.", "patterns": "Two Pointers, prefix/frequency ideas.", "implementation": "Create small class types; write custom comparison helpers; implement two-pointer templates.", "lc_target": 8, "problems": [{"id": 11, "title": "H-Index"}, {"id": 12, "title": "Insert Delete GetRandom O(1)"}, {"id": 13, "title": "Product of Array Except Self"}, {"id": 14, "title": "Gas Station"}, {"id": 17, "title": "Roman to Integer"}, {"id": 18, "title": "Integer to Roman"}, {"id": 25, "title": "Valid Palindrome"}, {"id": 26, "title": "Is Subsequence"}], "checkpoint": "Given a sorted-array problem, identify when two pointers are better than nested loops."}, {"number": 6, "dates": "Sep 28–Oct 2, 2026", "start": "2026-09-28", "end": "2026-10-02", "goal": "std::vector + sliding window", "learncpp": "Chapters 15–16: destructors/class details and std::vector. Prioritize vector construction, indexing, iteration, resizing/capacity, passing/returning vectors.", "dsa": "Dynamic arrays / arrays and string problems.", "patterns": "Sliding Window; fixed vs variable windows.", "implementation": "Vector-based utility library; implement fixed-size and variable-size sliding-window templates.", "lc_target": 8, "problems": [{"id": 19, "title": "Length of Last Word"}, {"id": 20, "title": "Longest Common Prefix"}, {"id": 21, "title": "Reverse Words in a String"}, {"id": 22, "title": "Zigzag Conversion"}, {"id": 23, "title": "Find the Index of the First Occurrence in a String"}, {"id": 27, "title": "Two Sum II - Input Array Is Sorted"}, {"id": 30, "title": "Minimum Size Subarray Sum"}, {"id": 31, "title": "Longest Substring Without Repeating Characters"}], "checkpoint": "Recognize substring/subarray constraints that can be maintained incrementally with a window."}, {"number": 7, "dates": "Oct 5–9, 2026", "start": "2026-10-05", "end": "2026-10-09", "goal": "Arrays/pointer arithmetic + linked lists", "learncpp": "Chapter 17: std::array, C-style arrays, array decay, pointer arithmetic, multidimensional arrays. Do not over-invest in C strings.", "dsa": "Linked Lists module.", "patterns": "Fast & Slow Pointers; In-place Reversal of a Linked List.", "implementation": "SinglyLinkedList and DoublyLinkedList: insert, delete, search, reverse.", "lc_target": 8, "problems": [{"id": 57, "title": "Linked List Cycle"}, {"id": 58, "title": "Add Two Numbers"}, {"id": 59, "title": "Merge Two Sorted Lists"}, {"id": 60, "title": "Copy List with Random Pointer"}, {"id": 61, "title": "Reverse Linked List II"}, {"id": 63, "title": "Remove Nth Node From End of List"}, {"id": 64, "title": "Remove Duplicates from Sorted List II"}, {"id": 66, "title": "Partition List"}], "checkpoint": "Reverse a linked list from memory and explain every pointer mutation."}, {"number": 8, "dates": "Oct 12–16, 2026", "start": "2026-10-12", "end": "2026-10-16", "goal": "STL algorithms + stacks/queues", "learncpp": "Chapter 18 plus practical STL algorithms: iterators, sort, find, lower_bound/upper_bound; learn stack, queue and deque interfaces.", "dsa": "Stack and Queue modules.", "patterns": "Stack, Monotonic Stack, expression evaluation, linked-list reversal reinforcement.", "implementation": "Implement Stack and Queue yourself, then solve equivalent tasks with std::stack/std::queue.", "lc_target": 8, "problems": [{"id": 52, "title": "Valid Parentheses"}, {"id": 53, "title": "Simplify Path"}, {"id": 54, "title": "Min Stack"}, {"id": 55, "title": "Evaluate Reverse Polish Notation"}, {"id": 56, "title": "Basic Calculator"}, {"id": 62, "title": "Reverse Nodes in k-Group"}, {"id": 65, "title": "Rotate List"}, {"id": 67, "title": "LRU Cache"}], "checkpoint": "Know when a monotonic stack turns an O(n²) nearest-greater/smaller search into O(n)."}, {"number": 9, "dates": "Oct 19–23, 2026", "start": "2026-10-19", "end": "2026-10-23", "goal": "Hash tables and associative STL containers", "learncpp": "Practical STL focus: unordered_map, map, unordered_set, set, pair, tuple, custom hash/comparator basics. Use cppreference as needed.", "dsa": "Hash Table / Hashing module.", "patterns": "Hashing, frequency maps, set membership.", "implementation": "Simplified hash table using separate chaining; experiment with collisions and load factor.", "lc_target": 8, "problems": [{"id": 39, "title": "Ransom Note"}, {"id": 40, "title": "Isomorphic Strings"}, {"id": 41, "title": "Word Pattern"}, {"id": 42, "title": "Valid Anagram"}, {"id": 43, "title": "Group Anagrams"}, {"id": 44, "title": "Two Sum"}, {"id": 45, "title": "Happy Number"}, {"id": 46, "title": "Contains Duplicate II"}], "checkpoint": "Explain average O(1) vs worst-case behavior and when ordered map/set is worth O(log n)."}, {"number": 10, "dates": "Oct 26–30, 2026", "start": "2026-10-26", "end": "2026-10-30", "goal": "Memory + recursion + matrix/interval foundations", "learncpp": "Chapters 19–20: new/delete, dynamic arrays, stack vs heap, recursion, lambdas. Understand manual allocation mainly to understand ownership; prefer RAII in real code.", "dsa": "Recursion plus Matrix/Interval-related lessons available in the DSA/pattern courses.", "patterns": "Recursion, Matrix Traversal, Merge Intervals.", "implementation": "Recursive tree-like exercises; matrix traversal helpers; interval merge from scratch.", "lc_target": 8, "problems": [{"id": 34, "title": "Valid Sudoku"}, {"id": 35, "title": "Spiral Matrix"}, {"id": 36, "title": "Rotate Image"}, {"id": 37, "title": "Set Matrix Zeroes"}, {"id": 38, "title": "Game of Life"}, {"id": 47, "title": "Longest Consecutive Sequence"}, {"id": 48, "title": "Summary Ranges"}, {"id": 49, "title": "Merge Intervals"}], "checkpoint": "Trace a recursive call stack and explain stack vs heap without hand-waving."}, {"number": 11, "dates": "Nov 2–6, 2026", "start": "2026-11-02", "end": "2026-11-06", "goal": "Binary trees I", "learncpp": "Maintenance only: 20–30 min/day reviewing references, pointers, classes and vectors through DSA code.", "dsa": "Trees / Binary Trees module.", "patterns": "Tree DFS: preorder, inorder, postorder; recursive tree decomposition.", "implementation": "BinaryTree with traversals, height, node count and recursive search.", "lc_target": 8, "problems": [{"id": 68, "title": "Maximum Depth of Binary Tree"}, {"id": 69, "title": "Same Tree"}, {"id": 70, "title": "Invert Binary Tree"}, {"id": 71, "title": "Symmetric Tree"}, {"id": 72, "title": "Construct Binary Tree from Preorder and Inorder Traversal"}, {"id": 73, "title": "Construct Binary Tree from Inorder and Postorder Traversal"}, {"id": 74, "title": "Populating Next Right Pointers in Each Node II"}, {"id": 75, "title": "Flatten Binary Tree to Linked List"}], "checkpoint": "Write preorder/inorder/postorder recursively without notes; explain O(n) traversal cost."}, {"number": 12, "dates": "Nov 9–13, 2026", "start": "2026-11-09", "end": "2026-11-13", "goal": "Binary trees II + BST", "learncpp": "Maintenance: classes, ownership and iterators as they appear in tree code.", "dsa": "Binary Search Tree module.", "patterns": "BST invariants, Tree DFS, LCA, construction from traversals.", "implementation": "BST insert, search, delete, min/max, predecessor/successor.", "lc_target": 8, "problems": [{"id": 76, "title": "Path Sum"}, {"id": 77, "title": "Sum Root to Leaf Numbers"}, {"id": 78, "title": "Binary Tree Maximum Path Sum"}, {"id": 79, "title": "Binary Search Tree Iterator"}, {"id": 80, "title": "Count Complete Tree Nodes"}, {"id": 81, "title": "Lowest Common Ancestor of a Binary Tree"}, {"id": 86, "title": "Minimum Absolute Difference in BST"}, {"id": 87, "title": "Kth Smallest Element in a BST"}], "checkpoint": "Explain why inorder traversal of a BST is sorted and derive BST validation correctly."}, {"number": 13, "dates": "Nov 16–20, 2026", "start": "2026-11-16", "end": "2026-11-20", "goal": "Tree BFS + heaps", "learncpp": "STL priority_queue and comparator practice.", "dsa": "Heap / Priority Queue module.", "patterns": "Tree BFS, Top K Elements, Two Heaps.", "implementation": "Binary heap with push/pop/heapify; compare against std::priority_queue.", "lc_target": 8, "problems": [{"id": 82, "title": "Binary Tree Right Side View"}, {"id": 83, "title": "Average of Levels in Binary Tree"}, {"id": 84, "title": "Binary Tree Level Order Traversal"}, {"id": 85, "title": "Binary Tree Zigzag Level Order Traversal"}, {"id": 121, "title": "Kth Largest Element in an Array"}, {"id": 122, "title": "IPO"}, {"id": 123, "title": "Find K Pairs with Smallest Sums"}, {"id": 124, "title": "Find Median from Data Stream"}], "checkpoint": "Derive heap operation complexities and explain when a heap beats full sorting."}, {"number": 14, "dates": "Nov 23–27, 2026", "start": "2026-11-23", "end": "2026-11-27", "goal": "Graphs I — representation, DFS/BFS, dependencies", "learncpp": "Use vector<vector<int>>, unordered_map and queue fluently in graph code.", "dsa": "Graphs module.", "patterns": "Graph DFS/BFS, Island/Matrix Traversal, Topological Sort.", "implementation": "Adjacency list + adjacency matrix; BFS, DFS and topological sort.", "lc_target": 8, "problems": [{"id": 88, "title": "Validate Binary Search Tree"}, {"id": 89, "title": "Number of Islands"}, {"id": 90, "title": "Surrounded Regions"}, {"id": 91, "title": "Clone Graph"}, {"id": 92, "title": "Evaluate Division"}, {"id": 93, "title": "Course Schedule"}, {"id": 94, "title": "Course Schedule II"}, {"id": 95, "title": "Snakes and Ladders"}], "checkpoint": "Detect cycles and decide BFS vs DFS based on the problem rather than habit."}, {"number": 15, "dates": "Nov 30–Dec 4, 2026", "start": "2026-11-30", "end": "2026-12-04", "goal": "Graphs II + Trie + Union-Find", "learncpp": "No major new chapter; reinforce object ownership and container selection.", "dsa": "Trie and Disjoint Set/Union-Find material where available; continue graphs.", "patterns": "Union Find, Trie, Graph BFS, K-way Merge / divide-and-conquer exposure.", "implementation": "Trie and UnionFind (path compression + union by rank/size).", "lc_target": 8, "problems": [{"id": 96, "title": "Minimum Genetic Mutation"}, {"id": 97, "title": "Word Ladder"}, {"id": 98, "title": "Implement Trie (Prefix Tree)"}, {"id": 99, "title": "Design Add and Search Words Data Structure"}, {"id": 100, "title": "Word Search II"}, {"id": 108, "title": "Convert Sorted Array to Binary Search Tree"}, {"id": 109, "title": "Sort List"}, {"id": 110, "title": "Construct Quad Tree"}], "checkpoint": "Implement Union-Find from memory and explain near-constant amortized behavior at interview level."}, {"number": 16, "dates": "Dec 7–11, 2026", "start": "2026-12-07", "end": "2026-12-11", "goal": "Advanced graph algorithms + divide & conquer + greedy/Kadane", "learncpp": "C++ maintenance only.", "dsa": "Sorting/searching/graph algorithm lessons. Learn Dijkstra, shortest-path concepts, MST, Kruskal and Prim at interview depth.", "patterns": "Divide & Conquer, Kadane, Greedy, Merge Intervals reinforcement.", "implementation": "Dijkstra, Kruskal or Prim, merge sort, and Kadane from scratch.", "lc_target": 8, "problems": [{"id": 111, "title": "Merge k Sorted Lists"}, {"id": 112, "title": "Maximum Subarray"}, {"id": 113, "title": "Maximum Sum Circular Subarray"}, {"id": 50, "title": "Insert Interval"}, {"id": 51, "title": "Minimum Number of Arrows to Burst Balloons"}, {"id": 15, "title": "Candy"}, {"id": 16, "title": "Trapping Rain Water"}, {"id": 28, "title": "Container With Most Water"}], "checkpoint": "Know the preconditions and failure cases of BFS shortest path vs Dijkstra vs Bellman-Ford conceptually."}, {"number": 17, "dates": "Dec 14–18, 2026", "start": "2026-12-14", "end": "2026-12-18", "goal": "Binary search mastery", "learncpp": "std::lower_bound, std::upper_bound, custom comparators and iterator arithmetic.", "dsa": "Binary Search / searching module.", "patterns": "Modified Binary Search; binary search on answer; rotated arrays.", "implementation": "Write reusable binary-search templates for exact, lower-bound, upper-bound and answer-space search.", "lc_target": 8, "problems": [{"id": 114, "title": "Search Insert Position"}, {"id": 115, "title": "Search a 2D Matrix"}, {"id": 116, "title": "Find Peak Element"}, {"id": 117, "title": "Search in Rotated Sorted Array"}, {"id": 118, "title": "Find First and Last Position of Element in Sorted Array"}, {"id": 119, "title": "Find Minimum in Rotated Sorted Array"}, {"id": 120, "title": "Median of Two Sorted Arrays"}, {"id": 29, "title": "3Sum"}], "checkpoint": "Derive loop invariants and boundaries instead of memorizing one binary-search template."}, {"number": 18, "dates": "Dec 21–25, 2026", "start": "2026-12-21", "end": "2026-12-25", "goal": "Backtracking", "learncpp": "References, vector mutation, recursion and lambdas as used in backtracking.", "dsa": "Backtracking / Subsets material.", "patterns": "Subsets, combinations, permutations, choose-explore-unchoose.", "implementation": "Generic backtracking skeleton; subsets, permutations and combinations from scratch.", "lc_target": 8, "problems": [{"id": 101, "title": "Letter Combinations of a Phone Number"}, {"id": 102, "title": "Combinations"}, {"id": 103, "title": "Permutations"}, {"id": 104, "title": "Combination Sum"}, {"id": 105, "title": "N-Queens II"}, {"id": 106, "title": "Generate Parentheses"}, {"id": 107, "title": "Word Search"}, {"id": 32, "title": "Substring with Concatenation of All Words"}], "checkpoint": "Explain state, choices, constraints, base case and undo step for a new backtracking problem."}, {"number": 19, "dates": "Dec 28, 2026–Jan 1, 2027", "start": "2026-12-28", "end": "2027-01-01", "goal": "Dynamic Programming I", "learncpp": "No major new language material; write clean vectors/memo tables in C++.", "dsa": "DP fundamentals / 1D DP material available in your courses.", "patterns": "Memoization, tabulation, Fibonacci-style DP, 0/1-style state thinking.", "implementation": "Implement memoized and bottom-up versions of 4 classic DP problems.", "lc_target": 7, "problems": [{"id": 137, "title": "Climbing Stairs"}, {"id": 138, "title": "House Robber"}, {"id": 139, "title": "Word Break"}, {"id": 140, "title": "Coin Change"}, {"id": 141, "title": "Longest Increasing Subsequence"}, {"id": 24, "title": "Text Justification"}, {"id": 33, "title": "Minimum Window Substring"}], "checkpoint": "For a DP problem, explicitly identify state, transition, base cases and computation order."}, {"number": 20, "dates": "Jan 4–8, 2027", "start": "2027-01-04", "end": "2027-01-08", "goal": "Dynamic Programming II", "learncpp": "C++ maintenance; 2D vector and memory-layout awareness.", "dsa": "2D DP, subsequence/string DP and knapsack-family concepts.", "patterns": "Grid DP, sequence DP, string DP.", "implementation": "LCS or edit-distance table, grid DP, LIS variants.", "lc_target": 7, "problems": [{"id": 142, "title": "Triangle"}, {"id": 143, "title": "Minimum Path Sum"}, {"id": 144, "title": "Unique Paths II"}, {"id": 145, "title": "Longest Palindromic Substring"}, {"id": 146, "title": "Interleaving String"}, {"id": 147, "title": "Edit Distance"}, {"id": 148, "title": "Best Time to Buy and Sell Stock III"}], "checkpoint": "Translate a recursive recurrence into memoization and then tabulation."}, {"number": 21, "dates": "Jan 11–15, 2027", "start": "2027-01-11", "end": "2027-01-15", "goal": "Modern C++ ownership + advanced interview patterns", "learncpp": "Chapter 21 selectively; Chapter 22 thoroughly: shallow/deep copy, rvalue references, move constructors/assignment, std::move, unique_ptr, shared_ptr, weak_ptr.", "dsa": "Finish every remaining core pattern module in your current Grokking course that has not been covered.", "patterns": "Bit manipulation, advanced DP, Two Heaps/Top K/K-way Merge review, weak-pattern repair.", "implementation": "Small RAII ownership exercise using unique_ptr; implement move-aware class if time allows.", "lc_target": 7, "problems": [{"id": 149, "title": "Best Time to Buy and Sell Stock IV"}, {"id": 150, "title": "Maximal Square"}, {"id": 125, "title": "Add Binary"}, {"id": 126, "title": "Reverse Bits"}, {"id": 127, "title": "Number of 1 Bits"}, {"id": 128, "title": "Single Number"}, {"id": 129, "title": "Single Number II"}], "checkpoint": "Explain RAII, ownership, move semantics and why unique_ptr should usually be preferred over shared_ptr."}, {"number": 22, "dates": "Jan 18–22, 2027", "start": "2027-01-18", "end": "2027-01-22", "goal": "Finish syllabus + interview consolidation", "learncpp": "Selected Chapters 23–28: composition/relationships, inheritance, virtual functions, templates/classes, exceptions, I/O. Read for conceptual fluency; do not let low-interview-value details crowd out problem review.", "dsa": "Complete unfinished DSA lessons and pattern lessons; create one-page pattern cue sheet.", "patterns": "Full pattern review; no major new pattern.", "implementation": "Re-implement two weak data structures from memory and do at least two timed mock sessions.", "lc_target": 7, "problems": [{"id": 130, "title": "Bitwise AND of Numbers Range"}, {"id": 131, "title": "Palindrome Number"}, {"id": 132, "title": "Plus One"}, {"id": 133, "title": "Factorial Trailing Zeroes"}, {"id": 134, "title": "Sqrt(x)"}, {"id": 135, "title": "Pow(x, n)"}, {"id": 136, "title": "Max Points on a Line"}], "checkpoint": "150/150 target complete; explain solutions aloud; identify weak areas for Month 6."}], "completion": ["LearnCpp Chapters **0–22** completed at interview-relevant depth.", "LearnCpp Chapters **23–28** covered selectively for conceptual fluency.", "Design Gurus **Grokking Data Structures & Algorithms for Coding Interviews** core curriculum completed.", "All major pattern families in **Grokking the Coding Interview** completed.", "**LeetCode Top Interview 150: 150/150 attempted and reviewed in C++**.", "At least **12 core data structures/algorithms implemented from scratch**.", "At least **50 important problems re-solved** without looking at the prior solution.", "At least **15 timed interview-style sessions/mocks** by the end of the buffer month.", "A concise personal pattern cheat sheet and mistake log."], "implementations": ["Dynamic Array", "Singly Linked List", "Doubly Linked List", "Stack", "Queue", "Hash Table", "Binary Tree traversals", "Binary Search Tree", "Binary Heap", "Trie", "Graph adjacency list + BFS + DFS", "Union-Find / Disjoint Set", "LRU Cache", "Binary Search templates", "Merge Sort", "Dijkstra", "Kruskal or Prim"], "patterns": ["Two Pointers", "Sliding Window", "Fast & Slow Pointers", "Prefix Sum / Frequency Counting", "Hashing", "Merge Intervals", "Cyclic Sort / index placement", "In-place Linked List Reversal", "Stack", "Monotonic Stack", "Tree DFS", "Tree BFS", "Graph DFS", "Graph BFS", "Island / Matrix Traversal", "Topological Sort", "Union-Find", "Trie", "Top K Elements", "Two Heaps", "K-way Merge", "Modified Binary Search", "Binary Search on Answer", "Subsets / Backtracking", "Divide & Conquer", "Greedy", "Kadane's Algorithm", "Bit Manipulation", "1D Dynamic Programming", "2D / Grid Dynamic Programming", "Sequence / String Dynamic Programming", "Shortest Path / Weighted Graph reasoning"], "cppSkills": ["Functions, parameters, return values, overloads", "References and const references", "Pointers, nullptr and pointer constness", "Value semantics and object lifetime", "Stack vs heap", "RAII", "Classes, constructors and destructors", "Copy constructor / copy assignment concepts", "Move constructor / move assignment concepts", "std::move", "unique_ptr, shared_ptr, weak_ptr", "vector and array", "string / string_view basics", "stack, queue, deque", "priority_queue", "map / unordered_map", "set / unordered_set", "pair / tuple", "Iterators and range-based loops", "sort / find / lower_bound / upper_bound", "Custom comparators", "Lambdas", "Templates basics", "Recursion", "Exception/error-handling basics", "Basic file I/O / streams", "Inheritance and virtual functions at conceptual level", "Time/space implications of common STL operations"], "readyItems": ["Recognize likely patterns without being told the topic.", "Produce a reasonable brute-force solution quickly.", "Improve it using the constraints and data-structure properties.", "Choose vector/map/unordered_map/set/heap/queue/etc. deliberately.", "Write C++ without fighting basic syntax.", "Reason correctly about time and space complexity.", "Handle edge cases and test your code methodically.", "Explain your algorithm while coding.", "Solve most familiar-pattern mediums in ~20–35 minutes.", "Make structured progress on unfamiliar/hard problems rather than freezing.", "Reconstruct important solutions weeks later instead of memorizing code."], "milestones": [{"date": "Sep 18, 2026", "text": "Comfortable with core C++ syntax, references and pointers; LeetCode has begun."}, {"date": "Oct 30, 2026", "text": "Comfortable with vector/string, classes, linked lists, stacks/queues, hashing, recursion and core STL."}, {"date": "Nov 27, 2026", "text": "Comfortable with trees, BSTs, heaps and graph fundamentals."}, {"date": "Dec 18, 2026", "text": "Major graph and binary-search concepts understood; pattern recognition noticeably stronger."}, {"date": "Jan 8, 2027", "text": "Backtracking and dynamic programming are no longer mysterious; can derive states/transitions."}, {"date": "Jan 22, 2027", "text": "Primary curriculum complete; Top Interview 150 target complete; transition to interview hardening."}, {"date": "Feb 23, 2027", "text": "Buffer complete; weak areas repaired; repeated timed practice completed."}], "bufferWeeks": [{"title": "Buffer Week 1", "dates": "Jan 25–29, 2027", "tasks": ["Finish any missed LearnCpp / Grokking sections.", "Finish any incomplete Top Interview 150 problems.", "Rank topics from weakest → strongest.", "Re-solve 10 RED/YELLOW problems.", "Complete 2 timed interview sessions."]}, {"title": "Buffer Week 2", "dates": "Feb 1–5, 2027", "tasks": ["Repair the two weakest DSA topics.", "Re-implement 3 weak data structures without notes.", "Re-solve 10 RED/YELLOW problems.", "Complete 3 timed interview sessions.", "Practice brute-force → optimized reasoning aloud."]}, {"title": "Buffer Week 3", "dates": "Feb 8–12, 2027", "tasks": ["Solve mixed unseen problems without sorting by topic first.", "Force pattern identification before opening hints.", "Re-solve 10 RED/YELLOW problems.", "Complete 3–4 timed interview sessions.", "Review STL, ownership, references/pointers, comparators, and common syntax."]}, {"title": "Buffer Week 4", "dates": "Feb 15–19, 2027", "tasks": ["Run company-style mixed mocks.", "Complete 4 timed interview sessions.", "Re-solve 10 high-value problems from memory.", "Review complexity, edge cases, and testing habits.", "Finalize one-page pattern cue sheet."]}, {"title": "Final contingency", "dates": "Feb 22–23, 2027", "tasks": ["Close remaining gaps only.", "Avoid panic-grinding.", "Complete one final mock plus light review."]}], "planStart": "2026-08-24", "primaryEnd": "2027-01-22", "bufferEnd": "2027-02-23"};
+const STORE_KEY = "cpp-dsa-master-plan-v1";
+const THEME_KEY = "cpp-dsa-master-plan-theme";
+const STORE_VERSION = 2;
+const MAX_IMPORT_BYTES = 1024 * 1024;
+
+let state = loadState();
+
+function defaultState(){
+  return {
+    weekly: {},
+    lc: {},
+    patterns: {},
+    cpp: {},
+    implementations: {},
+    completion: {},
+    readiness: {},
+    milestones: {},
+    buffer: {},
+    updatedAt: null
+  };
+}
+function isPlainObject(value){ return value !== null && typeof value === "object" && !Array.isArray(value); }
+function normalizeState(value){
+  const normalized=defaultState();
+  if(!isPlainObject(value)) return normalized;
+  ["weekly","lc","patterns","cpp","implementations","completion","readiness","milestones","buffer"].forEach(key=>{
+    if(isPlainObject(value[key])) normalized[key]=value[key];
+  });
+  normalized.updatedAt=typeof value.updatedAt === "string" ? value.updatedAt : null;
+  return normalized;
+}
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    return raw ? normalizeState(JSON.parse(raw)) : defaultState();
+  }catch(e){ return defaultState(); }
+}
+function saveState(){
+  state.updatedAt=new Date().toISOString();
+  try{
+    localStorage.setItem(STORE_KEY, JSON.stringify(state));
+  }catch(e){
+    setSaveStatus("Local save unavailable",true);
+    toast("Progress could not be saved locally. Export a backup and check browser storage settings.");
+    return false;
+  }
+  setSaveStatus();
+  updateStats();
+  return true;
+}
+function setSaveStatus(message,isError=false){
+  const status=document.getElementById("saveStatus");
+  if(!status) return;
+  const savedAt=state.updatedAt ? new Date(state.updatedAt) : null;
+  status.textContent=message || (savedAt ? `Saved ${savedAt.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"})}` : "Saved locally");
+  status.classList.toggle("error",isError);
+}
+function requestPersistentStorage(){
+  if(navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(()=>{});
+}
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""); }
+function toast(msg){
+  const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show");
+  clearTimeout(window.__toast); window.__toast=setTimeout(()=>t.classList.remove("show"),1800);
+}
+function dateOnly(s){ return new Date(s+"T12:00:00"); }
+function localDayNumber(date){ return Date.UTC(date.getFullYear(),date.getMonth(),date.getDate())/86400000; }
+function formatLocalDate(date){ return new Intl.DateTimeFormat(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"}).format(date); }
+
+function currentPhase(){
+  const today = new Date();
+  const start=dateOnly(DATA.planStart), primaryEnd=dateOnly(DATA.primaryEnd), bufferEnd=dateOnly(DATA.bufferEnd);
+  const todayDay=localDayNumber(today), startDay=localDayNumber(start), primaryEndDay=localDayNumber(primaryEnd), bufferEndDay=localDayNumber(bufferEnd);
+  if(todayDay < startDay) return {kind:"before", text:`Starts ${start.toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"})}`};
+  if(todayDay <= primaryEndDay){
+    const diff=Math.floor((todayDay-startDay)/7);
+    const n=Math.min(22,Math.max(1,diff+1));
+    return {kind:"primary", week:n, text:`Week ${n}`};
+  }
+  if(todayDay <= bufferEndDay) return {kind:"buffer", text:"Month 6 buffer"};
+  return {kind:"after", text:"Primary plan window completed"};
+}
+
+function renderTodayBrief(){
+  const today=new Date(), phase=currentPhase();
+  const dateEl=document.getElementById("todayDate"), goalEl=document.getElementById("todayGoal");
+  if(!dateEl || !goalEl) return;
+  dateEl.textContent=formatLocalDate(today);
+  const weekday=today.getDay();
+  let goal;
+  if(phase.kind==="before") goal="Preparation day: install your C++ toolchain, bookmark the resources, and reserve weekday study blocks. Keep the syllabus for its official start.";
+  else if(phase.kind==="primary"){
+    const week=DATA.weeks[phase.week-1];
+    if(weekday===0) goal="Sunday is off. Recover and begin the next study day fresh.";
+    else if(weekday===6) goal=`Saturday is catch-up only. Use it for unfinished work from Week ${week.number}, or take the day off.`;
+    else if(weekday===5) goal=`Friday goal: close Week ${week.number} with its checkpoint, two timed/re-solve problems, and a brief mistake-log review.`;
+    else goal=`Week ${week.number}: ${week.goal}. Work through the scheduled LearnCpp/DSA topic, one C++ problem, and the implementation or review block.`;
+  } else if(phase.kind==="buffer") goal=weekday===0?"Sunday is off. Resume focused interview hardening tomorrow.":"Buffer focus: repair weak areas, re-solve RED/YELLOW problems, or run a timed interview session.";
+  else goal="Maintenance focus: choose a weak pattern, solve one mixed problem in C++, and record the lesson for a future re-solve.";
+  goalEl.innerHTML=`<strong>Today's goal:</strong> ${esc(goal)}`;
+}
+
+function weeklyObj(n){
+  if(!state.weekly[n]) state.weekly[n]={learncpp:false,dsa:false,patterns:false,implementation:false,checkpoint:false};
+  return state.weekly[n];
+}
+function weekComplete(w){
+  const x=weeklyObj(w.number);
+  const curriculum = x.learncpp && x.dsa && x.patterns && x.implementation && x.checkpoint;
+  const lcDone = w.problems.every(p => (state.lc[p.id]||"todo") !== "todo");
+  return curriculum && lcDone;
+}
+
+function renderOverview(){
+  const phase=currentPhase();
+  const w = phase.kind==="primary" ? DATA.weeks[phase.week-1] : DATA.weeks[0];
+  let nowHtml="";
+  if(phase.kind==="before"){
+    nowHtml=`<div class="kicker">Starting point</div><h2>Week 1 begins Aug 24</h2><p class="muted">Use the days before launch to install your C++ toolchain, bookmark the resources, and protect your Monday–Friday study blocks. Do not pre-grind the syllabus.</p>`;
+  } else if(phase.kind==="primary"){
+    nowHtml=`<div class="kicker">Current focus · Week ${w.number}</div><h2>${esc(w.goal)}</h2><p class="muted">${esc(w.dates)}</p>
+    <p><strong>LearnCpp:</strong> ${esc(w.learncpp)}</p><p><strong>DSA:</strong> ${esc(w.dsa)}</p><p><strong>Patterns:</strong> ${esc(w.patterns)}</p>
+    <button class="primary-btn" onclick="openWeek(${w.number})">Open Week ${w.number}</button>`;
+  } else if(phase.kind==="buffer"){
+    nowHtml=`<div class="kicker">Current phase</div><h2>Month 6 — Interview hardening</h2><p class="muted">No major new core syllabus. Repair weak areas, re-solve RED/YELLOW problems, and run timed mocks.</p><button class="primary-btn" onclick="showView('buffer')">Open buffer plan</button>`;
+  } else {
+    nowHtml=`<div class="kicker">Plan window complete</div><h2>Use the dashboard as a maintenance system</h2><p class="muted">Keep the GREEN/YELLOW/RED problem history, revisit weak patterns, and continue mixed timed practice.</p>`;
+  }
+
+  const mini=DATA.weeks.map(w=>{
+    let cls=weekComplete(w)?"done":"";
+    if(phase.kind==="primary"&&phase.week===w.number) cls+=" current";
+    return `<div class="segment ${cls}" title="Week ${w.number}: ${esc(w.goal)}"></div>`;
+  }).join("") + `<div class="segment ${phase.kind==="buffer"?"buffer":""}" title="Month 6 buffer"></div>`;
+
+  const milestoneHtml=DATA.milestones.map((m,i)=>`<div class="milestone">
+    <input type="checkbox" ${state.milestones[i]?"checked":""} onchange="state.milestones[${i}]=this.checked;saveState()">
+    <div><strong>${esc(m.date)}</strong><div class="muted">${esc(m.text)}</div></div>
+  </div>`).join("");
+
+  document.getElementById("overview").innerHTML=`
+    <div class="section-head"><div><h2>Command center</h2><p>Know exactly what matters now, what comes next, and how progress is measured.</p></div></div>
+    <div class="grid-2">
+      <div class="card now-card">${nowHtml}</div>
+      <div class="card">
+        <div class="kicker">Primary timeline</div>
+        <h2>22 weeks + buffer</h2>
+        <div class="timeline-mini">${mini}</div>
+        <p class="muted">Green = fully completed week. Blue = current week. Final segment = Month 6 buffer.</p>
+      </div>
+    </div>
+
+    <div class="section-head"><div><h2>Weekly operating system</h2><p>The schedule is designed around weekdays, not heroic weekends.</p></div></div>
+    <div class="grid-3">
+      <div class="card"><div class="kicker">Mon–Thu · ~3h/day</div><h3>Learn + solve</h3><p>60 min theory<br>90 min problems<br>30 min implementation/review</p></div>
+      <div class="card"><div class="kicker">Friday</div><h3>Interview mode</h3><p>45 min problem #1<br>45 min problem #2<br>30 min explain aloud<br>60 min weekly review</p></div>
+      <div class="card"><div class="kicker">Weekend</div><h3>Protect recovery</h3><p><strong>Saturday:</strong> catch-up only if needed.<br><strong>Sunday:</strong> off.</p></div>
+    </div>
+
+    <div class="section-head"><div><h2>Milestones</h2><p>Use these to validate capability, not merely chapter completion.</p></div></div>
+    <div class="card">${milestoneHtml}</div>
+
+    <div class="section-head"><div><h2>Source of truth</h2><p>If an online course changes, follow its current topic names while preserving this sequence.</p></div></div>
+    <div class="grid-2">
+      <div class="card source-links">
+        <a href="https://www.learncpp.com/" target="_blank" rel="noopener">LearnCpp ↗</a>
+        <a href="https://www.designgurus.io/course/grokking-data-structures-for-coding-interviews" target="_blank" rel="noopener">Design Gurus — DSA ↗</a>
+        <a href="https://www.designgurus.io/course/grokking-the-coding-interview" target="_blank" rel="noopener">Design Gurus — Coding Patterns ↗</a>
+        <a href="https://leetcode.com/studyplan/top-interview-150/" target="_blank" rel="noopener">LeetCode — Top Interview 150 ↗</a>
+        <a href="https://en.cppreference.com/" target="_blank" rel="noopener">cppreference ↗</a>
+      </div>
+      <div class="card callout">
+        <div class="kicker">Target outcome</div>
+        <h2>Structured problem solving</h2>
+        <p>Clarify → brute force → complexity → recognize structure → optimize → code clean C++ → test edge cases → explain final complexity.</p>
+        <p class="muted">The goal is not “memorize 150 answers.” It is being able to reconstruct ideas and handle unfamiliar variations.</p>
+      </div>
+    </div>
+  `;
+}
+
+function weekProgress(w){
+  const x=weeklyObj(w.number);
+  const base=[x.learncpp,x.dsa,x.patterns,x.implementation,x.checkpoint];
+  const p=w.problems.map(p=>(state.lc[p.id]||"todo")!=="todo");
+  const total=base.length+p.length;
+  const done=[...base,...p].filter(Boolean).length;
+  return total?Math.round(done/total*100):0;
+}
+function renderWeek(w){
+  const x=weeklyObj(w.number);
+  const phase=currentPhase();
+  const current = phase.kind==="primary" && phase.week===w.number;
+  const problemRows=w.problems.length ? w.problems.map(p=>{
+    const st=state.lc[p.id]||"todo";
+    return `<div class="problem-row">
+      <div class="problem-title"><strong>#${p.id}</strong> ${esc(p.title)}</div>
+      ${statusSelect(p.id, st)}
+    </div>`;
+  }).join("") : `<p class="muted">No required LeetCode this week. Protect the C++ foundation.</p>`;
+
+  return `<details class="card week ${current?"current":""}" id="week-${w.number}" ${current?"open":""}>
+    <summary>
+      <div class="week-num">W${w.number}</div>
+      <div><div class="week-goal">${esc(w.goal)}</div><div class="week-date">${esc(w.dates)}</div></div>
+      <div class="week-badge">${weekProgress(w)}% · ${w.lc_target} LC</div>
+    </summary>
+    <div class="week-body">
+      <div class="progressbar" style="margin-top:16px"><span style="width:${weekProgress(w)}%"></span></div>
+      <div class="task-grid">
+        ${weekTask(w.number,"learncpp","LearnCpp",w.learncpp,x.learncpp)}
+        ${weekTask(w.number,"dsa","Design Gurus / DSA",w.dsa,x.dsa)}
+        ${weekTask(w.number,"patterns","Interview patterns",w.patterns,x.patterns)}
+        ${weekTask(w.number,"implementation","Implementation",w.implementation,x.implementation)}
+      </div>
+      <div class="task-box" style="margin-top:12px">
+        <h4>LeetCode target · ${w.lc_target}</h4>
+        <div class="problem-list">${problemRows}</div>
+      </div>
+      <div class="task-box" style="margin-top:12px">
+        <label class="checkline"><input type="checkbox" ${x.checkpoint?"checked":""} onchange="setWeekTask(${w.number},'checkpoint',this.checked)"><span><strong>Friday checkpoint</strong><br>${esc(w.checkpoint)}</span></label>
+      </div>
+    </div>
+  </details>`;
+}
+function weekTask(n,key,title,desc,checked){
+  return `<div class="task-box"><label class="checkline"><input type="checkbox" ${checked?"checked":""} onchange="setWeekTask(${n},'${key}',this.checked)"><span><strong>${esc(title)}</strong><br>${esc(desc)}</span></label></div>`;
+}
+function setWeekTask(n,key,val){
+  weeklyObj(n)[key]=val; saveState(); renderTimeline(); updateStats();
+}
+function statusSelect(id, st){
+  return `<select class="status-select ${st}" aria-label="Problem status" onchange="setLC(${id},this.value)">
+    <option value="todo" ${st==="todo"?"selected":""}>To do</option>
+    <option value="green" ${st==="green"?"selected":""}>GREEN · independent</option>
+    <option value="yellow" ${st==="yellow"?"selected":""}>YELLOW · review</option>
+    <option value="red" ${st==="red"?"selected":""}>RED · relearn</option>
+  </select>`;
+}
+function setLC(id,val){
+  state.lc[id]=val; saveState();
+  document.querySelectorAll(`select[onchange="setLC(${id},this.value)"]`).forEach(s=>{s.value=val;s.className="status-select "+val});
+  renderTimeline();
+  renderLeetCode();
+}
+
+function renderTimeline(){
+  document.getElementById("timeline").innerHTML=`
+    <div class="section-head"><div><h2>22-week timeline</h2><p>Open only the week you need. Check course work, implementation work, and problem status as you go.</p></div></div>
+    <div class="timeline">${DATA.weeks.map(renderWeek).join("")}</div>`;
+}
+
+function renderPatterns(){
+  const mastered=DATA.patterns.filter((_,i)=>state.patterns[i]).length;
+  document.getElementById("patterns").innerHTML=`
+    <div class="section-head"><div><h2>Interview pattern map</h2><p>${mastered}/${DATA.patterns.length} marked mastered. Do not mark a pattern until you can recognize it without being told.</p></div></div>
+    <div class="card callout" style="margin-bottom:14px"><strong>Mastery test:</strong> What clues suggest it? What invariant/state is maintained? Typical complexity? What variations break the template? Can you solve a fresh problem without the category label?</div>
+    <div class="pattern-grid">
+      ${DATA.patterns.map((p,i)=>`<label class="pattern-item"><input type="checkbox" ${state.patterns[i]?"checked":""} onchange="state.patterns[${i}]=this.checked;saveState();renderPatterns()"><span>${esc(p)}</span></label>`).join("")}
+    </div>`;
+}
+
+function genericChecklist(title, subtitle, items, bucket){
+  return `<div class="section-head"><div><h2>${esc(title)}</h2><p>${esc(subtitle)}</p></div></div>
+  <div class="check-grid">${items.map((item,i)=>`<label class="check-item checkline"><input type="checkbox" ${state[bucket][i]?"checked":""} onchange="state['${bucket}'][${i}]=this.checked;saveState()"><span>${esc(item)}</span></label>`).join("")}</div>`;
+}
+function renderSyllabus(){
+  document.getElementById("syllabus").innerHTML=`
+    ${genericChecklist("Completion targets","The end-state for the primary + buffer plan.",DATA.completion,"completion")}
+    ${genericChecklist("C++ interview fluency","Language and STL concepts you should be able to use without fighting syntax.",DATA.cppSkills,"cpp")}
+    ${genericChecklist("Implement from scratch","Do this to understand the machinery underneath standard abstractions.",DATA.implementations,"implementations")}
+    ${genericChecklist("Interview-ready behaviors","Capability checks—not guarantees about every possible question.",DATA.readyItems,"readiness")}
+  `;
+}
+
+function allProblems(){
+  return DATA.weeks.flatMap(w=>w.problems.map(p=>({...p,week:w.number,dates:w.dates,goal:w.goal})));
+}
+function renderLeetCode(){
+  const probs=allProblems();
+  const search=(document.getElementById("lcSearch")?.value||"").toLowerCase();
+  const wf=document.getElementById("lcWeek")?.value||"all";
+  const sf=document.getElementById("lcStatus")?.value||"all";
+
+  const visible=probs.filter(p=>{
+    const st=state.lc[p.id]||"todo";
+    return (!search || (`${p.id} ${p.title} ${p.goal}`).toLowerCase().includes(search))
+      && (wf==="all" || String(p.week)===wf)
+      && (sf==="all" || st===sf);
+  });
+
+  const attempted=probs.filter(p=>(state.lc[p.id]||"todo")!=="todo").length;
+  const greens=probs.filter(p=>(state.lc[p.id]||"todo")==="green").length;
+  const yellows=probs.filter(p=>(state.lc[p.id]||"todo")==="yellow").length;
+  const reds=probs.filter(p=>(state.lc[p.id]||"todo")==="red").length;
+
+  const shell = `
+    <div class="section-head"><div><h2>LeetCode Top Interview 150 tracker</h2><p>Attempted ${attempted}/150 · GREEN ${greens} · YELLOW ${yellows} · RED ${reds}</p></div></div>
+    <div class="filters">
+      <input id="lcSearch" class="filter-input" placeholder="Search problem, number, or topic…" value="${esc(search)}">
+      <select id="lcWeek" class="filter-select"><option value="all">All weeks</option>${DATA.weeks.map(w=>`<option value="${w.number}" ${wf==w.number?"selected":""}>Week ${w.number}</option>`).join("")}</select>
+      <select id="lcStatus" class="filter-select">
+        <option value="all" ${sf==="all"?"selected":""}>All statuses</option>
+        <option value="todo" ${sf==="todo"?"selected":""}>To do</option>
+        <option value="green" ${sf==="green"?"selected":""}>GREEN</option>
+        <option value="yellow" ${sf==="yellow"?"selected":""}>YELLOW</option>
+        <option value="red" ${sf==="red"?"selected":""}>RED</option>
+      </select>
+    </div>
+    <div class="card table-wrap">
+      <table class="lc-table">
+        <thead><tr><th>#</th><th>Problem</th><th>Week</th><th>Status</th></tr></thead>
+        <tbody>${visible.map(p=>{
+          const st=state.lc[p.id]||"todo";
+          return `<tr><td>${p.id}</td><td><strong>${esc(p.title)}</strong><div class="muted">${esc(p.goal)}</div></td><td>W${p.week}<div class="muted">${esc(p.dates)}</div></td><td>${statusSelect(p.id,st)}</td></tr>`;
+        }).join("") || `<tr><td colspan="4" class="muted">No problems match the current filters.</td></tr>`}</tbody>
+      </table>
+    </div>`;
+  document.getElementById("leetcode").innerHTML=shell;
+  document.getElementById("lcSearch").addEventListener("input",renderLeetCode);
+  document.getElementById("lcWeek").addEventListener("change",renderLeetCode);
+  document.getElementById("lcStatus").addEventListener("change",renderLeetCode);
+}
+
+function renderBuffer(){
+  document.getElementById("buffer").innerHTML=`
+    <div class="section-head"><div><h2>Month 6 — safety buffer</h2><p>Jan 25 → Feb 23, 2027. No required new core syllabus.</p></div></div>
+    <div class="card callout" style="margin-bottom:14px"><strong>Use the buffer for reality:</strong> holidays, illness, job/interview weeks, unfinished material, RED/YELLOW re-solves, and timed mocks. If the primary plan is complete, this becomes pure interview hardening.</div>
+    <div class="timeline">
+      ${DATA.bufferWeeks.map((b,bi)=>`<div class="card">
+        <div class="kicker">${esc(b.dates)}</div><h3>${esc(b.title)}</h3>
+        <div class="check-grid">${b.tasks.map((t,ti)=>{
+          const key=`${bi}-${ti}`;
+          return `<label class="check-item checkline"><input type="checkbox" ${state.buffer[key]?"checked":""} onchange="state.buffer['${key}']=this.checked;saveState()"><span>${esc(t)}</span></label>`;
+        }).join("")}</div>
+      </div>`).join("")}
+    </div>
+
+    <div class="section-head"><div><h2>Recovery rules</h2><p>Falling behind should change priority, not trigger a marathon.</p></div></div>
+    <div class="grid-2">
+      <div class="card"><h3>Miss one weekday</h3><p>Keep the schedule. Split the missed work over the next 2–3 weekdays or use Saturday.</p></div>
+      <div class="card"><h3>Miss 2–3 weekdays</h3><p>Use Saturday for the highest-value unfinished material. Defer optional LearnCpp detail before core DSA or required LeetCode.</p></div>
+      <div class="card"><h3>Fall a full week behind</h3><p>Prioritize: core DSA → C++ needed for it → required LeetCode → pattern examples → optional language details. Move leftovers into Month 6.</p></div>
+      <div class="card"><h3>Hard problem trap</h3><p>After ~35–45 minutes without productive progress, study a structured hint/solution, reproduce it from understanding, mark YELLOW/RED, and schedule a re-solve.</p></div>
+    </div>`;
+}
+
+function showView(name){
+  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===name));
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===name));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function openWeek(n){
+  showView("timeline");
+  setTimeout(()=>{
+    const d=document.getElementById(`week-${n}`); if(d){d.open=true; d.scrollIntoView({behavior:"smooth",block:"start"});}
+  },60);
+}
+
+function countChecklist(bucket, items){ return items.filter((_,i)=>state[bucket][i]).length; }
+function updateStats(){
+  const completeWeeks=DATA.weeks.filter(weekComplete).length;
+  const probs=allProblems();
+  const attempted=probs.filter(p=>(state.lc[p.id]||"todo")!=="todo").length;
+  const greens=probs.filter(p=>(state.lc[p.id]||"todo")==="green").length;
+  const pat=countChecklist("patterns",DATA.patterns);
+
+  document.getElementById("weeksStat").textContent=`${completeWeeks}/22`;
+  document.getElementById("lcStat").textContent=`${attempted}/150`;
+  document.getElementById("greenStat").textContent=greens;
+  document.getElementById("patternsStat").textContent=`${pat}/${DATA.patterns.length}`;
+
+  // Transparent completion metric: weekly curriculum tasks + LC attempts + pattern checklist.
+  let curriculumDone=0, curriculumTotal=0;
+  DATA.weeks.forEach(w=>{
+    const x=weeklyObj(w.number);
+    curriculumDone += [x.learncpp,x.dsa,x.patterns,x.implementation,x.checkpoint].filter(Boolean).length;
+    curriculumTotal += 5;
+  });
+  const total=curriculumTotal + 150 + DATA.patterns.length;
+  const done=curriculumDone + attempted + pat;
+  const pct=Math.round(done/total*100);
+  document.getElementById("ring").style.setProperty("--p",pct);
+  document.getElementById("ringValue").textContent=pct+"%";
+  document.getElementById("overallBar").style.width=pct+"%";
+}
+
+function exportProgress(){
+  const payload={version:STORE_VERSION,exportedAt:new Date().toISOString(),state};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="cpp-dsa-progress.json"; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  toast("Progress exported");
+}
+function importProgress(file){
+  if(file.size>MAX_IMPORT_BYTES){ toast("Import file is too large. Choose a dashboard progress export under 1 MB."); return; }
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const x=JSON.parse(r.result);
+      if(x.version && (!Number.isInteger(x.version) || x.version>STORE_VERSION)) throw new Error("Unsupported progress version");
+      const imported=x.state||x;
+      if(!isPlainObject(imported)) throw new Error("Invalid progress data");
+      state=normalizeState(imported);
+      if(!saveState()) return;
+      renderAll(); toast("Progress imported");
+    }catch(e){ alert("Could not import this JSON progress file."); }
+  };
+  r.onerror=()=>toast("The progress file could not be read.");
+  r.readAsText(file);
+}
+function resetProgress(){
+  if(confirm("Reset every checkbox and LeetCode status on this device? Export first if you may want it later.")){
+    state=defaultState();
+    try{ localStorage.removeItem(STORE_KEY); setSaveStatus("Progress reset"); }
+    catch(e){ setSaveStatus("Local save unavailable",true); }
+    renderAll(); toast("Progress reset");
+  }
+}
+function applyTheme(theme){
+  document.documentElement.dataset.theme=theme;
+  localStorage.setItem(THEME_KEY,theme);
+}
+function toggleTheme(){
+  const cur=document.documentElement.dataset.theme||"dark";
+  applyTheme(cur==="dark"?"light":"dark");
+}
+function renderAll(){
+  renderTodayBrief(); renderOverview(); renderTimeline(); renderPatterns(); renderSyllabus(); renderLeetCode(); renderBuffer(); updateStats();
+}
+
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
+document.getElementById("themeBtn").addEventListener("click",toggleTheme);
+document.getElementById("exportBtn").addEventListener("click",exportProgress);
+document.getElementById("importInput").addEventListener("change",e=>{ if(e.target.files[0]) importProgress(e.target.files[0]); e.target.value=""; });
+document.getElementById("resetBtn").addEventListener("click",resetProgress);
+document.getElementById("jumpCurrent").addEventListener("click",()=>{
+  const p=currentPhase();
+  if(p.kind==="primary") openWeek(p.week);
+  else if(p.kind==="buffer") showView("buffer");
+  else openWeek(1);
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="/" && !["INPUT","SELECT","TEXTAREA"].includes(document.activeElement.tagName)){
+    e.preventDefault(); showView("leetcode"); setTimeout(()=>document.getElementById("lcSearch")?.focus(),30);
+  }
+});
+
+const savedTheme=localStorage.getItem(THEME_KEY);
+if(savedTheme) applyTheme(savedTheme);
+else applyTheme(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");
+
+renderAll();
+requestPersistentStorage();
+setSaveStatus();
+window.addEventListener("storage",event=>{
+  if(event.key===STORE_KEY){ state=loadState(); renderAll(); setSaveStatus("Updated from another tab"); toast("Progress updated from another tab"); }
+  if(event.key===THEME_KEY && event.newValue) applyTheme(event.newValue);
+});
+setTimeout(()=>renderAll(),(24*60*60*1000)-((new Date().getHours()*60*60+new Date().getMinutes()*60+new Date().getSeconds())*1000));
+</script>
+</body>
+</html>
