@@ -239,8 +239,10 @@ export default function DashboardApp() {
                   onClick={async () => {
                     try {
                       await signInWithPopup(firebaseAuth, googleProvider);
-                    } catch {
-                      setSaveStatus({ text: "Google login failed", isError: true });
+                    } catch (error) {
+                      const code = error instanceof Error ? error.message : "unknown-error";
+                      console.error("Google sign-in failed:", error);
+                      setSaveStatus({ text: `Google login failed: ${code}`, isError: true });
                     }
                   }}
                 >
