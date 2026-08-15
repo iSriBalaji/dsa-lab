@@ -356,6 +356,11 @@ export default function DashboardApp() {
                 <CardContent sx={{ py: 2.1 }}>
                   <Stack direction={{ xs: "column", md: "row" }} spacing={1.4} sx={{ alignItems: { xs: "flex-start", md: "center" } }}>
                     <Chip label={today.headline} color="secondary" variant="outlined" />
+                    <Chip
+                      size="small"
+                      label={`Day ${today.dayNumber}/${today.totalDays} • ${today.daysRemaining} left`}
+                      variant="outlined"
+                    />
                     <Typography>
                       <strong>Today&apos;s goal:</strong> {today.body}
                     </Typography>

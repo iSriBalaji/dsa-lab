@@ -144,6 +144,10 @@ export function todayContext(data: PlanData) {
   const primaryEndDay = localDay(primaryEnd);
   const bufferEndDay = localDay(bufferEnd);
 
+  const totalDays = bufferEndDay - startDay + 1;
+  const dayNumber = Math.min(totalDays, Math.max(1, todayDay - startDay + 1));
+  const daysRemaining = Math.max(0, totalDays - dayNumber);
+
   if (todayDay < startDay) {
     return {
       headline: new Intl.DateTimeFormat(undefined, {
@@ -153,6 +157,9 @@ export function todayContext(data: PlanData) {
         year: "numeric",
       }).format(today),
       body: "Preparation day: set up toolchain, reserve weekday study blocks, and keep syllabus work for launch week.",
+      totalDays,
+      dayNumber: 0,
+      daysRemaining: totalDays,
     };
   }
 
@@ -175,6 +182,9 @@ export function todayContext(data: PlanData) {
         year: "numeric",
       }).format(today),
       body: focus,
+      totalDays,
+      dayNumber,
+      daysRemaining,
     };
   }
 
@@ -187,6 +197,9 @@ export function todayContext(data: PlanData) {
         year: "numeric",
       }).format(today),
       body: "Buffer month focus: repair weak patterns, re-solve RED/YELLOW items, and run interview-style mocks.",
+      totalDays,
+      dayNumber,
+      daysRemaining,
     };
   }
 
@@ -198,5 +211,8 @@ export function todayContext(data: PlanData) {
       year: "numeric",
     }).format(today),
     body: "Maintenance mode: keep mixed practice active and rotate through weak patterns weekly.",
+    totalDays,
+    dayNumber: totalDays,
+    daysRemaining: 0,
   };
 }
