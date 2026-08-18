@@ -18,12 +18,13 @@ export function normalizeChernoState(value: unknown): ChernoState {
     for (const [dayKey, dayValue] of Object.entries(value.days)) {
       if (!isPlainObject(dayValue)) continue;
       const goal = typeof dayValue.goal === "string" ? dayValue.goal : "";
+      const plannedDate = typeof dayValue.plannedDate === "string" ? dayValue.plannedDate : "";
       const videos = isPlainObject(dayValue.videos)
         ? Object.fromEntries(
             Object.entries(dayValue.videos).filter(([, v]) => typeof v === "boolean"),
           )
         : {};
-      normalized.days[dayKey] = { goal, videos: videos as Record<string, boolean> };
+      normalized.days[dayKey] = { goal, plannedDate, videos: videos as Record<string, boolean> };
     }
   }
 
@@ -54,12 +55,21 @@ export function saveChernoState(state: ChernoState): { state: ChernoState; ok: b
 }
 
 export function videoKeysForDay(day: ChernoDay): string[] {
-  const [start, end] = day.range;
-  const keys: string[] = [];
-  for (let i = start; i <= end; i += 1) {
-    keys.push(String(i).padStart(3, "0"));
+  return day.videos.map((video) => String(video.index).padStart(3, "0"));
+}
+
+export function formatDuration(totalSeconds: number): string {
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  if (hours > 0) {
+    return `${hours}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   }
-  return keys;
+  return `${minutes}:${String(seconds).padStart(2, "0")}`;
+}
+
+export function dayTotalSeconds(day: ChernoDay): number {
+  return day.videos.reduce((sum, video) => sum + video.durationSeconds, 0);
 }
 
 export function dayCompletion(state: ChernoState, day: ChernoDay): { done: number; total: number } {
@@ -75,12 +85,13 @@ export function exportChernoState(state: ChernoState, days: ChernoDay[]) {
     days: Object.fromEntries(
       days.map((day) => {
         const key = String(day.day);
-        const dayState = state.days[key] || { goal: day.defaultGoal, videos: {} };
+        const dayState = state.days[key] || { goal: day.defaultGoal, plannedDate: "", videos: {} };
         const { done, total } = dayCompletion(state, day);
         return [
           key,
           {
             goal: dayState.goal || day.defaultGoal,
+            plannedDate: dayState.plannedDate || "",
             completed: done === total,
             videos: dayState.videos,
           },

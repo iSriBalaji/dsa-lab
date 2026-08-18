@@ -1,8 +1,14 @@
+export type ChernoVideo = {
+  index: number;
+  title: string;
+  durationSeconds: number;
+};
+
 export type ChernoDay = {
   day: number;
   title: string;
   defaultGoal: string;
-  range: [number, number];
+  videos: ChernoVideo[];
 };
 
 export type ChernoPlaylistData = {
@@ -13,6 +19,7 @@ export type ChernoPlaylistData = {
 
 export type ChernoDayState = {
   goal: string;
+  plannedDate: string;
   videos: Record<string, boolean>;
 };
 

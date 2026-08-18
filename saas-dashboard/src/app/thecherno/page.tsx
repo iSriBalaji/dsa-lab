@@ -30,8 +30,10 @@ import FileUploadRoundedIcon from "@mui/icons-material/FileUploadRounded";
 import type { ChernoPlaylistData, ChernoState } from "@/types/cherno";
 import {
   dayCompletion,
+  dayTotalSeconds,
   defaultChernoState,
   exportChernoState,
+  formatDuration,
   loadChernoState,
   normalizeChernoState,
   saveChernoState,
@@ -89,7 +91,7 @@ export default function ChernoPage() {
   const toggleVideo = (dayNum: number, videoKey: string, checked: boolean) => {
     persist((prev) => {
       const key = String(dayNum);
-      const dayState = prev.days[key] || { goal: "", videos: {} };
+      const dayState = prev.days[key] || { goal: "", plannedDate: "", videos: {} };
       return {
         ...prev,
         days: {
@@ -103,8 +105,16 @@ export default function ChernoPage() {
   const setGoal = (dayNum: number, goal: string) => {
     persist((prev) => {
       const key = String(dayNum);
-      const dayState = prev.days[key] || { goal: "", videos: {} };
+      const dayState = prev.days[key] || { goal: "", plannedDate: "", videos: {} };
       return { ...prev, days: { ...prev.days, [key]: { ...dayState, goal } } };
+    });
+  };
+
+  const setPlannedDate = (dayNum: number, plannedDate: string) => {
+    persist((prev) => {
+      const key = String(dayNum);
+      const dayState = prev.days[key] || { goal: "", plannedDate: "", videos: {} };
+      return { ...prev, days: { ...prev.days, [key]: { ...dayState, plannedDate } } };
     });
   };
 
@@ -206,7 +216,9 @@ export default function ChernoPage() {
             {playlist.days.map((day) => {
               const keys = videoKeysForDay(day);
               const { done, total } = dayCompletion(state, day);
-              const goal = state.days[String(day.day)]?.goal ?? day.defaultGoal;
+              const dayState = state.days[String(day.day)];
+              const goal = dayState?.goal ?? day.defaultGoal;
+              const plannedDate = dayState?.plannedDate ?? "";
               const isComplete = done === total;
 
               return (
@@ -218,25 +230,40 @@ export default function ChernoPage() {
                   sx={{ border: 1, borderColor: "divider", borderRadius: "12px !important", "&::before": { display: "none" } }}
                 >
                   <AccordionSummary expandIcon={<ExpandMoreRoundedIcon />}>
-                    <Stack direction={{ xs: "column", sm: "row" }} spacing={1} sx={{ flex: 1, justifyContent: "space-between", pr: 1 }}>
-                      <Typography sx={{ fontWeight: 700 }}>{day.title}</Typography>
+                    <Stack direction={{ xs: "column", sm: "row" }} spacing={1} sx={{ flex: 1, justifyContent: "space-between", pr: 1, alignItems: { sm: "center" } }}>
+                      <Box>
+                        <Typography sx={{ fontWeight: 700 }}>{day.title}</Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          Total runtime: {formatDuration(dayTotalSeconds(day))}
+                        </Typography>
+                      </Box>
                       <Chip size="small" label={`${done}/${total} watched`} color={isComplete ? "success" : "default"} />
                     </Stack>
                   </AccordionSummary>
                   <AccordionDetails>
-                    <TextField
-                      fullWidth
-                      multiline
-                      minRows={2}
-                      size="small"
-                      label="Day goal"
-                      value={goal}
-                      onChange={(event) => setGoal(day.day, event.target.value)}
-                      sx={{ mb: 2 }}
-                    />
+                    <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} sx={{ mb: 2 }}>
+                      <TextField
+                        fullWidth
+                        multiline
+                        minRows={2}
+                        size="small"
+                        label="Day goal"
+                        value={goal}
+                        onChange={(event) => setGoal(day.day, event.target.value)}
+                      />
+                      <TextField
+                        type="date"
+                        size="small"
+                        label="Planned date"
+                        value={plannedDate}
+                        onChange={(event) => setPlannedDate(day.day, event.target.value)}
+                        slotProps={{ inputLabel: { shrink: true } }}
+                        sx={{ minWidth: { xs: "100%", sm: 200 } }}
+                      />
+                    </Stack>
                     <Stack spacing={0.5}>
-                      {keys.map((key, idx) => {
-                        const videoIndex = day.range[0] + idx;
+                      {day.videos.map((video, idx) => {
+                        const key = keys[idx];
                         const checked = !!state.days[String(day.day)]?.videos[key];
                         return (
                           <Stack
@@ -250,15 +277,24 @@ export default function ChernoPage() {
                               onChange={(event) => toggleVideo(day.day, key, event.target.checked)}
                               slotProps={{ input: { "aria-label": `Video ${key} watched` } }}
                             />
-                            <Typography sx={{ fontWeight: 700, minWidth: 40 }}>{key}</Typography>
-                            <Typography sx={{ flex: 1, color: checked ? "text.secondary" : "text.primary" }}>
-                              Episode {key}
+                            <Typography sx={{ fontWeight: 700, minWidth: 32 }}>{key}</Typography>
+                            <Typography
+                              sx={{
+                                flex: 1,
+                                color: checked ? "text.secondary" : "text.primary",
+                                textDecoration: checked ? "line-through" : "none",
+                              }}
+                            >
+                              {video.title}
+                            </Typography>
+                            <Typography variant="caption" color="text.secondary" sx={{ minWidth: 48, textAlign: "right" }}>
+                              {formatDuration(video.durationSeconds)}
                             </Typography>
                             <Button
                               size="small"
                               endIcon={<OpenInNewRoundedIcon fontSize="small" />}
                               component="a"
-                              href={`https://www.youtube.com/watch?list=${playlist.playlistUrl.split("list=")[1]}&index=${videoIndex}`}
+                              href={`https://www.youtube.com/watch?list=${playlist.playlistUrl.split("list=")[1]}&index=${video.index}`}
                               target="_blank"
                               rel="noopener noreferrer"
                             >
@@ -273,11 +309,6 @@ export default function ChernoPage() {
               );
             })}
           </Stack>
-
-          <Typography variant="caption" color="text.secondary" sx={{ display: "block", mt: 2 }}>
-            Video titles/durations are placeholders until exact IDs are collected (see TheCherno.md). Links use the
-            playlist + index pattern and will jump to the correct video.
-          </Typography>
         </Container>
       </Box>
     </ThemeProvider>

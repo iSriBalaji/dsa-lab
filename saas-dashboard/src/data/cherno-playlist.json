@@ -6,37 +6,97 @@
       "day": 1,
       "title": "Day 1 — Setup & Core Basics",
       "defaultGoal": "Environment ready, first program compiled, comfortable with variables and basic syntax.",
-      "range": [1, 9]
+      "videos": [
+        { "index": 1, "title": "Welcome to C++", "durationSeconds": 424 },
+        { "index": 2, "title": "How to Setup C++ on Windows", "durationSeconds": 516 },
+        { "index": 3, "title": "How to Setup C++ on Mac", "durationSeconds": 208 },
+        { "index": 4, "title": "How to Setup C++ on Linux", "durationSeconds": 492 },
+        { "index": 5, "title": "How C++ Works", "durationSeconds": 1220 },
+        { "index": 6, "title": "How the C++ Compiler Works", "durationSeconds": 1075 },
+        { "index": 7, "title": "How the C++ Linker Works", "durationSeconds": 952 },
+        { "index": 8, "title": "Variables in C++", "durationSeconds": 826 },
+        { "index": 9, "title": "Functions in C++", "durationSeconds": 590 }
+      ]
     },
     {
       "day": 2,
       "title": "Day 2 — Control Flow & Functions",
       "defaultGoal": "Comfortable with conditionals, loops, functions, and how the compiler/linker pipeline works.",
-      "range": [10, 18]
+      "videos": [
+        { "index": 10, "title": "C++ Header Files", "durationSeconds": 910 },
+        { "index": 11, "title": "How to DEBUG C++ in VISUAL STUDIO", "durationSeconds": 1159 },
+        { "index": 12, "title": "CONDITIONS and BRANCHES in C++ (if statements)", "durationSeconds": 1423 },
+        { "index": 13, "title": "BEST Visual Studio Setup for C++ Projects!", "durationSeconds": 727 },
+        { "index": 14, "title": "Loops in C++ (for loops, while loops)", "durationSeconds": 739 },
+        { "index": 15, "title": "Control Flow in C++ (continue, break, return)", "durationSeconds": 500 },
+        { "index": 16, "title": "POINTERS in C++", "durationSeconds": 1018 },
+        { "index": 17, "title": "REFERENCES in C++", "durationSeconds": 612 },
+        { "index": 18, "title": "CLASSES in C++", "durationSeconds": 522 }
+      ]
     },
     {
       "day": 3,
       "title": "Day 3 — Arrays, Pointers & Memory",
       "defaultGoal": "Understand pointers, references, arrays, and stack vs heap memory at a working level.",
-      "range": [19, 27]
+      "videos": [
+        { "index": 19, "title": "CLASSES vs STRUCTS in C++", "durationSeconds": 511 },
+        { "index": 20, "title": "How to Write a C++ Class", "durationSeconds": 692 },
+        { "index": 21, "title": "Static in C++", "durationSeconds": 389 },
+        { "index": 22, "title": "Static for Classes and Structs in C++", "durationSeconds": 551 },
+        { "index": 23, "title": "ENUMS in C++", "durationSeconds": 464 },
+        { "index": 24, "title": "Constructors in C++", "durationSeconds": 418 },
+        { "index": 25, "title": "Destructors in C++", "durationSeconds": 287 },
+        { "index": 26, "title": "Inheritance in C++", "durationSeconds": 480 },
+        { "index": 27, "title": "Virtual Functions in C++", "durationSeconds": 405 }
+      ]
     },
     {
       "day": 4,
       "title": "Day 4 — Classes & Object-Oriented Basics",
       "defaultGoal": "Can write simple classes, understand constructors/destructors, and static vs instance members.",
-      "range": [28, 36]
+      "videos": [
+        { "index": 28, "title": "Interfaces in C++ (Pure Virtual Functions)", "durationSeconds": 414 },
+        { "index": 29, "title": "Visibility in C++", "durationSeconds": 529 },
+        { "index": 30, "title": "Arrays in C++", "durationSeconds": 1111 },
+        { "index": 31, "title": "How Strings Work in C++ (and how to use them)", "durationSeconds": 1166 },
+        { "index": 32, "title": "String Literals in C++", "durationSeconds": 846 },
+        { "index": 33, "title": "CONST in C++", "durationSeconds": 773 },
+        { "index": 34, "title": "The Mutable Keyword in C++", "durationSeconds": 416 },
+        { "index": 35, "title": "Member Initializer Lists in C++ (Constructor Initializer List)", "durationSeconds": 516 },
+        { "index": 36, "title": "Ternary Operators in C++ (Conditional Assignment)", "durationSeconds": 481 }
+      ]
     },
     {
       "day": 5,
       "title": "Day 5 — STL & Modern C++ Features",
       "defaultGoal": "Comfortable using STL containers, strings, and modern C++ conveniences in small programs.",
-      "range": [37, 45]
+      "videos": [
+        { "index": 37, "title": "How to CREATE/INSTANTIATE OBJECTS in C++", "durationSeconds": 782 },
+        { "index": 38, "title": "The NEW Keyword in C++", "durationSeconds": 652 },
+        { "index": 39, "title": "Implicit Conversion and the Explicit Keyword in C++", "durationSeconds": 473 },
+        { "index": 40, "title": "OPERATORS and OPERATOR OVERLOADING in C++", "durationSeconds": 763 },
+        { "index": 41, "title": "The \"this\" keyword in C++", "durationSeconds": 368 },
+        { "index": 42, "title": "Object Lifetime in C++ (Stack/Scope Lifetimes)", "durationSeconds": 659 },
+        { "index": 43, "title": "SMART POINTERS in C++ (std::unique_ptr, std::shared_ptr, std::weak_ptr)", "durationSeconds": 697 },
+        { "index": 44, "title": "Copying and Copy Constructors in C++", "durationSeconds": 1251 },
+        { "index": 45, "title": "The Arrow Operator in C++", "durationSeconds": 473 }
+      ]
     },
     {
       "day": 6,
       "title": "Day 6 — Templates, Macros & Wrap-up",
       "defaultGoal": "Grasp templates/macros at a conceptual level and can navigate the rest of the series independently.",
-      "range": [46, 54]
+      "videos": [
+        { "index": 46, "title": "Dynamic Arrays in C++ (std::vector)", "durationSeconds": 853 },
+        { "index": 47, "title": "Optimizing the usage of std::vector in C++", "durationSeconds": 584 },
+        { "index": 48, "title": "Local Static in C++", "durationSeconds": 459 },
+        { "index": 49, "title": "Using Libraries in C++ (Static Linking)", "durationSeconds": 1122 },
+        { "index": 50, "title": "Using Dynamic Libraries in C++", "durationSeconds": 606 },
+        { "index": 51, "title": "Making and Working with Libraries in C++ (Multiple Projects in Visual Studio)", "durationSeconds": 746 },
+        { "index": 52, "title": "How to Deal with Multiple Return Values in C++", "durationSeconds": 1040 },
+        { "index": 53, "title": "Templates in C++", "durationSeconds": 1078 },
+        { "index": 54, "title": "Stack vs Heap Memory in C++", "durationSeconds": 1171 }
+      ]
     }
   ]
 }
