@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type ReactElement, type ReactNode } from "react";
+import Link from "next/link";
 import {
   AppBar,
   Accordion,
@@ -51,6 +52,7 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import LinkRoundedIcon from "@mui/icons-material/LinkRounded";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
 import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
+import OndemandVideoRoundedIcon from "@mui/icons-material/OndemandVideoRounded";
 import type { DashboardState, PlanData } from "@/types/dashboard";
 import {
   completionPercent,
@@ -283,6 +285,24 @@ export default function DashboardApp() {
                   C++/DSA
                 </Typography>
               </Stack>
+
+              <Tooltip title="TheCherno C++ playlist tracker">
+                <Button
+                  component={Link}
+                  href="/thecherno"
+                  size="small"
+                  variant="outlined"
+                  startIcon={<OndemandVideoRoundedIcon fontSize="small" />}
+                  sx={{ display: { xs: "none", sm: "inline-flex" }, ml: 1 }}
+                >
+                  TheCherno
+                </Button>
+              </Tooltip>
+              <Tooltip title="TheCherno C++ playlist tracker">
+                <IconButton component={Link} href="/thecherno" size="small" sx={{ display: { xs: "inline-flex", sm: "none" } }}>
+                  <OndemandVideoRoundedIcon fontSize="small" />
+                </IconButton>
+              </Tooltip>
 
               <Box sx={{ flex: 1 }} />
 

@@ -1,0 +1,42 @@
+{
+  "playlistUrl": "https://youtube.com/playlist?list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb",
+  "totalVideos": 54,
+  "days": [
+    {
+      "day": 1,
+      "title": "Day 1 — Setup & Core Basics",
+      "defaultGoal": "Environment ready, first program compiled, comfortable with variables and basic syntax.",
+      "range": [1, 9]
+    },
+    {
+      "day": 2,
+      "title": "Day 2 — Control Flow & Functions",
+      "defaultGoal": "Comfortable with conditionals, loops, functions, and how the compiler/linker pipeline works.",
+      "range": [10, 18]
+    },
+    {
+      "day": 3,
+      "title": "Day 3 — Arrays, Pointers & Memory",
+      "defaultGoal": "Understand pointers, references, arrays, and stack vs heap memory at a working level.",
+      "range": [19, 27]
+    },
+    {
+      "day": 4,
+      "title": "Day 4 — Classes & Object-Oriented Basics",
+      "defaultGoal": "Can write simple classes, understand constructors/destructors, and static vs instance members.",
+      "range": [28, 36]
+    },
+    {
+      "day": 5,
+      "title": "Day 5 — STL & Modern C++ Features",
+      "defaultGoal": "Comfortable using STL containers, strings, and modern C++ conveniences in small programs.",
+      "range": [37, 45]
+    },
+    {
+      "day": 6,
+      "title": "Day 6 — Templates, Macros & Wrap-up",
+      "defaultGoal": "Grasp templates/macros at a conceptual level and can navigate the rest of the series independently.",
+      "range": [46, 54]
+    }
+  ]
+}
